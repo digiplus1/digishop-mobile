@@ -1,5 +1,7 @@
 {
   "name": "DigiShopInside",
-  "integrations": {},
-  "type": "angular"
+  "type": "angular",
+  "integrations": {
+    "capacitor": {}
+  }
 }
