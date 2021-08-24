@@ -1,0 +1,42 @@
+<ion-menu contentId="content">
+  <div class="header">
+    <h2 class="text-end">NomComplet</h2>
+    <h6 class="text-end text-danger" style="font-size: 10px; margin-right: 5px"> Email </h6>
+    <h6 class="text-end text-white" style="font-size: 11px; margin-right: 5px"> Boutique </h6>
+  </div>
+  <div class="flex">
+    <div class="border-main">
+      <div class="border-white">
+        <div class="img-box">
+          <img
+            src="assets/images/profil2.png"
+            alt="Digishop">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ion-content class="menucontent">
+    <ion-menu-toggle  *ngFor="let m of menus">
+      <ion-item button lines="none" class="menuitem"  (click)="onMenuAction(m.url)">
+        <img    slot="start" style="height: 24px; width: 24px"
+                [src]=m.icon
+                alt="Digishop logo">
+        <ion-title>{{m.title}}</ion-title>
+      </ion-item>
+    </ion-menu-toggle>
+
+  </ion-content>
+  <ion-footer>
+    <ion-label style="margin-left: 5%"><strong>Contacts</strong></ion-label>
+    <ion-item lines="none">
+      <ion-icon size="small" style="margin-left: 5%" name="call-outline" color="primary"></ion-icon>
+      <ion-label style="margin-left: 5%">6 77 10 40 40 / 6 96 96 10 11</ion-label>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-icon size="small" style="margin-left: 5%" name="mail-outline" color="danger"></ion-icon>
+      <ion-label style="margin-left: 5%">contact@digiplus-cm.com</ion-label>
+    </ion-item>
+  </ion-footer>
+</ion-menu>
+<ion-router-outlet id="content" main></ion-router-outlet>

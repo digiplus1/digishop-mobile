@@ -10,6 +10,7 @@ import {RegisterComponent} from "./components/register/register.component";
 import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
 import {ResetPasswordComponent} from "./components/reset-password/reset-password.component";
 import {HomeComponent} from "./components/home/home.component";
+import {ConnexionService} from "./services/ConnexionService";
 
 const COMPONENTS = [
   LoginComponent,
@@ -29,5 +30,8 @@ const COMPONENTS = [
     ],
   declarations: [HomePage, COMPONENTS],
   exports : COMPONENTS,
+  providers : [
+    ConnexionService,
+  ]
 })
 export class HomePageModule {}
