@@ -1,3 +1,49 @@
-<p>
-  register works!
-</p>
+<ion-header>
+  <div class="text-center">
+    <img class="img-thumbnail align-content-center" src="./assets/images/personal_info.png" alt="personal" style="height: 150px; width: 250px"/>
+  </div>
+
+  <div class="ion-text-center text-uppercase" style="color: #0f5173">
+    <h6><strong>INFORMATIONS PERSONNELLES</strong></h6>
+  </div>
+</ion-header>
+<ion-content>
+  <div class="mainboard">
+
+      <ion-item>
+        <ion-label position="floating">Entrer votre nom complet : </ion-label>
+        <ion-input [(ngModel)]="userTemp.nomcomplet" type="text" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Entrer votre email : </ion-label>
+        <ion-input [(ngModel)]="userTemp.email" type="text" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Entrer votre téléphone : </ion-label>
+        <ion-input [(ngModel)]="userTemp.phone" type="text" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Entrer votre pseudo : </ion-label>
+        <ion-input [(ngModel)]="userTemp.username" type="text" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Entrer votre mot de passe : </ion-label>
+        <ion-input [(ngModel)]="userTemp.password" type="text" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Entrer à nouveau le mot de passe : </ion-label>
+        <ion-input [(ngModel)]="confirmPass" type="text" required></ion-input>
+      </ion-item>
+
+      <ion-button (keydown.enter)="registerA()" (click)="registerA()" class="ion-margin-top text-secondary" color="secondary" type="submit" expand="block">
+        Valider
+      </ion-button>
+
+    <div style="margin-top: 8px;" class="text-center" >
+      <i style="color: #0f5173">Vous avez déjà un compte ? <a><strong routerLink="/home/login">Se connecter</strong></a></i><br>
+    </div>
+  </div>
+</ion-content>
+<ion-footer>
+  <h6 class="text-center" style="color: #0f5173; font-size: smaller"><strong>¤ Digiplus Sarl ¤</strong></h6>
+</ion-footer>

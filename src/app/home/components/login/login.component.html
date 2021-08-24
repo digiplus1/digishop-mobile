@@ -1,3 +1,31 @@
-<p class="text-center">
-  login works!
-</p>
+<div>
+
+  <div class="img-fluid">
+    <img src="./assets/images/bgimg.jpg" alt="header-image">
+  </div>
+
+  <div class="mainboard">
+    <div class="ion-text-center text-uppercase" style="color: #0f5173">
+      <h3><strong>Connexion</strong></h3>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Telephone, Email, Nom utilisateur</ion-label>
+      <ion-input [(ngModel)]="login" type="text" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Mot de passe</ion-label>
+      <ion-input [(ngModel)]="password" type="password" required></ion-input>
+    </ion-item>
+
+    <ion-button (keydown.enter)="connexion()" (click)="connexion()" class="ion-margin-top text-secondary" color="secondary" type="submit" expand="block">
+      Connexion
+    </ion-button>
+
+    <div style="margin-top: 8px;" class="text-center" >
+      <i style="color: #731A23" routerLink="/home/forgot-password">Mot de passe oublié ?</i><br><br>
+      <i style="color: #0f5173">Vous n'avez pas de compte ? <a><strong routerLink="/home/register">S'inscrire </strong></a></i>
+    </div>
+  </div>
+
+</div>
