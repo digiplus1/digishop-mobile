@@ -1,3 +1,67 @@
-<p>
-  register works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>client</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form id="form" [formGroup]="form">
+    <div id="header">
+      <ion-icon (click)="takePicture()" name="camera-outline"></ion-icon>
+      <img [src]="image?image:'assets/img/users.png'">
+    </div>
+    <ion-item lines="none" class="ion-margin-bottom">
+      <ion-input formControlName="username" placeholder="Pseudo" required></ion-input>
+    </ion-item>
+    <ion-text class="ion-text-left" color="danger" *ngIf="!form.get('username').valid && form.get('username').touched">
+      <p class="error">*Pseudo est obligatoire</p>
+    </ion-text>
+    <ion-item lines="none" class="ion-margin-bottom">
+      <ion-input formControlName="email" placeholder="E-mail"  required></ion-input>
+    </ion-item>
+    <ion-text class="ion-text-left" color="danger" *ngIf="!form.get('email').valid && form.get('email').touched">
+      <p class="error">*E-mail doit être une adresse e-mail valides</p>
+    </ion-text>
+    <ion-item lines="none" class="ion-margin-bottom">
+      <ion-input type="number" formControlName="phone" placeholder="Contact" required></ion-input>
+    </ion-item>
+    <ion-text class="ion-text-left" color="danger" *ngIf="!form.get('phone').valid && form.get('phone').touched">
+      <p class="error">*Le contact est Obligatoire</p>
+    </ion-text>
+
+    <ion-item lines="none" class="ion-margin-bottom">
+      <ion-input formControlName="nomcomplet"  type="text" placeholder="Nom complet" required></ion-input>
+    </ion-item>
+    <ion-text class="ion-text-left" color="danger" *ngIf="!form.get('nomcomplet').valid && form.get('nomcomplet').touched">
+      <p class="error">*Le nom complet est obligatoire</p>
+    </ion-text>
+    <ion-item lines="none" class="ion-margin-bottom">
+      <ion-input type="password" formControlName="password" placeholder="password" required></ion-input>
+    </ion-item>
+    <ion-text class="ion-text-left" color="danger" *ngIf="!form.get('password').valid && form.get('password').touched">
+      <p class="error" *ngIf="form.get('password').invalid && form.get('password').errors.required">*Please enter your password</p>
+      <p class="error" *ngIf="form.get('password').dirty">*Password must be of atleast 8 charaters</p>
+    </ion-text>
+    <ion-item lines="none" class="ion-margin-bottom">
+      <ion-input type="password" formControlName="password2" placeholder="password" required></ion-input>
+    </ion-item>
+    <ion-text class="ion-text-left" color="danger" *ngIf="!form.get('password2').valid && form.get('password2').touched || form.get('password').value!=form.get('password2').value">
+      <p class="error" *ngIf="form.get('password2').invalid && form.get('password2').errors.required">*Please enter your password</p>
+      <p class="error" *ngIf="form.get('password2').value!=form.get('password2').value">*Le mot de passe n'est pas identique</p>
+    </ion-text>
+
+    <div class="form-group">
+      <div class="custom-control custom-checkbox">
+        <input class="custom-control-input" formControlName="acceptTerms" type="checkbox"/>
+        <ion-text class="ion-text-left" color="danger" *ngIf="(!form.get('acceptTerms').valid && form.get('acceptTerms').touched) || form.get('acceptTerms').errors.required">
+          <p class="error">* Bien vouloir accepter</p>
+        </ion-text>
+        <label class="custom-control-label"><a routerLink="/thermecondition" class="text-muted">En créant un compte, vous comprenez et acceptez les conditions de DigiShop <u>Conditions d'utilisation</u>,incluant l'<u>accord de l'utilisateur</u> et <u>Politique de confidentialité</u>.</a></label>
+      </div>
+    </div>
+    <ion-button expand="block" shape="round" (click)="onSubmit()">Enregistrer</ion-button>
+  </form>
+</ion-content>
