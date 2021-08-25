@@ -21,11 +21,7 @@ const SERVICES = [
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
-  providers: [
-    AuthenService,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
-  ],
+
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
