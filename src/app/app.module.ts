@@ -12,6 +12,7 @@ import {NgxSpinnerModule} from "ngx-spinner";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NotificationService} from "./shared/services/NotificationService";
 import {MainService} from "./shared/services/MainService";
+import {HttpClientModule} from "@angular/common/http";
 
 const SERVICES = [
   MainService,
@@ -29,6 +30,7 @@ const SERVICES = [
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     NgxSpinnerModule,
+    HttpClientModule,
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

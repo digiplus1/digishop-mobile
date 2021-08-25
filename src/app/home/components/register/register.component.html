@@ -1,49 +1,69 @@
-<ion-header>
-  <div class="text-center">
-    <img class="img-thumbnail align-content-center" src="./assets/images/personal_info.png" alt="personal" style="height: 150px; width: 250px"/>
-  </div>
-
-  <div class="ion-text-center text-uppercase" style="color: #0f5173">
-    <h6><strong>INFORMATIONS PERSONNELLES</strong></h6>
-  </div>
-</ion-header>
 <ion-content>
-  <div class="mainboard">
-
-      <ion-item>
-        <ion-label position="floating">Entrer votre nom complet : </ion-label>
-        <ion-input [(ngModel)]="userTemp.nomcomplet" type="text" required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Entrer votre email : </ion-label>
-        <ion-input [(ngModel)]="userTemp.email" type="text" required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Entrer votre téléphone : </ion-label>
-        <ion-input [(ngModel)]="userTemp.phone" type="text" required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Entrer votre pseudo : </ion-label>
-        <ion-input [(ngModel)]="userTemp.username" type="text" required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Entrer votre mot de passe : </ion-label>
-        <ion-input [(ngModel)]="userTemp.password" type="text" required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Entrer à nouveau le mot de passe : </ion-label>
-        <ion-input [(ngModel)]="confirmPass" type="text" required></ion-input>
-      </ion-item>
-
-      <ion-button (keydown.enter)="registerA()" (click)="registerA()" class="ion-margin-top text-secondary" color="secondary" type="submit" expand="block">
-        Valider
-      </ion-button>
-
-    <div style="margin-top: 8px;" class="text-center" >
-      <i style="color: #0f5173">Vous avez déjà un compte ? <a><strong routerLink="/home/login">Se connecter</strong></a></i><br>
+  <form id="form" [formGroup]="registerForm" (ngSubmit)="onRegister()">
+    <div id="header">
+      <ion-icon (click)="takePicture()" name="camera-outline"></ion-icon>
+      <img [src]="image?image:'assets/img/users.png'">
     </div>
+
+    <ion-item lines="none" class="ion-margin-bottom">
+      <ion-input formControlName="nomcomplet"  type="text" placeholder="Nom complet" [ngClass]="{ 'is-invalid': submittedRegister && g.nomcomplet.errors }"></ion-input>
+    </ion-item>
+    <ion-text class="ion-text-left" color="danger" *ngIf="submittedRegister && g.nomcomplet.errors">
+      <p class="error" *ngIf="g.nomcomplet.errors.required">*Le nom complet est obligatoire</p>
+    </ion-text>
+
+    <ion-item lines="none" class="ion-margin-bottom">
+      <ion-input formControlName="username" placeholder="Pseudo" [ngClass]="{ 'is-invalid': submittedRegister && g.username.errors }"></ion-input>
+    </ion-item>
+    <ion-text class="ion-text-left" color="danger" *ngIf="submittedRegister && g.username.errors">
+      <p class="error" *ngIf="g.username.errors.required">*Pseudo est obligatoire</p>
+    </ion-text>
+
+    <ion-item lines="none" class="ion-margin-bottom">
+      <ion-input formControlName="email" placeholder="* E-mail"></ion-input>
+    </ion-item>
+    <ion-text class="ion-text-left" color="danger" *ngIf="submittedRegister && !g.email.valid">
+      <p class="error" >*E-mail doit être une adresse e-mail valides</p>
+    </ion-text>
+
+    <ion-item lines="none" class="ion-margin-bottom">
+      <ion-input type="number" formControlName="phone" placeholder="Contact" ></ion-input>
+    </ion-item>
+    <ion-text class="ion-text-left" color="danger" *ngIf="submittedRegister && g.phone.errors">
+      <p class="error">*Le contact est Obligatoire</p>
+    </ion-text>
+
+    <ion-item lines="none" class="ion-margin-bottom">
+      <ion-input type="password" formControlName="password" placeholder="password" ></ion-input>
+    </ion-item>
+    <ion-text class="ion-text-left" color="danger" *ngIf="!registerForm.get('password').valid && registerForm.get('password').touched">
+      <p class="error" *ngIf="registerForm.get('password').invalid && registerForm.get('password').errors.required">*Please enter your password</p>
+      <p class="error" *ngIf="registerForm.get('password').dirty">*Password must be of atleast 8 charaters</p>
+    </ion-text>
+    <ion-item lines="none" class="ion-margin-bottom">
+      <ion-input type="password" formControlName="password2" placeholder="password" ></ion-input>
+    </ion-item>
+    <ion-text class="ion-text-left" color="danger" *ngIf="!registerForm.get('password2').valid && registerForm.get('password2').touched || registerForm.get('password').value!=registerForm.get('password2').value">
+      <p class="error" *ngIf="registerForm.get('password2').invalid && registerForm.get('password2').errors.required">*Please enter your password</p>
+      <p class="error" *ngIf="registerForm.get('password2').value!=registerForm.get('password2').value">*Le mot de passe n'est pas identique</p>
+    </ion-text>
+
+    <div class="form-group">
+      <div class="custom-control custom-checkbox">
+        <input class="custom-control-input" formControlName="acceptTerms" type="checkbox"/>
+        <ion-text class="ion-text-left" color="danger" *ngIf="!registerForm.get('acceptTerms').valid && registerForm.get('acceptTerms').touched">
+          <p class="error">* Bien vouloir accepter</p>
+        </ion-text>
+        <label class="custom-control-label"><a routerLink="/thermecondition" class="text-muted">En créant un compte, vous comprenez et acceptez les conditions de DigiShop <u>Conditions d'utilisation</u>,incluant l'<u>accord de l'utilisateur</u> et <u>Politique de confidentialité</u>.</a></label>
+      </div>
+    </div>
+    <ion-button expand="block" shape="round" type="submit">Enregistrer</ion-button>
+  </form>
+  <div style="margin-top: 8px;" class="text-center" >
+    <i style="color: #0f5173">Vous avez déjà un compte ? <a><strong routerLink="/home/login">Se connecter</strong></a></i><br>
   </div>
 </ion-content>
+
 <ion-footer>
   <h6 class="text-center" style="color: #0f5173; font-size: smaller"><strong>¤ Digiplus Sarl ¤</strong></h6>
 </ion-footer>

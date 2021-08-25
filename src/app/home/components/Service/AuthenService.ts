@@ -5,6 +5,7 @@ import {Utilisateur} from "../../../Model/Utilisateur";
 import {AdresseIP} from "../../../Service/AdresseIP";
 import {PasswordResetRequestModel} from "../../../Model/PasswordResetRequestModel";
 import {JwtHelperService} from '@auth0/angular-jwt';
+import {ToastController} from "@ionic/angular";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class AuthenService {
   url_position:string;
   userlogin:Utilisateur;
   user_vendeur:Utilisateur;//cette variable est pour un client lorsque le vendeur prend le compte
-  constructor(private router: Router,public http:HttpClient){
+  constructor(private router: Router,public http:HttpClient,public toastController: ToastController){
   }
 
   register(user){
@@ -68,7 +69,14 @@ export class AuthenService {
 
 
 
-
+  async toastMessage(message:string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 3000,
+      position:'top'
+    });
+    toast.present();
+  }
 
 
 verifierLocalStorage(){

@@ -11,6 +11,7 @@ import {ForgotPasswordComponent} from "./components/forgot-password/forgot-passw
 import {ResetPasswordComponent} from "./components/reset-password/reset-password.component";
 import {HomeComponent} from "./components/home/home.component";
 import {ConnexionService} from "./services/ConnexionService";
+import {AuthenService} from "./components/Service/AuthenService";
 
 const COMPONENTS = [
   LoginComponent,
@@ -31,6 +32,7 @@ const COMPONENTS = [
   declarations: [HomePage, COMPONENTS],
   exports : COMPONENTS,
   providers : [
+    AuthenService,
     ConnexionService,
   ]
 })
