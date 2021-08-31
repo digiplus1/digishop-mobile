@@ -1,7 +1,21 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="primary">
+        <ion-icon (click)="takePicture()" name="camera-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button color="primary" (click)="goTologin()">
+        Se connecter
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
   <form id="form" [formGroup]="registerForm" (ngSubmit)="onRegister()">
     <div id="header">
-      <ion-icon (click)="takePicture()" name="camera-outline"></ion-icon>
       <img [src]="image?image:'assets/img/users.png'">
     </div>
 
@@ -43,27 +57,21 @@
     <ion-item lines="none" class="ion-margin-bottom">
       <ion-input type="password" formControlName="password2" placeholder="password" ></ion-input>
     </ion-item>
-    <ion-text class="ion-text-left" color="danger" *ngIf="!registerForm.get('password2').valid && registerForm.get('password2').touched || registerForm.get('password').value!=registerForm.get('password2').value">
-      <p class="error" *ngIf="registerForm.get('password2').invalid && registerForm.get('password2').errors.required">*Please enter your password</p>
-      <p class="error" *ngIf="registerForm.get('password2').value!=registerForm.get('password2').value">*Le mot de passe n'est pas identique</p>
+    <ion-text class="ion-text-left" color="danger" *ngIf="!g.password2.valid && g.password2.touched || g.password.value!=g.password2.value">
+      <p class="error" *ngIf="g.password2.invalid && g.password2.errors.required">*Please enter your password</p>
+      <p class="error" *ngIf="g.password2.value!=g.password2.value">*Le mot de passe n'est pas identique</p>
     </ion-text>
 
     <div class="form-group">
       <div class="custom-control custom-checkbox">
         <input class="custom-control-input" formControlName="acceptTerms" type="checkbox"/>
-        <ion-text class="ion-text-left" color="danger" *ngIf="!registerForm.get('acceptTerms').valid && registerForm.get('acceptTerms').touched">
+        <label class="custom-control-label"><a routerLink="/thermecondition" class="text-muted">J'acceptez les thermes et conditions.</a></label>
+        <ion-text class="ion-text-left" color="danger" *ngIf="g.acceptTerms.invalid && g.acceptTerms.touched">
           <p class="error">* Bien vouloir accepter</p>
         </ion-text>
-        <label class="custom-control-label"><a routerLink="/thermecondition" class="text-muted">En créant un compte, vous comprenez et acceptez les conditions de DigiShop <u>Conditions d'utilisation</u>,incluant l'<u>accord de l'utilisateur</u> et <u>Politique de confidentialité</u>.</a></label>
       </div>
     </div>
-    <ion-button expand="block" shape="round" type="submit">Enregistrer</ion-button>
+    <ion-button expand="block" shape="round" type="submit">S'inscrire</ion-button>
   </form>
-  <div style="margin-top: 8px;" class="text-center" >
-    <i style="color: #0f5173">Vous avez déjà un compte ? <a><strong routerLink="/home/login">Se connecter</strong></a></i><br>
-  </div>
 </ion-content>
 
-<ion-footer>
-  <h6 class="text-center" style="color: #0f5173; font-size: smaller"><strong>¤ Digiplus Sarl ¤</strong></h6>
-</ion-footer>

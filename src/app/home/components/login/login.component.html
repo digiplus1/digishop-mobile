@@ -1,31 +1,44 @@
-<div>
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="primary">
+     <a routerLink="">  Mot de passe oublié</a>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button color="danger" (click)="goToRegister()">
+        S'inscrire
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
-  <div class="img-fluid">
-    <img src="./assets/images/bgimg.jpg" alt="header-image">
+
+<ion-content>
+  <div id="header">
+    <h1>Connexion</h1>
+    <img src="./assets/icon/favicon.png">
   </div>
-
-  <div class="mainboard">
-    <div class="ion-text-center text-uppercase" style="color: #0f5173">
-      <h3><strong>Connexion</strong></h3>
-    </div>
-
-    <ion-item>
-      <ion-label position="floating">Telephone, Email, Nom utilisateur</ion-label>
-      <ion-input [(ngModel)]="login" type="text" required></ion-input>
+  <form id="form" [formGroup]="registerForm" (ngSubmit)="onRegister()">
+    <ion-item lines="none" class="ion-margin-bottom">
+      <ion-input formControlName="username" placeholder="Pseudo"
+                 [ngClass]="{ 'is-invalid': submittedRegister && g.username.errors }"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label position="floating">Mot de passe</ion-label>
-      <ion-input [(ngModel)]="password" type="password" required></ion-input>
+    <ion-text class="ion-text-left" color="danger" *ngIf="submittedRegister && g.username.errors">
+      <p class="error" *ngIf="g.username.errors.required">*Pseudo est obligatoire</p>
+    </ion-text>
+
+    <ion-item lines="none" class="ion-margin-bottom">
+      <ion-input type="password" formControlName="password" placeholder="password"></ion-input>
     </ion-item>
+    <ion-text class="ion-text-left" color="danger"
+              *ngIf="!registerForm.get('password').valid && registerForm.get('password').touched">
+      <p class="error" *ngIf="g.password.invalid && g.password.errors.required">
+        * S'il vous plait entrez votre mot de passe </p>
+      <p class="error" *ngIf="g.password.dirty">* Le mot de passe doit comporter au moins 8 caractères</p>
+    </ion-text>
+    <ion-button expand="block" color="primary" shape="round" type="submit">Se connecter</ion-button>
+  </form>
+</ion-content>
 
-    <ion-button (keydown.enter)="connexion()" (click)="connexion()" class="ion-margin-top text-secondary" color="secondary" type="submit" expand="block">
-      Connexion
-    </ion-button>
 
-    <div style="margin-top: 8px;" class="text-center" >
-      <i style="color: #731A23" routerLink="/home/forgot-password">Mot de passe oublié ?</i><br><br>
-      <i style="color: #0f5173">Vous n'avez pas de compte ? <a><strong routerLink="/home/register">S'inscrire </strong></a></i>
-    </div>
-  </div>
-
-</div>

@@ -27,8 +27,6 @@ export class RegisterComponent implements OnInit {
   }
 
 
-
-
   get g() {
     return this.registerForm.controls;
   }
@@ -81,5 +79,9 @@ export class RegisterComponent implements OnInit {
     } else {
       this.password = "Les mots de passes ne sont pas identique";
     }
+  }
+
+  goTologin() {
+    this.router.navigateByUrl("/home/login")
   }
 }
