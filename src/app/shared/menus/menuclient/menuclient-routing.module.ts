@@ -8,10 +8,7 @@ const routes: Routes = [
     path: '',
     component: MenuclientPage,
     children : [
-      {
-        path: 'client',
-        loadChildren: () => import('../../../client/client.module').then( m => m.ClientPageModule)
-      },
+
     ]
   }
 ];

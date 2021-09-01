@@ -66,12 +66,14 @@
       <div class="custom-control custom-checkbox">
         <input class="custom-control-input" formControlName="acceptTerms" type="checkbox"/>
         <label class="custom-control-label"><a routerLink="/thermecondition" class="text-muted">J'acceptez les thermes et conditions.</a></label>
-        <ion-text class="ion-text-left" color="danger" *ngIf="g.acceptTerms.invalid && g.acceptTerms.touched">
+        <ion-text class="ion-text-left" color="danger" *ngIf="g.acceptTerms.invalid">
           <p class="error">* Bien vouloir accepter</p>
         </ion-text>
       </div>
     </div>
-    <ion-button expand="block" shape="round" type="submit">S'inscrire</ion-button>
+    <ion-button expand="block" shape="round" type="submit" [disabled]="isLoading==true" (keydown.enter)="onRegister()">S'inscrire
+      <ion-spinner name="lines" *ngIf="isLoading"></ion-spinner>
+    </ion-button>
   </form>
 </ion-content>
 

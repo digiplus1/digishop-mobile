@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Utilisateur} from "../../../Model/Utilisateur";
 import {AdresseIP} from "../../../Service/AdresseIP";
 import {PasswordResetRequestModel} from "../../../Model/PasswordResetRequestModel";
@@ -14,7 +14,7 @@ import {ToastController} from "@ionic/angular";
 export class AuthenService {
   jwt:string;
   url_position:string;
-  userlogin:Utilisateur;
+  utilisateur:Utilisateur;
   user_vendeur:Utilisateur;//cette variable est pour un client lorsque le vendeur prend le compte
   constructor(private router: Router,public http:HttpClient,public toastController: ToastController){
   }
@@ -29,7 +29,6 @@ export class AuthenService {
     return this.http.post(AdresseIP.host+"password-request",resert)
   }
   login(user){
-    console.log(user);
     return this.http.post(AdresseIP.host+"login",user,{observe:'response'})
   }
 
@@ -39,32 +38,28 @@ export class AuthenService {
 
 
   ConnectAccountInShop(username:string){
-    return this.http.get<Utilisateur>(AdresseIP.host+"connection/"+username+"/"+this.userlogin.nomBoutique);
+    return this.http.get<Utilisateur>(AdresseIP.host+"connection/"+username+"/"+this.utilisateur.nomBoutique);
   }
 
 //cette methode permet de choisir la route de navigation apres le login
   navigationRoute(roles:Array<any>,remember:boolean){
     if (roles.length==5){
-      this.userlogin.role="admin";
+      this.utilisateur.role="admin";
       this.router.navigateByUrl("/admin");
     }else if (roles.length==4) {
-      this.userlogin.role="support";
+      this.utilisateur.role="support";
       this.router.navigateByUrl("/monitoring");
     }else if (roles.length==3) {
-      this.userlogin.role="proprietaire";
-      this.router.navigateByUrl("/admin/boutique/"+this.userlogin.nomBoutique);
+      this.utilisateur.role="proprietaire";
+      this.router.navigateByUrl("/admin/boutique/"+this.utilisateur.nomBoutique);
     }else if (roles.length==2) {
-      this.userlogin.role="vendeur";
+      this.utilisateur.role="vendeur";
       this.router.navigateByUrl("/admin");
     }else if (roles.length==1) {
-      this.userlogin.role="client";
-
+      this.utilisateur.role="client";
+      this.router.navigateByUrl("/client/menuclient/acceuil");
     }
 
-    if (remember){
-      localStorage.setItem('token',this.jwt);
-      localStorage.setItem('user',JSON.stringify(this.userlogin));
-    }
   }
 
 
@@ -79,12 +74,15 @@ export class AuthenService {
   }
 
 
+
 verifierLocalStorage(){
-this.userlogin= JSON.parse(localStorage.getItem('user'));
+this.utilisateur= JSON.parse(localStorage.getItem('utilisateur'));
 this.jwt= localStorage.getItem('token');
-  if (this.userlogin && this.jwt){
+  if (this.utilisateur && this.jwt){
     let jwthelper=new JwtHelperService();
     this.navigationRoute(jwthelper.decodeToken( this.jwt ).roles,true)
+  }else {
+    this.router.navigateByUrl('/home/login')
   }
 }
 
@@ -94,7 +92,16 @@ this.jwt= localStorage.getItem('token');
   }
 
   deconnexion() {
-    this.userlogin=null;
+    this.utilisateur=null;
     localStorage.clear();
+    this.router.navigateByUrl('');
+  }
+  updateuser(user:Utilisateur) {
+    return this.http.put<Utilisateur>(AdresseIP.host+"/utilisateur/update/user/"+user.id_user,user,
+      {headers:new HttpHeaders({'Authorization':this.jwt})});
+  }
+  saveToken(){
+    localStorage.setItem('utilisateur',JSON.stringify(this.utilisateur));
+    localStorage.setItem('token',this.jwt);
   }
 }

@@ -19,6 +19,10 @@ const routes: Routes = [
     path: 'menuclient',
     loadChildren: () => import('./shared/menus/menuclient/menuclient.module').then( m => m.MenuclientPageModule)
   },
+  {
+    path: 'client',
+    loadChildren: () => import('./client/client.module').then( m => m.ClientPageModule)
+  },
 ];
 
 @NgModule({

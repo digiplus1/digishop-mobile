@@ -1,0 +1,28 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button color="primary">
+        <ion-icon (click)="takePicture()" name="camera-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-grid>
+    <div id="header">
+      <img [src]="authenservice.utilisateur.photouser?authenservice.utilisateur.photouser:'assets/img/users.png'">
+    </div>
+    <p>Pseudo: {{authenservice.utilisateur.username}}</p>
+    <p>E-mail: {{authenservice.utilisateur.email}}</p>
+    <p>Nom complet: {{authenservice.utilisateur.nomcomplet}}</p>
+    <p>CIN: {{authenservice.utilisateur.cni}}</p>
+    <p>Téléphone: {{authenservice.utilisateur.phone}}</p>
+
+
+  </ion-grid>
+</ion-content>

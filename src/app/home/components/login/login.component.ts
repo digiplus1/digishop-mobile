@@ -11,15 +11,18 @@ import {AuthenService} from "../Service/AuthenService";
 export class LoginComponent implements OnInit {
   registerForm: FormGroup;
   submittedRegister = false;
+  is_loading=false;
   login: string = "";
   password: string = "";
-
+  isTypePassword:boolean=true;
   constructor(public router: Router, public formBuilder: FormBuilder, public authenservice: AuthenService) { }
 
   ngOnInit() {
     this.initregister();
   }
-
+  onChange() {
+    this.isTypePassword=!this.isTypePassword;
+  }
 
   get g() {
     return this.registerForm.controls;
@@ -38,6 +41,28 @@ export class LoginComponent implements OnInit {
     if (this.registerForm.invalid) {
       return;
     }
+    this.is_loading=true;
+    this.authenservice.login(this.registerForm.value).subscribe(
+      data=>{
+        this.authenservice.jwt = data.headers.get("Authorization");
+
+        this.authenservice.getUser(this.registerForm.value.username).subscribe(
+          use=>{
+            this.is_loading=false;
+            this.authenservice.utilisateur=use;
+            this.authenservice.saveToken();
+            this.authenservice.verifierLocalStorage();
+          },error => {
+            this.is_loading=false;
+            this.authenservice.toastMessage(error.error.message)
+          }
+        );
+
+      },error => {
+        this.is_loading=false;
+        this.authenservice.toastMessage(error.error.message)
+      }
+    )
   }
 
   goToRegister() {

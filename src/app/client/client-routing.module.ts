@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: ClientPage
+  },  {
+    path: 'menuclient',
+    loadChildren: () => import('./menuclient/menuclient.module').then( m => m.MenuclientPageModule)
   }
+
 ];
 
 @NgModule({
