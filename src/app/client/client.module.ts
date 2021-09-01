@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { ClientPageRoutingModule } from './client-routing.module';
 
 import { ClientPage } from './client.page';
+import {NatifService} from "./Service/NatifService";
+import { CallNumber } from '@ionic-native/call-number/ngx';
 
 @NgModule({
   imports: [
@@ -14,6 +16,10 @@ import { ClientPage } from './client.page';
     FormsModule,
     IonicModule,
     ClientPageRoutingModule
+  ],
+  providers:[
+    CallNumber,
+    NatifService,
   ],
   declarations: [ClientPage]
 })

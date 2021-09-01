@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {NatifService} from "../../Service/NatifService";
 
 @Component({
   selector: 'app-apropos',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AproposComponent implements OnInit {
 
-  constructor() { }
+  constructor(public natifService:NatifService) { }
 
   ngOnInit() {}
 
