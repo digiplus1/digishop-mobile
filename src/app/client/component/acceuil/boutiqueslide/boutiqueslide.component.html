@@ -1,0 +1,10 @@
+<ion-slides [options]="slideopts">
+  <ion-slide *ngFor="let b of boutiquePos" >
+    <ion-card (click)="goToShop(b)">
+      <img [src]="b.photoboutique">
+      <ion-card-content>
+        <h2>{{b.nomBoutique | titlecase}}</h2>
+      </ion-card-content>
+    </ion-card>
+  </ion-slide>
+</ion-slides>

@@ -1,0 +1,10 @@
+<ion-card>
+<img [src]="produit.image">
+  <ion-card-content>
+    <ion-label>
+      <p>{{produit.prixProduit}}</p>
+      <ion-icon [color]="produit.promoAcitve?'primary':''" [name]="produit.promoAcitve?'heart':'heart-outline'"></ion-icon>
+    </ion-label>
+    <h2>{{produit.nomProduit | titlecase}}</h2>
+  </ion-card-content>
+</ion-card>

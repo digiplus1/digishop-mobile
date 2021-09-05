@@ -42,7 +42,7 @@ const routes: Routes = [
       {
         path:'profil',
         component:ProfilComponent
-      }
+      },
 
     ]
   }

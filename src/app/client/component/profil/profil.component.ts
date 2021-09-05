@@ -12,6 +12,8 @@ import {Utilisateur} from "../../../Model/Utilisateur";
 })
 export class ProfilComponent implements OnInit {
 
+  edite:boolean;
+  isLoading: boolean;
   constructor(public authenservice: AuthenService,public router:Router) { }
 
   ngOnInit() {
@@ -19,13 +21,17 @@ export class ProfilComponent implements OnInit {
   }
 
   async takePicture() {
-    await Camera.getPhoto({
-      quality: 90,
-      allowEditing: false,
-      resultType: CameraResultType.Base64,
-    }).then(i => {
-      this.authenservice.utilisateur.photouser  = "data:image/png;base64," + i.base64String
-    });
+    if (this.edite){
+      await Camera.getPhoto({
+        quality: 90,
+        allowEditing: false,
+        resultType: CameraResultType.Base64,
+      }).then(i => {
+        this.authenservice.utilisateur.photouser  = "data:image/png;base64," + i.base64String
+      });
+    }else {
+      this.changer();
+    }
 
   };
 
@@ -40,5 +46,26 @@ export class ProfilComponent implements OnInit {
 
 
     })
+  }
+
+  changer() {
+    console.log(this.edite);
+    this.edite=!this.edite
+  }
+
+  update() {
+    this.isLoading=true;
+    this.authenservice.updateuser(this.authenservice.utilisateur).subscribe(
+      data=>{
+        this.isLoading=false;
+        this.authenservice.utilisateur=data;
+        this.authenservice.saveToken();
+        this.changer();
+      },
+      error => {
+        this.isLoading=false;
+        this.authenservice.toastMessage(error.error.message)
+      }
+    )
   }
 }

@@ -97,7 +97,7 @@ this.jwt= localStorage.getItem('token');
     this.router.navigateByUrl('');
   }
   updateuser(user:Utilisateur) {
-    return this.http.put<Utilisateur>(AdresseIP.host+"/utilisateur/update/user/"+user.id_user,user,
+    return this.http.put<Utilisateur>(AdresseIP.host+"update",user,
       {headers:new HttpHeaders({'Authorization':this.jwt})});
   }
   saveToken(){

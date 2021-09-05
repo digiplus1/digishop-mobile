@@ -1,0 +1,15 @@
+
+<ion-content>
+<div class="header">
+  <h1>Menu</h1>
+  <div class="avatar">
+    <ion-img [src]="authenService.utilisateur.photouser"></ion-img>
+  </div>
+</div>
+
+  <app-searhbar></app-searhbar>
+
+  <div class="produit-list" >
+    <app-produits *ngFor="let p of produitService.produits" [produit]="p"></app-produits>
+  </div>
+</ion-content>
