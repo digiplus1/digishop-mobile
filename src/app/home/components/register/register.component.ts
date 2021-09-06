@@ -65,12 +65,13 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.value.password2 == this.registerForm.value.password) {
       this.user = this.registerForm.value;
       this.user.client = true;
+      this.user.client = true;
       this.isLoading = true;
       this.authenservice.register(this.user).subscribe(
         data => {
           this.isLoading = false;
           this.authenservice.toastMessage("Création reussi")
-          this.router.navigateByUrl('login')
+          this.router.navigateByUrl('/home/login')
         }, error => {
           this.isLoading = false;
           this.authenservice.toastMessage(error.error.message);

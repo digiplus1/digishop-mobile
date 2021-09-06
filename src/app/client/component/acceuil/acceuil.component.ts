@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {CategorieBoutique} from "./Model/CategorieBoutique";
 import {ProduitService} from "../../Service/ProduitService";
 import {BoutiqueService} from "../../Service/BoutiqueService";
+import {Router} from "@angular/router";
+import {CategorieProduitDTO} from "../../../Model/CategorieProduitDTO";
 
 @Component({
   selector: 'app-acceuil',
@@ -22,8 +24,7 @@ export class AcceuilComponent implements OnInit {
     slidesOffsetBefore: 6
   };
 
-  constructor(public produitService:ProduitService,public boutiqueService:BoutiqueService) {
-  }
+  constructor(public produitService:ProduitService,public boutiqueService:BoutiqueService,public router:Router) {}
 
   ngOnInit() {
     this.produitService.getAllproduit();
@@ -31,4 +32,11 @@ export class AcceuilComponent implements OnInit {
     this.boutiqueService.getAllboutique()
   }
 
+  goToListeBoutique(c: CategorieBoutique) {
+   this.boutiqueService.getAllBoutiquesByCategorie(c.name);
+  }
+
+  goToListeProduit(c: CategorieProduitDTO) {
+    this.produitService.getAllproduitBycategorie(c.nomCategorie);
+  }
 }

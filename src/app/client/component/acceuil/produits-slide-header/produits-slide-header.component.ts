@@ -1,5 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ProduitDto} from "../../../../Model/ProduitDto";
+import {ProduitService} from "../../../Service/ProduitService";
+import {BoutiqueService} from "../../../Service/BoutiqueService";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-produits-slide-header',
@@ -15,7 +18,12 @@ export class ProduitsSlideHeaderComponent {
     slidesPerView: 1.8,
     slidesOffsetBefore: 5
   };
-  constructor() { }
+  constructor(public produitService:ProduitService,public boutiqueService:BoutiqueService,public router:Router) {}
 
 
+
+  goToDetail(p: ProduitDto) {
+    this.produitService.produit=p;
+    this.router.navigateByUrl("client/detailproduits")
+  }
 }

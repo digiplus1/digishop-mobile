@@ -22,6 +22,7 @@ import {ProduitService} from "./Service/ProduitService";
 import {HttpClientModule} from "@angular/common/http";
 import {AcceuilModule} from "./component/acceuil/acceuil.module";
 import {BoutiqueService} from "./Service/BoutiqueService";
+import {CartService} from "./Service/CartService";
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import {BoutiqueService} from "./Service/BoutiqueService";
     CallNumber,
     NatifService,
     ProduitService,
-    BoutiqueService
+    BoutiqueService,
+    CartService
   ],
   declarations: [ClientPage,ProfilComponent,AproposComponent,CouponComponent,CommandeComponent]
 })

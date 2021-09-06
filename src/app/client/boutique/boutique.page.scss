@@ -1,4 +1,37 @@
+#search-toolbar{
+  padding-right: 10px;
+  padding-left: 10px;
+  ion-searchbar{
+    --border-radius: 50px;
+    margin: 0 auto 10px;
+    font-size: 18px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}
+ion-toolbar{
+  --background: #f5f5f3;
+  ion-icon{
+    font-size: 25px;
+    font-weight: bold;
+  }
+  ion-button{
+    text-transform: initial;
+  }
+  ion-title{
+    font-weight: bold;
+  }
+  ion-badge{
+    --background: transparent;
+    --padding-bottom: 25px;
+    --padding-top: 0px;
+    --padding-start: 0px;
+    color: #151515;
+
+  }
+}
 ion-content{
+  --background: #f5f5f3;
   --padding-start: 2rem;
   --padding-end: 2rem;
 

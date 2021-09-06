@@ -3,23 +3,19 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ClientPage } from './client.page';
 import {AcceuilComponent} from "./component/acceuil/acceuil.component";
+import {ProfilComponent} from "./component/profil/profil.component";
+import {ListboutiquesComponent} from "./component/acceuil/listboutiques/listboutiques.component";
+import {ListproduitsComponent} from "./component/acceuil/listproduits/listproduits.component";
 
 const routes: Routes = [
   {
     path: '',
-    component: ClientPage,
-    children:[
-      {
-        path: 'panier',
-        loadChildren: () => import('./panier/panier.module').then( m => m.PanierPageModule)
-      },
+    component: ClientPage
 
-      {
-        path:'',
-        redirectTo:'panier',
-        pathMatch:'full'
-      },
-    ]
+  },
+  {
+    path: 'panier',
+    loadChildren: () => import('./panier/panier.module').then( m => m.PanierPageModule)
   },
   {
     path: 'menuclient',
@@ -34,7 +30,14 @@ const routes: Routes = [
     loadChildren: () => import('./detailproduits/detailproduits.module').then( m => m.DetailproduitsPageModule)
   },
 
-
+  {
+    path:'boutiques',
+    component:ListboutiquesComponent
+  },
+  {
+    path:'produits',
+    component:ListproduitsComponent
+  },
 ];
 
 @NgModule({

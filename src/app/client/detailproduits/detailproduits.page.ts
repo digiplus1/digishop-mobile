@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthenService} from "../../home/components/Service/AuthenService";
+import {ProduitService} from "../Service/ProduitService";
+import {BoutiqueService} from "../Service/BoutiqueService";
+import {ProduitDto} from "../../Model/ProduitDto";
+import {CartService} from "../Service/CartService";
 
 @Component({
   selector: 'app-detailproduits',
@@ -7,9 +12,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailproduitsPage implements OnInit {
 
-  constructor() { }
+  constructor(public authenService:AuthenService,public produitService:ProduitService,public cartService:CartService) { }
 
   ngOnInit() {
   }
 
+  addToCart(produit: ProduitDto) {
+    this.cartService.ajouter_panier(produit,1,"add");
+  }
 }

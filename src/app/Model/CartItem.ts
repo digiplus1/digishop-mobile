@@ -8,4 +8,8 @@ export class CartItem {
   description:string;
   produit:ProduitDto;
   nomproduit:string;
+
+  idproduit:number;
+  typeaction:string;
+  idcart:number;
 }

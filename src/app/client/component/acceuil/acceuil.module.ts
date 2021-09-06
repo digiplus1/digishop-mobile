@@ -8,6 +8,8 @@ import {ProduitsSlideHeaderModule} from "./produits-slide-header/produits-slide-
 import {ProduitsCategorieModule} from "./produits-categorie/produits-categorie.module";
 import {ProduitslideModule} from "./produitslide/produitslide.module";
 import {BoutiqueslideComponent} from "./boutiqueslide/boutiqueslide.component";
+import {ListproduitsModule} from "./listproduits/listproduits.module";
+import {ListboutiquesModule} from "./listboutiques/listboutiques.module";
 
 
 
@@ -20,7 +22,9 @@ import {BoutiqueslideComponent} from "./boutiqueslide/boutiqueslide.component";
     CategorieShopModule,
     ProduitsSlideHeaderModule,
     ProduitsCategorieModule,
-    ProduitslideModule
+    ProduitslideModule,
+    ListproduitsModule,
+    ListboutiquesModule,
   ],exports:[AcceuilComponent]
 })
 export class AcceuilModule { }

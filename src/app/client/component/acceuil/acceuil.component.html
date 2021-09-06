@@ -14,14 +14,14 @@
 <ion-content>
 <app-acceuil-slide-header title="categorie boutiques"></app-acceuil-slide-header>
  <ion-slides [options]="slideopts">
-   <ion-slide *ngFor="let c of categories" >
+   <ion-slide *ngFor="let c of categories" (click)="goToListeBoutique(c)">
      <app-categorie-shop [category]="c"></app-categorie-shop>
    </ion-slide>
  </ion-slides>
 
   <app-acceuil-slide-header title="categorie Produits"></app-acceuil-slide-header>
   <ion-slides [options]="slideopts">
-    <ion-slide *ngFor="let c of produitService.categories" >
+    <ion-slide *ngFor="let c of produitService.categories" (click)="goToListeProduit(c)">
       <app-produitslide [categorieProduitDTO]="c"></app-produitslide>
     </ion-slide>
   </ion-slides>
