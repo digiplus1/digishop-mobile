@@ -18,7 +18,10 @@
 <ion-content>
   <div class="card">
     <div class="image">
-      <ion-img [src]="produitService.produit.image"></ion-img>
+      <ion-slides  pager="true" [options]="slideOpts">
+        <ion-slide><ion-img [src]="produitService.produit.image"></ion-img></ion-slide>
+        <ion-slide *ngFor="let i of produitService.produit.imageProduits"><ion-img [src]="i.image"></ion-img></ion-slide>
+      </ion-slides>
     </div>
 
     <div class="card-content">

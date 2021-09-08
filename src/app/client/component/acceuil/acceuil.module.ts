@@ -10,6 +10,7 @@ import {ProduitslideModule} from "./produitslide/produitslide.module";
 import {BoutiqueslideComponent} from "./boutiqueslide/boutiqueslide.component";
 import {ListproduitsModule} from "./listproduits/listproduits.module";
 import {ListboutiquesModule} from "./listboutiques/listboutiques.module";
+import {ProduitboutiqueModule} from "./produitboutique/produitboutique.module";
 
 
 
@@ -25,6 +26,7 @@ import {ListboutiquesModule} from "./listboutiques/listboutiques.module";
     ProduitslideModule,
     ListproduitsModule,
     ListboutiquesModule,
+    ProduitboutiqueModule,
   ],exports:[AcceuilComponent]
 })
 export class AcceuilModule { }

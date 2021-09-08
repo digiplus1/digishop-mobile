@@ -1,13 +1,15 @@
 ion-content{
-  text-align: center;
-
-
   ion-col{
     box-shadow: 10px 5px 5px #cccccc;
     margin-top: 1px;
     p{
       font-size: medium;
     }
+  }
+
+  ion-slides{
+    height: 100%;
+    width: 100%;
   }
 
 }

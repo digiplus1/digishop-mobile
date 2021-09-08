@@ -1,3 +1,21 @@
-<p>
-  listboutiques works!
-</p>
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let b of boutiqueService.boutiques" (click)="goToShop(b)">
+      <ion-thumbnail>
+        <img [src]="b.photoboutique">
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{b.nomBoutique}}</h2>
+        <p>{{b.emailBoutique}},  {{b.telephoneBoutique}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

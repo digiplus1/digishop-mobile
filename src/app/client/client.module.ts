@@ -23,6 +23,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {AcceuilModule} from "./component/acceuil/acceuil.module";
 import {BoutiqueService} from "./Service/BoutiqueService";
 import {CartService} from "./Service/CartService";
+import {FavoriteService} from "./Service/FavoriteService";
 
 @NgModule({
   imports: [
@@ -38,7 +39,8 @@ import {CartService} from "./Service/CartService";
     NatifService,
     ProduitService,
     BoutiqueService,
-    CartService
+    CartService,
+    FavoriteService,
   ],
   declarations: [ClientPage,ProfilComponent,AproposComponent,CouponComponent,CommandeComponent]
 })

@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {ProduitService} from "../../../Service/ProduitService";
+import {BoutiqueService} from "../../../Service/BoutiqueService";
+import {Router} from "@angular/router";
+import {ProduitDto} from "../../../../Model/ProduitDto";
 
 @Component({
   selector: 'app-listproduits',
@@ -7,8 +11,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListproduitsComponent implements OnInit {
 
-  constructor() { }
+  constructor(public produitService:ProduitService,public boutiqueService:BoutiqueService,public router:Router) { }
 
   ngOnInit() {}
 
+  goToDetailProduit(p: ProduitDto) {
+    this.produitService.produit=p;
+    this.router.navigateByUrl("client/detailproduits")
+  }
 }

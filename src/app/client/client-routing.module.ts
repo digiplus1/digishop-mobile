@@ -6,6 +6,7 @@ import {AcceuilComponent} from "./component/acceuil/acceuil.component";
 import {ProfilComponent} from "./component/profil/profil.component";
 import {ListboutiquesComponent} from "./component/acceuil/listboutiques/listboutiques.component";
 import {ListproduitsComponent} from "./component/acceuil/listproduits/listproduits.component";
+import {ProduitboutiqueComponent} from "./component/acceuil/produitboutique/produitboutique.component";
 
 const routes: Routes = [
   {
@@ -29,7 +30,10 @@ const routes: Routes = [
     path: 'detailproduits',
     loadChildren: () => import('./detailproduits/detailproduits.module').then( m => m.DetailproduitsPageModule)
   },
-
+  {
+    path: 'resultat/:mot',
+    component:ProduitboutiqueComponent,
+  },
   {
     path:'boutiques',
     component:ListboutiquesComponent

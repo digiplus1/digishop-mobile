@@ -1,5 +1,17 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <h3 class="title" *ngIf="authenService.utilisateur.cart.cartItems.length" >{{authenService.utilisateur.cart.cartItems.length}} vers au panier</h3>
+    <ion-buttons slot="end" class=" ion-margin-horizontal">
+      <ion-icon name="heart-outline" color="danger" slot="icon-only"></ion-icon>
+      <ion-badge>{{authenService.utilisateur.cart.cartItems.length}}</ion-badge>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
-  <h3 class="title" *ngIf="authenService.utilisateur.cart.cartItems.length" >{{authenService.utilisateur.cart.cartItems.length}}</h3>
 
   <ion-list lines="none">
     <ion-item-sliding *ngFor="let i of authenService.utilisateur.cart.cartItems">
@@ -15,14 +27,14 @@
 
           <div class="actions">
             <ion-buttons>
-              <ion-button (click)="ajouter(i.produit)">
-                <ion-icon slot="ion-only" name="add"></ion-icon>
+              <ion-button shape="round" (click)="ajouter(i)">
+                <ion-icon name="add"></ion-icon>
               </ion-button>
             </ion-buttons>
             <div class="counter">{{i.quantite}}</div>
             <ion-buttons>
-              <ion-button (click)="remove_qty(i.produit)">
-                <ion-icon slot="ion-only" name="add"></ion-icon>
+              <ion-button shape="round" (click)="remove_qty(i)">
+                <ion-icon name="remove-outline"></ion-icon>
               </ion-button>
             </ion-buttons>
           </div>
@@ -30,13 +42,18 @@
       </ion-item>
       <ion-item-options slot="end">
         <ion-item-option>
-          <ion-icon name="trash-outline" size="large" color="danger"></ion-icon>
+          <ion-icon (click)="delete_round(i)" name="trash-outline" size="large" color="danger"></ion-icon>
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
-
-
-
   </ion-list>
 
+  <ion-button class="buttom" expand="block" *ngIf="authenService.utilisateur.cart.cartItems.length">
+    Total: <span>{{authenService.utilisateur.cart.montanttotal}}<sup>Fcfa</sup></span>
+  </ion-button>
+
+  <div class="empty-cart" *ngIf="!authenService.utilisateur.cart.cartItems.length">
+    <ion-icon name="cart-outline"></ion-icon>
+    <p>Votre panier est vide</p>
+  </div>
 </ion-content>

@@ -1,6 +1,11 @@
 #search-toolbar{
   padding-right: 10px;
   padding-left: 10px;
+
+  ion-list{
+    background: transparent;
+  }
+
   ion-searchbar{
     --border-radius: 50px;
     margin: 0 auto 10px;
@@ -8,4 +13,11 @@
     padding-top: 10px;
     padding-bottom: 10px;
   }
+}
+
+
+ion-content{
+  --background: #f5f5f3;
+
+
 }

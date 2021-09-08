@@ -11,14 +11,17 @@ import {SearhbarModule} from "./components/searhbar/searhbar.module";
 import {ProduitsModule} from "./components/produits/produits.module";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    BoutiquePageRoutingModule,
-    SearhbarModule,
-    ProduitsModule
-  ],
-  declarations: [BoutiquePage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        BoutiquePageRoutingModule,
+        SearhbarModule,
+        ProduitsModule
+    ],
+    exports: [
+        BoutiquePage
+    ],
+    declarations: [BoutiquePage]
 })
 export class BoutiquePageModule {}

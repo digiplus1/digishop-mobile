@@ -14,12 +14,69 @@
     </ion-buttons>
   </ion-toolbar>
   <ion-toolbar id="search-toolbar">
-    <ion-searchbar placeholder="Que cherchez vous ..."></ion-searchbar>
+    <ion-searchbar #searchbar debounce="500" (ionChange)="_ionChange($event)" placeholder="Que cherchez vous ..."></ion-searchbar>
+    <ion-list [hidden]="!is_disponibel">
+      <ion-item *ngFor="let n of searcheItem" (click)="getValuer(n)">
+        <ion-label>{{n.nomProduit}}</ion-label>
+      </ion-item>
+    </ion-list>
   </ion-toolbar>
+  <ion-segment class="segment-wrapper" (ionChange)="segmentChanged($event)" [(ngModel)]="segment">
+    <ion-segment-button value="0">
+      <ion-label>Produits</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="1">
+      <ion-label>Boutiques</ion-label>
+    </ion-segment-button>
+  </ion-segment>
 </ion-header>
 <ion-content>
 
-  <div class="produit-list" >
-    <app-produits *ngFor="let p of produitService.produits" [produit]="p"></app-produits>
-  </div>
+
+
+  <ion-slides class="slides-wrapper" #slider (ionSlideDidChange)="slideChanged()">
+    <ion-slide>
+      <div class="produit-list" >
+        <app-produits *ngFor="let p of searcheItem" [produit]="p"></app-produits>
+      </div>
+
+    </ion-slide>
+
+    <ion-slide>
+      <ion-card>
+        <ion-card-subtitle class="ion-text-center">
+          <img [src]="boutiqueService.boutique.photoboutique">
+        </ion-card-subtitle>
+        <ion-card-content>
+          <ion-card-header class="ion-text-center">
+            <strong>{{boutiqueService.boutique.nomBoutique}}</strong>
+            <ion-row>
+              <ion-col>
+                <ion-icon color="warning" (click)="addToFavoriteShop(boutiqueService.boutique)"
+                          name="heart-outline"></ion-icon>
+              </ion-col>
+              <ion-col>
+                <ion-icon color="danger"
+                          (click)="natifService.callnumber(boutiqueService.boutique.telephoneBoutique)"
+                          name="call-outline"></ion-icon>
+              </ion-col>
+              <ion-col>
+                <ion-icon (click)="natifService.share(boutiqueService.boutique.photoboutique,'/mode/'+boutiqueService.boutique.lien)"
+                          name="share-social-outline"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </ion-card-header>
+          <p>Email: {{boutiqueService.boutique.emailBoutique}}</p>
+          <p>Adresse: {{boutiqueService.boutique.ville}} {{boutiqueService.boutique.secteur}} {{boutiqueService.boutique.quartier}}
+            {{boutiqueService.boutique.adressBoutique}}
+          </p>
+          <p>{{boutiqueService.boutique.description}}</p>
+        </ion-card-content>
+      </ion-card>
+
+    </ion-slide>
+  </ion-slides>
+
+
+
 </ion-content>

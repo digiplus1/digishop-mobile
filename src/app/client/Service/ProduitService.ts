@@ -6,14 +6,20 @@ import {AuthenService} from "../../home/components/Service/AuthenService";
 import {ProduitDto} from "../../Model/ProduitDto";
 import {produitDtoPage} from "../../Model/ProduitDtoPage";
 import {Router} from "@angular/router";
+import {ProduitBoutique} from "../../Model/ProduitBoutique";
 
 @Injectable()
 
 export class ProduitService{
+  listnom:string[];
+  listnomByshop:string[];
   public produit:ProduitDto;
   public produits:ProduitDto[];
   categories:CategorieProduitDTO[];
-  constructor(public http:HttpClient,public authenService:AuthenService,public router:Router) {}
+  public produitBoutique: ProduitBoutique;
+  constructor(public http:HttpClient,public authenService:AuthenService,public router:Router) {
+    this.getAllNom();
+  }
 
   getAllCategorie(){
     return this.http.get<CategorieProduitDTO[]>(AdresseIP.host+'all/categorie').subscribe(
@@ -46,25 +52,32 @@ export class ProduitService{
     );
   }
 
-  getallproduitbyboutiqueIsactive(boutique:string){
-
-    return this.http.get<produitDtoPage>(AdresseIP.host+"getallproduitbyboutiqueisactive/"+boutique).subscribe(
+  getAllNom(){
+    return this.http.get<string[]>(AdresseIP.host+'all_nom/').subscribe(
       data=>{
-
-        data.content.forEach(p=>{
-          if (!p.manageStock){
-            p.is_add_cart=true;
-          } else if (p.manageStock && p.quantiteEnStock>0){
-            p.is_add_cart=true;
-          } else {
-            p.is_add_cart=false;
-          }
-          p.lien=p.nomboutique.replace(" ","")
-        });
-        this.produits=data.content;
+        this.listnom=data;
       },error => {
         this.authenService.toastMessage(error.error.message);
       }
-    )
+    );
+  }
+
+  getAllNomByshop(boutique:string){
+    return this.http.get<string[]>(AdresseIP.host+'getallnomproduitbyshop/'+boutique).subscribe(
+      data=>{
+        this.listnomByshop=data;
+      },error => {
+        this.authenService.toastMessage(error.error.message);
+      }
+    );
+  }
+
+  getallproduitbyboutiqueIsactive(boutique:string){
+
+    return this.http.get<produitDtoPage>(AdresseIP.host+"getallproduitbyboutiqueisactive/"+boutique)
+  }
+
+  getAllProduitOrshop(mot:string){
+    return this.http.get<ProduitBoutique>(AdresseIP.host+'recherche/'+mot)
   }
 }

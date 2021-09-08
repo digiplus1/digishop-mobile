@@ -1,0 +1,62 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-segment class="segment-wrapper" (ionChange)="segmentChanged($event)" [(ngModel)]="segment">
+  <ion-segment-button value="0">
+    <ion-label>Produits</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="1">
+    <ion-label>Boutiques</ion-label>
+  </ion-segment-button>
+</ion-segment>
+
+
+<ion-content>
+
+  <ion-slides class="slides-wrapper" #slider (ionSlideDidChange)="slideChanged()">
+    <ion-slide>
+        <ion-row *ngIf="produits.length>0">
+          <ion-col size="6" *ngFor="let p of produits" (click)="goToDetailProduit(p)">
+            <ion-img [src]="p.image" alt="..."></ion-img>
+            <ion-item lines="none">
+              <ion-label>
+                <h2>{{p.nomProduit}}</h2>
+                <p>prix: {{p.prixProduit}}<sup>Fcfa</sup></p>
+                <ion-note>{{p.nomboutique}}</ion-note>
+              </ion-label>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+      <div class="empty-cart" *ngIf="produits.length==0">
+        <ion-icon name="cart-outline"></ion-icon>
+        <p>Aucun élement retrouvé</p>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+        <ion-row *ngIf="boutiques.length>0">
+          <ion-col size="6" *ngFor="let p of boutiques" (click)="goToShop(p)">
+            <ion-img [src]="p.photoboutique" alt="..."></ion-img>
+            <ion-item lines="none">
+              <ion-label>
+                <h2>{{p.nomBoutique}}</h2>
+                <p>{{p.emailBoutique}}</p>
+                <ion-note>{{p.telephoneBoutique}}</ion-note>
+              </ion-label>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+      <div class="empty-cart" *ngIf="boutiques.length==0">
+        <ion-icon name="cart-outline"></ion-icon>
+        <p>Aucun élement retrouvé</p>
+      </div>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

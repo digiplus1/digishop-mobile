@@ -8,10 +8,17 @@
     </ion-buttons>
   </ion-toolbar>
   <ion-toolbar id="search-toolbar">
-    <ion-searchbar placeholder="Que cherchez vous ..."></ion-searchbar>
+    <ion-searchbar #searchbar debounce="500" (ionChange)="_ionChange($event)" placeholder="Que cherchez vous ..."></ion-searchbar>
+    <ion-list>
+      <ion-item *ngFor="let n of searcheItem" (click)="getValuer(n)">
+        <ion-label>{{n}}</ion-label>
+      </ion-item>
+    </ion-list>
   </ion-toolbar>
 </ion-header>
 <ion-content>
+
+
 <app-acceuil-slide-header title="categorie boutiques"></app-acceuil-slide-header>
  <ion-slides [options]="slideopts">
    <ion-slide *ngFor="let c of categories" (click)="goToListeBoutique(c)">
