@@ -1,0 +1,12 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <h3 class="title" *ngIf="authenService.utilisateur.cart.cartItems.length" >{{authenService.utilisateur.cart.cartItems.length}} vers au panier</h3>
+    <ion-buttons slot="end" class=" ion-margin-horizontal">
+      <ion-icon name="heart-outline" color="danger" slot="icon-only"></ion-icon>
+      <ion-badge>{{authenService.utilisateur.cart.cartItems.length}}</ion-badge>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>

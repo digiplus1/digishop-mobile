@@ -21,7 +21,8 @@
       </ion-item>
     </ion-list>
   </ion-toolbar>
-  <ion-segment class="segment-wrapper" (ionChange)="segmentChanged($event)" [(ngModel)]="segment">
+  <ion-toolbar>
+  <ion-segment  class="ion-margin-bottom " (ionChange)="segmentChanged($event)" [(ngModel)]="segment">
     <ion-segment-button value="0">
       <ion-label>Produits</ion-label>
     </ion-segment-button>
@@ -29,7 +30,10 @@
       <ion-label>Boutiques</ion-label>
     </ion-segment-button>
   </ion-segment>
+  </ion-toolbar>
 </ion-header>
+
+
 <ion-content>
 
 
@@ -78,5 +82,10 @@
   </ion-slides>
 
 
-
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button color="ligth" routerLink="/client/panier">
+      <ion-icon color="warning" name="cart-outline"></ion-icon>
+      <ion-badge >{{authenService.utilisateur.cart.cartItems.length}}</ion-badge>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

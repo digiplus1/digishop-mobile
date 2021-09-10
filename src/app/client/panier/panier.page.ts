@@ -14,6 +14,7 @@ import {AlertController} from "@ionic/angular";
 })
 export class PanierPage implements OnInit {
 
+  is_loading:boolean;
   constructor(public authenService:AuthenService,public produitService:ProduitService,
               public cartService:CartService,public router:Router,public alertCtrl:AlertController) { }
 
@@ -59,5 +60,20 @@ export class PanierPage implements OnInit {
       ]
     });
     alert.present();
+  }
+
+  goToAdresse() {
+    this.is_loading=true;
+    this.cartService.getPanier(this.authenService.utilisateur.cart.idcart).subscribe(
+      data=>{
+        this.is_loading=false;
+        this.authenService.utilisateur.cart=data;
+        this.authenService.saveToken()
+        this.router.navigateByUrl("client/adresse")
+      },error => {
+        this.is_loading=false;
+        this.authenService.toastMessage(error.error.message);
+      }
+    )
   }
 }

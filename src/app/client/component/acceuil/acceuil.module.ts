@@ -11,6 +11,8 @@ import {BoutiqueslideComponent} from "./boutiqueslide/boutiqueslide.component";
 import {ListproduitsModule} from "./listproduits/listproduits.module";
 import {ListboutiquesModule} from "./listboutiques/listboutiques.module";
 import {ProduitboutiqueModule} from "./produitboutique/produitboutique.module";
+import {PayementModule} from "./payement/payement.module";
+import {AdresseModule} from "./adresse/adresse.module";
 
 
 
@@ -27,6 +29,8 @@ import {ProduitboutiqueModule} from "./produitboutique/produitboutique.module";
     ListproduitsModule,
     ListboutiquesModule,
     ProduitboutiqueModule,
+    PayementModule,
+    AdresseModule,
   ],exports:[AcceuilComponent]
 })
 export class AcceuilModule { }

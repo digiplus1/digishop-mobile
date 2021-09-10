@@ -14,6 +14,8 @@ import {NotificationService} from "./shared/services/NotificationService";
 import {MainService} from "./shared/services/MainService";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
+import {QRScanner} from "@ionic-native/qr-scanner/ngx";
+import {BarcodeScanner} from "@ionic-native/barcode-scanner/ngx";
 
 const SERVICES = [
   MainService,
@@ -36,6 +38,8 @@ const SERVICES = [
   ],
   providers: [
     AuthenService,
+    QRScanner,
+    BarcodeScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
       SERVICES
     ],

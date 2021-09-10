@@ -7,6 +7,8 @@ import {ProfilComponent} from "./component/profil/profil.component";
 import {ListboutiquesComponent} from "./component/acceuil/listboutiques/listboutiques.component";
 import {ListproduitsComponent} from "./component/acceuil/listproduits/listproduits.component";
 import {ProduitboutiqueComponent} from "./component/acceuil/produitboutique/produitboutique.component";
+import {AdresseComponent} from "./component/acceuil/adresse/adresse.component";
+import {PayementComponent} from "./component/acceuil/payement/payement.component";
 
 const routes: Routes = [
   {
@@ -41,6 +43,14 @@ const routes: Routes = [
   {
     path:'produits',
     component:ListproduitsComponent
+  },
+  {
+    path:'adresse',
+    component:AdresseComponent
+  },
+  {
+    path:'payement',
+    component:PayementComponent
   },
 ];
 

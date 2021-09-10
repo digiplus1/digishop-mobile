@@ -41,6 +41,7 @@ import {FavoriteService} from "./Service/FavoriteService";
     BoutiqueService,
     CartService,
     FavoriteService,
+
   ],
   declarations: [ClientPage,ProfilComponent,AproposComponent,CouponComponent,CommandeComponent]
 })

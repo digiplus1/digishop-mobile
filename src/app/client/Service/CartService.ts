@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {ProduitDto} from "../../Model/ProduitDto";
 import {CartItem} from "../../Model/CartItem";
 import {AdresseIP} from "../../Service/AdresseIP";
+import {Cart} from "../../Model/Cart";
 
 @Injectable()
 export class CartService{
@@ -91,6 +92,10 @@ export class CartService{
       );
     }
 
+  }
+
+  getPanier(idPanier:number){
+    return this.http.get<Cart>(AdresseIP.host+'cart/'+idPanier);
   }
 
 }

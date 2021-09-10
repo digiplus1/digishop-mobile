@@ -48,8 +48,9 @@
     </ion-item-sliding>
   </ion-list>
 
-  <ion-button class="buttom" expand="block" *ngIf="authenService.utilisateur.cart.cartItems.length">
+  <ion-button class="buttom" expand="block" [disabled]="is_loading==true" (keydown.enter)="goToAdresse()" (click)="goToAdresse()" *ngIf="authenService.utilisateur.cart.cartItems.length">
     Total: <span>{{authenService.utilisateur.cart.montanttotal}}<sup>Fcfa</sup></span>
+    <ion-spinner name="lines" *ngIf="is_loading"></ion-spinner>
   </ion-button>
 
   <div class="empty-cart" *ngIf="!authenService.utilisateur.cart.cartItems.length">

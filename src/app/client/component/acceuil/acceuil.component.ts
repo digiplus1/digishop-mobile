@@ -5,6 +5,7 @@ import {BoutiqueService} from "../../Service/BoutiqueService";
 import {Router} from "@angular/router";
 import {CategorieProduitDTO} from "../../../Model/CategorieProduitDTO";
 import {IonSearchbar} from "@ionic/angular";
+import {AuthenService} from "../../../home/components/Service/AuthenService";
 
 @Component({
   selector: 'app-acceuil',
@@ -29,7 +30,7 @@ export class AcceuilComponent implements OnInit {
     slidesOffsetBefore: 6
   };
 
-  constructor(public produitService:ProduitService,public boutiqueService:BoutiqueService,public router:Router) {}
+  constructor(public produitService:ProduitService,public boutiqueService:BoutiqueService,public router:Router,public authenService:AuthenService) {}
 
   ngOnInit() {
     this.produitService.getAllproduit();
