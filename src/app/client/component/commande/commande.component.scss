@@ -1,0 +1,44 @@
+
+ion-icon {
+  font-size:2em;
+}
+
+ion-toolbar {
+  --padding-bottom: 0px;
+  --padding-top: 0px;
+  max-height: 60px;
+  --background: #0f5173;
+}
+
+.logonom {
+  font-size: 25px;
+}
+ion-list{
+  border: 1px solid  #9d9fa6;
+  border-radius: 1.8em;
+  margin-bottom: 7px;
+  padding: 10px 16px 3px 19px;
+  margin: 10px;
+  box-shadow: 1px 5px 10px 1px #919aa3;
+}
+
+ion-header {
+  background-color: #0f5173;
+  z-index: 0;
+  height: 65px;
+}
+
+ion-menu-button {
+  color: white;
+}
+ion-row{
+  padding: 0 ;
+  margin: 0;
+}
+ion-col{
+  padding: 0;
+  margin: 0;
+}
+ion-img{
+  width: 40px;
+}

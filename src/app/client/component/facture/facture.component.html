@@ -1,0 +1,25 @@
+<ion-content>
+<ion-card>
+  <ion-card-content>
+    <ion-item *ngFor="let c of commandeService.commande.cartItems">
+      <ion-thumbnail>
+        <ion-img [src]="c.produit.image"></ion-img>
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{c.description}}</h2>
+        <p>Prix: {{c.prixunitaire}}<sup>Fcfa</sup> * {{c.quantite}}</p>
+        <p>Total: {{c.montant}}<sup>Fcfa</sup></p>
+      </ion-label>
+    </ion-item>
+    <ion-row *ngIf="commandeService.commande.fraislivraison">
+      <ion-col></ion-col>
+      <ion-col>Livraison: {{commandeService.commande.fraislivraison}}<sup>Fcfa</sup></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col></ion-col>
+      <ion-col>Total: {{commandeService.commande.netaPayer}}<sup>Fcfa</sup></ion-col>
+    </ion-row>
+  </ion-card-content>
+
+</ion-card>
+</ion-content>

@@ -9,6 +9,7 @@ import {ListproduitsComponent} from "./component/acceuil/listproduits/listprodui
 import {ProduitboutiqueComponent} from "./component/acceuil/produitboutique/produitboutique.component";
 import {AdresseComponent} from "./component/acceuil/adresse/adresse.component";
 import {PayementComponent} from "./component/acceuil/payement/payement.component";
+import {FactureComponent} from "./component/facture/facture.component";
 
 const routes: Routes = [
   {
@@ -51,6 +52,14 @@ const routes: Routes = [
   {
     path:'payement',
     component:PayementComponent
+  },
+  {
+    path:'facture',
+    component:FactureComponent
+  },
+  {
+    path: 'modalcommande',
+    loadChildren: () => import('./component/commande/modalcommande/modalcommande.module').then( m => m.ModalcommandePageModule)
   },
 ];
 

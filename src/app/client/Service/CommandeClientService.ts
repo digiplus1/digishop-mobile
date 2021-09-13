@@ -37,7 +37,14 @@ export class CommandeClientService {
   getCommandesByClientIsEncours(page:number){
     if (this.authenService.utilisateur){
 
-      return this.http.get<CommandePage>(AdresseIP.host+'getcommandebyclientisencours/'+this.authenService.utilisateur.username+'?size=10&page='+page);
+      return this.http.get<CommandePage>(AdresseIP.host+'getcommandebyclientisencours/'+this.authenService.utilisateur.username+'?size=10&page='+page).subscribe(
+        data=>{
+          this.commandePage=data;
+          this.commandes=data.content;
+        },error => {
+          this.authenService.toastMessage(error.error.message)
+        }
+      );
 
     }
   }
@@ -56,4 +63,5 @@ export class CommandeClientService {
       return this.http.get<Commande>(AdresseIP.host+'getcommandebyid/'+idcomm);
     }
   }
+
 }

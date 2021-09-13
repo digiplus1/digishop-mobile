@@ -2,7 +2,8 @@
   <ion-img (click)="goToDetailProduit(produit)" [src]="produit.image"></ion-img>
   <div class="card-content">
     <h3 class="title">{{produit.nomProduit}}</h3>
-    <h2 class="subtitle">{{produit.prixProduit}}<sup>Fcfa</sup>
+    <h2 class="subtitle">
+      {{produit.prixProduit}}<sup>Fcfa</sup>
       <ion-icon (click)="addfavoriteProduit(produit)" name="heart-outline" color="danger"></ion-icon>
     </h2>
 

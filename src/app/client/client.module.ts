@@ -25,6 +25,8 @@ import {BoutiqueService} from "./Service/BoutiqueService";
 import {CartService} from "./Service/CartService";
 import {FavoriteService} from "./Service/FavoriteService";
 import {CommandeClientService} from "./Service/CommandeClientService";
+import {DigiXpresService} from "./Service/DigiXpresService";
+import {CouponService} from "./Service/CouponService";
 
 @NgModule({
   imports: [
@@ -43,6 +45,8 @@ import {CommandeClientService} from "./Service/CommandeClientService";
     CartService,
     FavoriteService,
     CommandeClientService,
+    DigiXpresService,
+    CouponService,
   ],
   declarations: [ClientPage,ProfilComponent,AproposComponent,CouponComponent,CommandeComponent]
 })

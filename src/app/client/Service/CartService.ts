@@ -87,7 +87,8 @@ export class CartService{
         data => {
           localStorage.removeItem('utilisateur');
           localStorage.setItem('utilisateur',JSON.stringify(this.authenService.utilisateur));
-          console.log(data);
+        },error => {
+          this.authenService.toastMessage(error.error.message);
         }
       );
     }
