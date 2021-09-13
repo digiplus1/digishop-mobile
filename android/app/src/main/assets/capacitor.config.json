@@ -1,0 +1,12 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "DigiShopInside",
+	"webDir": "www",
+	"bundledWebRuntime": false,
+	"plugins": {
+		"SplashScreen": {
+			"launchShowDuration": 2000,
+			"launchAutoHide": true
+		}
+	}
+}
