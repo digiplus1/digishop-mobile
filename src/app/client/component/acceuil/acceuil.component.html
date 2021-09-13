@@ -39,7 +39,7 @@
   <app-acceuil-slide-header title="Produits"></app-acceuil-slide-header>
   <app-produits-slide-header   [produits]="produitService.produits"></app-produits-slide-header>
 
-  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
     <ion-fab-button color="ligth" routerLink="/client/panier">
       <ion-icon color="warning" name="cart-outline"></ion-icon>
       <ion-badge >{{authenService.utilisateur.cart.cartItems.length}}</ion-badge>
