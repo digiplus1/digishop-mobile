@@ -1,49 +1,79 @@
-<ion-header>
-  <div class="text-center">
-    <img class="img-thumbnail align-content-center" src="./assets/images/personal_info.png" alt="personal" style="height: 150px; width: 250px"/>
-  </div>
-
-  <div class="ion-text-center text-uppercase" style="color: #0f5173">
-    <h6><strong>INFORMATIONS PERSONNELLES</strong></h6>
-  </div>
-</ion-header>
-<ion-content>
-  <div class="mainboard">
-
-      <ion-item>
-        <ion-label position="floating">Entrer votre nom complet : </ion-label>
-        <ion-input [(ngModel)]="userTemp.nomcomplet" type="text" required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Entrer votre email : </ion-label>
-        <ion-input [(ngModel)]="userTemp.email" type="text" required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Entrer votre téléphone : </ion-label>
-        <ion-input [(ngModel)]="userTemp.phone" type="text" required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Entrer votre pseudo : </ion-label>
-        <ion-input [(ngModel)]="userTemp.username" type="text" required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Entrer votre mot de passe : </ion-label>
-        <ion-input [(ngModel)]="userTemp.password" type="text" required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Entrer à nouveau le mot de passe : </ion-label>
-        <ion-input [(ngModel)]="confirmPass" type="text" required></ion-input>
-      </ion-item>
-
-      <ion-button (keydown.enter)="registerA()" (click)="registerA()" class="ion-margin-top text-secondary" color="secondary" type="submit" expand="block">
-        Valider
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="primary">
+        <ion-icon (click)="takePicture()" name="camera-outline"></ion-icon>
       </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button color="primary" (click)="goTologin()">
+        Se connecter
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
-    <div style="margin-top: 8px;" class="text-center" >
-      <i style="color: #0f5173">Vous avez déjà un compte ? <a><strong routerLink="/home/login">Se connecter</strong></a></i><br>
+<ion-content>
+  <form id="form" [formGroup]="registerForm" (ngSubmit)="onRegister()">
+    <div id="header">
+      <img [src]="image?image:'assets/img/users.png'">
     </div>
-  </div>
+
+    <ion-item lines="none" class="ion-margin-bottom">
+      <ion-input formControlName="nomcomplet"  type="text" placeholder="Nom complet" [ngClass]="{ 'is-invalid': submittedRegister && g.nomcomplet.errors }"></ion-input>
+    </ion-item>
+    <ion-text class="ion-text-left" color="danger" *ngIf="submittedRegister && g.nomcomplet.errors">
+      <p class="error" *ngIf="g.nomcomplet.errors.required">*Le nom complet est obligatoire</p>
+    </ion-text>
+
+    <ion-item lines="none" class="ion-margin-bottom">
+      <ion-input formControlName="username" placeholder="Pseudo" [ngClass]="{ 'is-invalid': submittedRegister && g.username.errors }"></ion-input>
+    </ion-item>
+    <ion-text class="ion-text-left" color="danger" *ngIf="submittedRegister && g.username.errors">
+      <p class="error" *ngIf="g.username.errors.required">*Pseudo est obligatoire</p>
+    </ion-text>
+
+    <ion-item lines="none" class="ion-margin-bottom">
+      <ion-input formControlName="email" placeholder="* E-mail"></ion-input>
+    </ion-item>
+    <ion-text class="ion-text-left" color="danger" *ngIf="submittedRegister && !g.email.valid">
+      <p class="error" >*E-mail doit être une adresse e-mail valides</p>
+    </ion-text>
+
+    <ion-item lines="none" class="ion-margin-bottom">
+      <ion-input type="number" formControlName="phone" placeholder="Contact" ></ion-input>
+    </ion-item>
+    <ion-text class="ion-text-left" color="danger" *ngIf="submittedRegister && g.phone.errors">
+      <p class="error">*Le contact est Obligatoire</p>
+    </ion-text>
+
+    <ion-item lines="none" class="ion-margin-bottom">
+      <ion-input type="password" formControlName="password" placeholder="password" ></ion-input>
+    </ion-item>
+    <ion-text class="ion-text-left" color="danger" *ngIf="!registerForm.get('password').valid && registerForm.get('password').touched">
+      <p class="error" *ngIf="registerForm.get('password').invalid && registerForm.get('password').errors.required">*Please enter your password</p>
+      <p class="error" *ngIf="registerForm.get('password').dirty">*Password must be of atleast 8 charaters</p>
+    </ion-text>
+    <ion-item lines="none" class="ion-margin-bottom">
+      <ion-input type="password" formControlName="password2" placeholder="password" ></ion-input>
+    </ion-item>
+    <ion-text class="ion-text-left" color="danger" *ngIf="!g.password2.valid && g.password2.touched || g.password.value!=g.password2.value">
+      <p class="error" *ngIf="g.password2.invalid && g.password2.errors.required">*Please enter your password</p>
+      <p class="error" *ngIf="g.password2.value!=g.password2.value">*Le mot de passe n'est pas identique</p>
+    </ion-text>
+
+    <div class="form-group">
+      <div class="custom-control custom-checkbox">
+        <input class="custom-control-input" formControlName="acceptTerms" type="checkbox"/>
+        <label class="custom-control-label"><a routerLink="/thermecondition" class="text-muted">J'acceptez les thermes et conditions.</a></label>
+        <ion-text class="ion-text-left" color="danger" *ngIf="g.acceptTerms.invalid">
+          <p class="error">* Bien vouloir accepter</p>
+        </ion-text>
+      </div>
+    </div>
+    <ion-button expand="block" shape="round" type="submit" [disabled]="isLoading==true" (keydown.enter)="onRegister()">S'inscrire
+      <ion-spinner name="lines" *ngIf="isLoading"></ion-spinner>
+    </ion-button>
+  </form>
 </ion-content>
-<ion-footer>
-  <h6 class="text-center" style="color: #0f5173; font-size: smaller"><strong>¤ Digiplus Sarl ¤</strong></h6>
-</ion-footer>
+

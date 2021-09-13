@@ -1,12 +1,6 @@
 {
-	"appId": "io.ionic.starter",
-	"appName": "DigiShopInside",
+	"appId": "ftg.digiplus.digishop",
+	"appName": "Digishop",
 	"webDir": "www",
-	"bundledWebRuntime": false,
-	"plugins": {
-		"SplashScreen": {
-			"launchShowDuration": 2000,
-			"launchAutoHide": true
-		}
-	}
+	"bundledWebRuntime": false
 }

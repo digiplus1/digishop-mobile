@@ -1,0 +1,46 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <h3 class="title" *ngIf="authenService.utilisateur.cart.cartItems.length" >{{authenService.utilisateur.cart.cartItems.length}} vers au panier</h3>
+    <ion-buttons slot="end" class=" ion-margin-horizontal">
+      <ion-icon name="heart-outline" color="danger" slot="icon-only"></ion-icon>
+      <ion-badge>{{authenService.utilisateur.cart.cartItems.length}}</ion-badge>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Mode de Livraison</ion-label>
+        <ion-select interface="popover" (change)="selectmodeLivraison($event)" placeholder="Choisir le mode de livraison">
+          <ion-select-option *ngFor="let m of mode_livraison">{{m}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-list [hidden]="type_livraison=='Adresse de livraison'">
+        <ion-item>
+          <ion-label>Ville</ion-label>
+          <ion-select interface="popover"  (change)="selectquartier($event)" placeholder="Choisir la ville">
+            <ion-select-option *ngFor="let v of villes">{{v.libelle_ville}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item [hidden]="quartiers">
+          <ion-label>Quartier</ion-label>
+          <ion-select interface="popover"  (change)="selectsecteur($event)" placeholder="Choisir le quartier">
+            <ion-select-option *ngFor="let q of quartiers">{{q.libelle_quartier}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item [hidden]="secteurs">
+          <ion-label>Secteur</ion-label>
+          <ion-select interface="popover" (change)="selectlocalite($event)" placeholder="Choisir le secteur">
+            <ion-select-option *ngFor="let s of secteurs">{{s.libelle_secteur}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

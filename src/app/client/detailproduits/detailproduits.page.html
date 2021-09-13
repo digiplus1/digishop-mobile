@@ -1,0 +1,49 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center" >{{produitService.produit.nomboutique}}</ion-title>
+    <ion-buttons slot="end" class=" ion-margin-horizontal">
+      <ion-icon name="heart-outline" color="danger" slot="icon-only"></ion-icon>
+      <ion-badge>{{authenService.utilisateur.cart.cartItems.length}}</ion-badge>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-icon name="cart-outline" color="warning" slot="icon-only"></ion-icon>
+      <ion-badge>{{authenService.utilisateur.cart.cartItems.length}}</ion-badge>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="card">
+    <div class="image">
+      <ion-slides  pager="true" [options]="slideOpts">
+        <ion-slide><ion-img [src]="produitService.produit.image"></ion-img></ion-slide>
+        <ion-slide *ngFor="let i of produitService.produit.imageProduits"><ion-img [src]="i.image"></ion-img></ion-slide>
+      </ion-slides>
+    </div>
+
+    <div class="card-content">
+      <div class="card-title">
+        <h1 class="ion-no-margin">{{produitService.produit.nomProduit}}</h1>
+        <p class="ion-no-margin">{{produitService.produit.prixProduit}}<sup>Fcfa</sup></p>
+      </div>
+    </div>
+
+    <div class="rates">
+      <div class="badge">
+         <ion-icon name="time"></ion-icon>
+      </div>
+    </div>
+
+    <div class="about">
+      <h1>Description</h1>
+      <p>{{produitService.produit.description}}</p>
+    </div>
+
+    <ion-button expand="block" (click)="addToCart(produitService.produit)">
+      ADD TO CART
+    </ion-button>
+  </div>
+</ion-content>

@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import {Router} from "@angular/router";
+import {FormBuilder} from "@angular/forms";
+import {AuthenService} from "./home/components/Service/AuthenService";
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,11 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+  constructor(public router: Router, public authenservice: AuthenService) {
+    this.login();
+  }
+
+  login(){
+    this.authenservice.verifierLocalStorage();
+  }
 }

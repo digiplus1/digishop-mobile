@@ -24,3 +24,73 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+@import "theme/fonts.scss";
+
+ion-content{
+  --background: #f5f5f3;
+}
+
+
+.empty-cart{
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #c7c7c7;
+
+  ion-icon{
+    font-size: 8rem;
+  }
+  p{
+    font-size: 1.8rem;
+  }
+}
+
+
+ion-toolbar{
+  --background: #f5f5f3;
+  ion-icon{
+    font-size: 25px;
+    font-weight: bold;
+  }
+  .title {
+    font-weight: 700;
+    color: #1f1f1f;
+    margin-bottom: 2rem;
+    padding-left: 1.6rem;
+  }
+  ion-badge{
+    --background: transparent;
+    --padding-bottom: 25px;
+    --padding-top: 0px;
+    --padding-start: 0px;
+    color: #151515;
+  }
+}
+ion-searchbar{
+  .searchbar-input-container{
+    input{
+      padding-top: 14px!important;
+      padding-bottom: 12px!important;
+      font-size: 18px!important;
+    }
+    .searchbar-search-icon{
+      top:15px!important;
+      width: 25px;
+      height: 25px;
+    }
+  }
+}
+ion-fab{
+  ion-fab-button{
+    ion-badge{
+      --background: transparent;
+      --padding-bottom: 25px;
+      --padding-top: 0px;
+      --padding-start: 0px;
+      color: #ffb800;
+
+    }
+  }
+}

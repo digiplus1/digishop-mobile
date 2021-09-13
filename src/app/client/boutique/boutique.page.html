@@ -1,0 +1,91 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center" >{{boutiqueService.boutique.nomBoutique}}</ion-title>
+    <ion-buttons slot="end" class=" ion-margin-horizontal">
+      <ion-icon name="heart-outline" color="danger" slot="icon-only"></ion-icon>
+      <ion-badge>{{authenService.utilisateur.cart.cartItems.length}}</ion-badge>
+    </ion-buttons>
+    <ion-buttons slot="end" routerLink="/client/panier">
+      <ion-icon name="cart-outline" color="warning" slot="icon-only"></ion-icon>
+      <ion-badge>{{authenService.utilisateur.cart.cartItems.length}}</ion-badge>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar id="search-toolbar">
+    <ion-searchbar #searchbar debounce="500" (ionChange)="_ionChange($event)" placeholder="Que cherchez vous ..."></ion-searchbar>
+    <ion-list [hidden]="!is_disponibel">
+      <ion-item *ngFor="let n of searcheItem" (click)="getValuer(n)">
+        <ion-label>{{n.nomProduit}}</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-toolbar>
+  <ion-toolbar>
+  <ion-segment  class="ion-margin-bottom " (ionChange)="segmentChanged($event)" [(ngModel)]="segment">
+    <ion-segment-button value="0">
+      <ion-label>Produits</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="1">
+      <ion-label>Boutiques</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+
+
+  <ion-slides class="slides-wrapper" #slider (ionSlideDidChange)="slideChanged()">
+    <ion-slide>
+      <div class="produit-list" >
+        <app-produits *ngFor="let p of searcheItem" [produit]="p"></app-produits>
+      </div>
+
+    </ion-slide>
+
+    <ion-slide>
+      <ion-card>
+        <ion-card-subtitle class="ion-text-center">
+          <img [src]="boutiqueService.boutique.photoboutique">
+        </ion-card-subtitle>
+        <ion-card-content>
+          <ion-card-header class="ion-text-center">
+            <strong>{{boutiqueService.boutique.nomBoutique}}</strong>
+            <ion-row>
+              <ion-col>
+                <ion-icon color="warning" (click)="addToFavoriteShop(boutiqueService.boutique)"
+                          name="heart-outline"></ion-icon>
+              </ion-col>
+              <ion-col>
+                <ion-icon color="danger"
+                          (click)="natifService.callnumber(boutiqueService.boutique.telephoneBoutique)"
+                          name="call-outline"></ion-icon>
+              </ion-col>
+              <ion-col>
+                <ion-icon (click)="natifService.share(boutiqueService.boutique.photoboutique,'/mode/'+boutiqueService.boutique.lien)"
+                          name="share-social-outline"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </ion-card-header>
+          <p>Email: {{boutiqueService.boutique.emailBoutique}}</p>
+          <p>Adresse: {{boutiqueService.boutique.ville}} {{boutiqueService.boutique.secteur}} {{boutiqueService.boutique.quartier}}
+            {{boutiqueService.boutique.adressBoutique}}
+          </p>
+          <p>{{boutiqueService.boutique.description}}</p>
+        </ion-card-content>
+      </ion-card>
+
+    </ion-slide>
+  </ion-slides>
+
+
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button color="ligth" routerLink="/client/panier">
+      <ion-icon color="warning" name="cart-outline"></ion-icon>
+      <ion-badge >{{authenService.utilisateur.cart.cartItems.length}}</ion-badge>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

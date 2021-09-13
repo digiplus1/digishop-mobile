@@ -1,16 +1,10 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'DigiShopInside',
+  appId: 'ftg.digiplus.digishop',
+  appName: 'Digishop',
   webDir: 'www',
-  bundledWebRuntime: false,
-  plugins : {
-    "SplashScreen": {
-      "launchShowDuration": 2000,
-      "launchAutoHide": true
-    }
-  }
+  bundledWebRuntime: false
 };
 
 export default config;
