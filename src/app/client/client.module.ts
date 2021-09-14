@@ -48,6 +48,6 @@ import {CouponService} from "./Service/CouponService";
     DigiXpresService,
     CouponService,
   ],
-  declarations: [ClientPage,ProfilComponent,AproposComponent,CouponComponent,CommandeComponent]
+  declarations: [ClientPage,ProfilComponent,AproposComponent,CouponComponent]
 })
 export class ClientPageModule {}

@@ -57,10 +57,7 @@ const routes: Routes = [
     path:'facture',
     component:FactureComponent
   },
-  {
-    path: 'modalcommande',
-    loadChildren: () => import('./component/commande/modalcommande/modalcommande.module').then( m => m.ModalcommandePageModule)
-  },
+
 ];
 
 @NgModule({

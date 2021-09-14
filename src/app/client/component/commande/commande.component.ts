@@ -5,10 +5,11 @@ import {ProduitService} from "../../Service/ProduitService";
 import {CommandeClientService} from "../../Service/CommandeClientService";
 import {BoutiqueService} from "../../Service/BoutiqueService";
 import {CartService} from "../../Service/CartService";
-import {AlertController} from "@ionic/angular";
+import {AlertController, ModalController} from "@ionic/angular";
 import {DigiXpresService} from "../../Service/DigiXpresService";
 import {CouponService} from "../../Service/CouponService";
 import {Commande} from "../../../Model/Commande";
+import {ModaldetailComponent} from "./modaldetail/modaldetail.component";
 
 @Component({
   selector: 'app-commande',
@@ -22,12 +23,25 @@ export class CommandeComponent implements OnInit {
   };
   page: number = 0;
 
-  constructor(public authenService: AuthenService, public produitService: ProduitService, public commandeService: CommandeClientService, public boutiqueService: BoutiqueService,
-              public cartService: CartService, public router: Router, public alertCtrl: AlertController, public digixpresService: DigiXpresService, public couponClientService: CouponService) {
+  constructor(public authenService: AuthenService, public produitService: ProduitService,public modalController: ModalController,
+              public commandeService: CommandeClientService, public boutiqueService: BoutiqueService, public cartService: CartService,
+              public router: Router, public alertCtrl: AlertController, public digixpresService: DigiXpresService,
+              public couponClientService: CouponService) {
   }
 
   ngOnInit() {
     this.commandeService.getCommandesByClientIsEncours(this.page);
+  }
+
+
+
+  async presentModal(c:Commande) {
+    this.commandeService.commande=c;
+    const modal = await this.modalController.create({
+      component: ModaldetailComponent,
+      cssClass: 'detailcommade'
+    });
+    return await modal.present();
   }
 
 
