@@ -4,4 +4,63 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment  class="ion-margin-bottom " (ionChange)="segmentChanged($event)" [(ngModel)]="segment">
+      <ion-segment-button value="0">
+        <ion-label>Produits</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="1">
+        <ion-label>Boutiques</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
+
+<ion-content>
+  <ion-slides class="slides-wrapper" #slider (ionSlideDidChange)="slideChanged()">
+    <ion-slide>
+      <ion-card *ngIf="favoriteService.favorite.produitsfavotisList.length>0">
+        <ion-card-content >
+          <ion-list>
+            <ion-item *ngFor="let p of favoriteService.favorite.produitsfavotisList">
+              <ion-thumbnail>
+                <img [src]="p.image">
+              </ion-thumbnail>
+              <ion-label>
+                <h4>{{p.nomProduit}}</h4>
+                <p> {{p.prixProduit}}</p>
+                <p>Qté {{p.quantiteEnStock}}</p>
+              </ion-label>
+              <ion-icon color="success" (click)="detail(p)" name="eye-outline"></ion-icon>
+              <ion-icon color="danger" (click)="delectFavorite(p,null)" name="trash-outline"></ion-icon>
+            </ion-item>
+          </ion-list>
+
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+
+    <ion-slide>
+      <ion-card *ngIf="favoriteService.favorite.boutiquefavorisList.length>0" >
+      <ion-card-content >
+        <ion-list>
+          <ion-item *ngFor="let b of favoriteService.favorite.boutiquefavorisList">
+            <ion-thumbnail>
+              <img [src]="b.photoboutique">
+            </ion-thumbnail>
+            <ion-label>
+              <h4>{{b.nomBoutique}}</h4>
+              <p> {{b.telephoneBoutique}}</p>
+              <p> {{b.adressBoutique}}</p>
+            </ion-label>
+            <ion-icon color="success" (click)="gotoshope(b)" name="eye-outline"></ion-icon>
+            <ion-icon color="danger"(click)="delectFavorite(null,b)" name="trash-outline"></ion-icon>
+          </ion-item>
+        </ion-list>
+
+      </ion-card-content>
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
+
+</ion-content>

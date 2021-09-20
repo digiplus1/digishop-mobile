@@ -23,6 +23,6 @@ export class BoutiqueslideComponent implements OnInit {
 
   goToShop(b: BoutiquePos) {
     this.boutiqueService.boutique=b;
-    this.router.navigateByUrl("client/boutique")
+    this.router.navigateByUrl("tabclient/client/boutique")
   }
 }

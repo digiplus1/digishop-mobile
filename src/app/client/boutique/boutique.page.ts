@@ -91,4 +91,8 @@ export class BoutiquePage implements OnInit {
     favorite.nomclient=this.authenService.utilisateur.username;
     this.favoriteService.manageItemsToFavoris(favorite);
   }
+
+  scanProduit() {
+    this.natifService.scannerQrcode("produit")
+  }
 }

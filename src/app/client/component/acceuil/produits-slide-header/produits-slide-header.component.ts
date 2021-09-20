@@ -24,6 +24,6 @@ export class ProduitsSlideHeaderComponent {
 
   goToDetail(p: ProduitDto) {
     this.produitService.produit=p;
-    this.router.navigateByUrl("client/detailproduits")
+    this.router.navigateByUrl("tabclient/client/detailproduits")
   }
 }

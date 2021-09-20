@@ -27,6 +27,7 @@ import {FavoriteService} from "./Service/FavoriteService";
 import {CommandeClientService} from "./Service/CommandeClientService";
 import {DigiXpresService} from "./Service/DigiXpresService";
 import {CouponService} from "./Service/CouponService";
+import {FavoriteComponent} from "./component/favorite/favorite.component";
 
 @NgModule({
   imports: [
@@ -34,20 +35,9 @@ import {CouponService} from "./Service/CouponService";
     FormsModule,
     IonicModule,
     HttpClientModule,
-    AcceuilModule,
     ClientPageRoutingModule,
   ],
-  providers:[
-    CallNumber,
-    NatifService,
-    ProduitService,
-    BoutiqueService,
-    CartService,
-    FavoriteService,
-    CommandeClientService,
-    DigiXpresService,
-    CouponService,
-  ],
-  declarations: [ClientPage,ProfilComponent,AproposComponent,CouponComponent]
+
+  declarations: [ClientPage,ProfilComponent,AproposComponent,CouponComponent,FavoriteComponent]
 })
 export class ClientPageModule {}

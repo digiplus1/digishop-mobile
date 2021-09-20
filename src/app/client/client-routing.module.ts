@@ -21,10 +21,7 @@ const routes: Routes = [
     path: 'panier',
     loadChildren: () => import('./panier/panier.module').then( m => m.PanierPageModule)
   },
-  {
-    path: 'menuclient',
-    loadChildren: () => import('./menuclient/menuclient.module').then( m => m.MenuclientPageModule)
-  },
+
   {
     path: 'boutique',
     loadChildren: () => import('./boutique/boutique.module').then( m => m.BoutiquePageModule)

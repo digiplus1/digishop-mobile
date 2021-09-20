@@ -16,13 +16,10 @@ const routes: Routes = [
     loadChildren: () => import('./shared/menus/menustaff/menustaff.module').then( m => m.MenustaffPageModule)
   },
   {
-    path: 'menuclient',
-    loadChildren: () => import('./shared/menus/menuclient/menuclient.module').then( m => m.MenuclientPageModule)
+    path: 'tabclient',
+    loadChildren: () => import('./tabclient/tabclient.module').then( m => m.TabclientPageModule)
   },
-  {
-    path: 'client',
-    loadChildren: () => import('./client/client.module').then( m => m.ClientPageModule)
-  },
+
 ];
 
 @NgModule({
