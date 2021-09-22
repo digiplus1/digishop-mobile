@@ -5,6 +5,7 @@ import {AuthenService} from "../../home/components/Service/AuthenService";
 import {AdresseIP} from "../../Service/AdresseIP";
 import {CouponPage} from "../../Model/CouponPage";
 import {ProduitDTOCoupon} from "../../Model/ProduitDTOCoupon";
+import {CodeCoupon} from "../../Model/CodeCoupon";
 
 
 @Injectable()
@@ -14,7 +15,7 @@ export class CouponService {
   couponPage:CouponPage;
   coupons:CouponDTO[];
   coupon:CouponDTO;
-
+  codecoupon:CodeCoupon;
   constructor(public http: HttpClient,public authenservice:AuthenService) {}
 
   getAllNomProduitWithID(nomboutique:string){
@@ -27,6 +28,17 @@ export class CouponService {
 
   }
 
+
+  checkCodeCoupon(code:String){
+    return this.http.get<CodeCoupon>(AdresseIP.host+'checkcode/'+code).subscribe(
+      data=>{
+        this.codecoupon=data;
+        console.log(data);
+      },error => {
+        this.authenservice.toastMessage(error.error.message);
+      }
+    )
+  }
   getAllCoupons(page:number){
     return this.http.get<CouponPage>(AdresseIP.host+'getallcouopns?size=10&page='+page).subscribe(
       data=>{

@@ -50,6 +50,20 @@ export class CommandeClientService {
   }
 
 
+  getCommandesByClientIsEnTerminer(page:number){
+    if (this.authenService.utilisateur){
+
+      return this.http.get<CommandePage>(AdresseIP.host+'getcommandebyclientistermine/'+this.authenService.utilisateur.username+'?size=10&page='+page).subscribe(
+        data=>{
+          this.commandePage=data;
+          this.commandes=data.content;
+        },error => {
+          this.authenService.toastMessage(error.error.message)
+        }
+      );
+
+    }
+  }
   getCommandesByClient(client:string){
     if (client){
 

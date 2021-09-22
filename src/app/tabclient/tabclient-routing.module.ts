@@ -2,20 +2,15 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { TabclientPage } from './tabclient.page';
+import {AcceuilComponent} from "../client/component/acceuil/acceuil.component";
+import {FavoriteComponent} from "../client/component/favorite/favorite.component";
 
 const routes: Routes = [
   {
     path: '',
     component: TabclientPage,
     children:[
-      {
-        path: 'client',
-        loadChildren: () => import('../client/client.module').then( m => m.ClientPageModule)
-      },
-      {
-        path: 'menuclient',
-        loadChildren: () => import('../client/menuclient/menuclient.module').then( m => m.MenuclientPageModule)
-      },
+
     ]
   }
 ];

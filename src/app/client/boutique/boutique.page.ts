@@ -10,6 +10,7 @@ import {NatifService} from "../Service/NatifService";
 import {BoutiquePos} from "../../Model/BoutiquePos";
 import {FavorisDTO} from "../../Model/FavorisDTO";
 import {FavoriteService} from "../Service/FavoriteService";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-boutique',
@@ -25,7 +26,7 @@ export class BoutiquePage implements OnInit {
    produits: ProduitDto[];
   is_disponibel: boolean;
   constructor(public authenService:AuthenService,public produitService:ProduitService,public boutiqueService:BoutiqueService,
-              public cartService:CartService,public natifService:NatifService,public favoriteService:FavoriteService) { }
+              public cartService:CartService,public natifService:NatifService,public favoriteService:FavoriteService,public router:Router) { }
 
   ngOnInit() {
     this.produitService.getallproduitbyboutiqueIsactive(this.boutiqueService.boutique.nomBoutique).subscribe(

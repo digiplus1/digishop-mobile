@@ -1,8 +1,9 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-back-button></ion-back-button>
     </ion-buttons>
+    <ion-title class="ion-text-center" >Favorites</ion-title>
   </ion-toolbar>
   <ion-toolbar>
     <ion-segment  class="ion-margin-bottom " (ionChange)="segmentChanged($event)" [(ngModel)]="segment">
@@ -19,43 +20,43 @@
 <ion-content>
   <ion-slides class="slides-wrapper" #slider (ionSlideDidChange)="slideChanged()">
     <ion-slide>
-      <ion-card *ngIf="favoriteService.favorite.produitsfavotisList.length>0">
-        <ion-card-content >
+      <ion-grid *ngIf="authenservice.utilisateur.favoris.produitsfavotisList.length>0">
           <ion-list>
-            <ion-item *ngFor="let p of favoriteService.favorite.produitsfavotisList">
+            <ion-item *ngFor="let p of authenservice.utilisateur.favoris.produitsfavotisList">
               <ion-thumbnail>
                 <img [src]="p.image">
               </ion-thumbnail>
               <ion-label>
                 <h4>{{p.nomProduit}}</h4>
-                <p> {{p.prixProduit}}</p>
+                <p>Prix {{p.prixProduit}}<sup>Fcfa</sup></p>
                 <p>Qté {{p.quantiteEnStock}}</p>
               </ion-label>
               <ion-icon color="success" (click)="detail(p)" name="eye-outline"></ion-icon>
               <ion-icon color="danger" (click)="delectFavorite(p,null)" name="trash-outline"></ion-icon>
             </ion-item>
           </ion-list>
-
-        </ion-card-content>
-      </ion-card>
+      </ion-grid>
     </ion-slide>
 
     <ion-slide>
-      <ion-card *ngIf="favoriteService.favorite.boutiquefavorisList.length>0" >
+      <ion-card *ngFor="let b of authenservice.utilisateur.favoris.boutiquefavorisList">
       <ion-card-content >
         <ion-list>
-          <ion-item *ngFor="let b of favoriteService.favorite.boutiquefavorisList">
-            <ion-thumbnail>
               <img [src]="b.photoboutique">
-            </ion-thumbnail>
             <ion-label>
               <h4>{{b.nomBoutique}}</h4>
               <p> {{b.telephoneBoutique}}</p>
               <p> {{b.adressBoutique}}</p>
             </ion-label>
-            <ion-icon color="success" (click)="gotoshope(b)" name="eye-outline"></ion-icon>
-            <ion-icon color="danger"(click)="delectFavorite(null,b)" name="trash-outline"></ion-icon>
-          </ion-item>
+          <ion-button (click)="gotoshope(b)">
+            <ion-icon color="success"  name="eye-outline"></ion-icon>
+          </ion-button>
+          <ion-button (click)="delectFavorite(null,b)">
+            <ion-icon color="danger" name="trash-outline"></ion-icon>
+          </ion-button>
+
+
+
         </ion-list>
 
       </ion-card-content>

@@ -7,6 +7,7 @@ import {CategorieProduitDTO} from "../../../Model/CategorieProduitDTO";
 import {IonSearchbar} from "@ionic/angular";
 import {AuthenService} from "../../../home/components/Service/AuthenService";
 import {NatifService} from "../../Service/NatifService";
+import {FavoriteService} from "../../Service/FavoriteService";
 
 @Component({
   selector: 'app-acceuil',
@@ -32,7 +33,7 @@ export class AcceuilComponent implements OnInit {
   };
 
   constructor(public produitService:ProduitService,public boutiqueService:BoutiqueService,public router:Router,
-              public authenService:AuthenService,public natifService:NatifService) {}
+              public authenService:AuthenService,public natifService:NatifService,public favoriteService:FavoriteService) {}
 
   ngOnInit() {
     this.produitService.getAllproduit();

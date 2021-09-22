@@ -4,12 +4,13 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title class="ion-text-center" >{{boutiqueService.boutique.nomBoutique}}</ion-title>
-    <ion-buttons slot="end" class=" ion-margin-horizontal">
+    <ion-buttons (click)="router.navigateByUrl('client/favorite')" slot="end" class=" ion-margin-horizontal">
       <ion-icon name="heart-outline" color="danger" slot="icon-only"></ion-icon>
-      <ion-badge>{{authenService.utilisateur.cart.cartItems.length}}</ion-badge>
+      <ion-badge>{{favoriteService.nb_favorite}}</ion-badge>
     </ion-buttons>
-    <ion-buttons slot="end" (click)="scanProduit()">
-      <ion-icon color="primary" name="scan-circle-outline"></ion-icon>
+    <ion-buttons slot="end" (click)="router.navigateByUrl('client/panier')">
+      <ion-icon name="cart-outline" color="warning" slot="icon-only"></ion-icon>
+      <ion-badge>{{authenService.utilisateur.cart.cartItems.length}}</ion-badge>
     </ion-buttons>
   </ion-toolbar>
   <ion-toolbar id="search-toolbar">
@@ -81,10 +82,9 @@
   </ion-slides>
 
 
-  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-    <ion-fab-button color="ligth" routerLink="/client/panier">
-      <ion-icon color="warning" name="cart-outline"></ion-icon>
-      <ion-badge >{{authenService.utilisateur.cart.cartItems.length}}</ion-badge>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="ligth" (click)="scanProduit()">
+        <ion-icon color="primary" name="scan-circle-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </ion-content>

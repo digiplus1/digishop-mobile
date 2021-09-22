@@ -62,10 +62,13 @@ ion-toolbar{
   }
   ion-badge{
     --background: transparent;
-    --padding-bottom: 25px;
-    --padding-top: 0px;
-    --padding-start: 0px;
-    color: #151515;
+    margin-bottom: 25px;
+    height: 20px!important;
+    width: 20px!important;
+    color: #0d4765;
+    border-radius: 1.8rem;
+    border: #971e49 solid 1px;
+
   }
 }
 ion-searchbar{

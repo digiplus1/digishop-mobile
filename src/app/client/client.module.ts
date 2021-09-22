@@ -28,16 +28,28 @@ import {CommandeClientService} from "./Service/CommandeClientService";
 import {DigiXpresService} from "./Service/DigiXpresService";
 import {CouponService} from "./Service/CouponService";
 import {FavoriteComponent} from "./component/favorite/favorite.component";
+import {HistoriqueComponent} from "./component/historique/historique.component";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    AcceuilModule,
     HttpClientModule,
     ClientPageRoutingModule,
   ],
-
-  declarations: [ClientPage,ProfilComponent,AproposComponent,CouponComponent,FavoriteComponent]
+  providers:[
+    CallNumber,
+    NatifService,
+    ProduitService,
+    BoutiqueService,
+    CartService,
+    FavoriteService,
+    CommandeClientService,
+    DigiXpresService,
+    CouponService,
+  ],
+  declarations: [ClientPage,ProfilComponent,AproposComponent,CouponComponent,FavoriteComponent,HistoriqueComponent]
 })
 export class ClientPageModule {}

@@ -4,6 +4,9 @@ import {ProduitService} from "../Service/ProduitService";
 import {BoutiqueService} from "../Service/BoutiqueService";
 import {ProduitDto} from "../../Model/ProduitDto";
 import {CartService} from "../Service/CartService";
+import {Router} from "@angular/router";
+import {FavoriteService} from "../Service/FavoriteService";
+import {FavorisDTO} from "../../Model/FavorisDTO";
 
 @Component({
   selector: 'app-detailproduits',
@@ -12,7 +15,8 @@ import {CartService} from "../Service/CartService";
 })
 export class DetailproduitsPage implements OnInit {
 
-  constructor(public authenService:AuthenService,public produitService:ProduitService,public cartService:CartService) { }
+  constructor(public authenService:AuthenService,public produitService:ProduitService,public favoriteService:FavoriteService,
+              public cartService:CartService,public router:Router) { }
 
   ngOnInit() {
   }
@@ -24,6 +28,14 @@ export class DetailproduitsPage implements OnInit {
   }
 
 
+  addfavoriteProduit(produit: ProduitDto) {
+    let favorite:FavorisDTO=new FavorisDTO();
+    favorite.nomboutique=produit.nomboutique;
+    favorite.nomproduit=produit.nomProduit;
+    favorite.action="add";
+    favorite.nomclient=this.authenService.utilisateur.username;
+    this.favoriteService.manageItemsToFavoris(favorite);
+  }
    slideOpts = {
     grabCursor: true,
     cubeEffect: {

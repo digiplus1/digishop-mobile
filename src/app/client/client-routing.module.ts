@@ -10,6 +10,7 @@ import {ProduitboutiqueComponent} from "./component/acceuil/produitboutique/prod
 import {AdresseComponent} from "./component/acceuil/adresse/adresse.component";
 import {PayementComponent} from "./component/acceuil/payement/payement.component";
 import {FactureComponent} from "./component/facture/facture.component";
+import {FavoriteComponent} from "./component/favorite/favorite.component";
 
 const routes: Routes = [
   {
@@ -17,11 +18,20 @@ const routes: Routes = [
     component: ClientPage
 
   },
+
   {
-    path: 'panier',
-    loadChildren: () => import('./panier/panier.module').then( m => m.PanierPageModule)
+    path: 'menuclient',
+    loadChildren: () => import('../client/menuclient/menuclient.module').then( m => m.MenuclientPageModule)
   },
 
+  {
+    path: 'panier',
+    loadChildren: () => import('../client/panier/panier.module').then( m => m.PanierPageModule)
+  },
+  {
+    path:'favorite',
+    component:FavoriteComponent
+  },
   {
     path: 'boutique',
     loadChildren: () => import('./boutique/boutique.module').then( m => m.BoutiquePageModule)

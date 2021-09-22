@@ -23,20 +23,10 @@ import {AcceuilModule} from "../client/component/acceuil/acceuil.module";
     CommonModule,
     FormsModule,
     IonicModule,
-    AcceuilModule,
+
     TabclientPageRoutingModule
   ],
-  providers:[
-    CallNumber,
-    NatifService,
-    ProduitService,
-    BoutiqueService,
-    CartService,
-    FavoriteService,
-    CommandeClientService,
-    DigiXpresService,
-    CouponService,
-  ],
+
   declarations: [TabclientPage]
 })
 export class TabclientPageModule {}

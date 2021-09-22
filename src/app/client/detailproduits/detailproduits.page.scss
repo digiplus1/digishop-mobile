@@ -45,22 +45,23 @@ ion-content{
       }
     }
     .rates{
-      display: flex;
+     /* display: flex;
       align-items: center;
-      margin-bottom: 3rem;
+      margin-bottom: 3rem;*/
       .badge{
-        margin-right: 1rem;
+        /*margin-right: 1rem;
         background: #6b45bc;
         color: #fff;
         font-size: 1.2rem;
         display: flex;
         align-items: center;
         padding: 0.6rem;
-        border-radius: 1rem;
+        border-radius: 1rem;*/
 
         ion-icon{
           margin-right: 0.3rem;
-          font-size: 1.5rem;
+          font-size: 1.8rem;
+          font-weight: bold;
         }
       }
     }
@@ -74,17 +75,6 @@ ion-content{
         line-height: 1.6;
         color: #b9b9b9;
       }
-    }
-
-    ion-button{
-      --box-shadow: none;
-      --border-radius: 1.8rem;
-      --background: #6b45bc;
-
-      text-transform: initial;
-      font-size: 1.2rem;
-      font-weight: 400;
-      height: 70px;
     }
   }
 

@@ -9,7 +9,6 @@ import {ProduitDto} from "../../Model/ProduitDto";
 
 @Injectable()
 export class FavoriteService {
-  favorite: FavorisDTO = new FavorisDTO();
   nb_favorite: number = 0;
 
   constructor(public http:HttpClient,public authenService:AuthenService,public router:Router) {
@@ -21,7 +20,7 @@ export class FavoriteService {
   manageItemsToFavoris(favorisDTO: FavorisDTO){
     return this.http.post(AdresseIP.host+'managefavoris',favorisDTO).subscribe(
       data=>{
-        this.calculfavorite(this.favorite);
+        this.getFavorisByClient();
       },error => {
         this.authenService.toastMessage(error.error.message)
       }
@@ -32,7 +31,7 @@ export class FavoriteService {
     if (this.authenService.utilisateur){
       return this.http.get<FavorisDTO>(AdresseIP.host + 'getfavorisbyuser/' + this.authenService.utilisateur.username).subscribe(
         data => {
-          this.favorite = data;
+          this.authenService.utilisateur.favoris = data;
           if (data) {
             this.calculfavorite(data);
           }
@@ -44,36 +43,35 @@ export class FavoriteService {
   }
 
   deleteFavorite(produitDto: ProduitDto, boutique: BoutiquePos) {
-    this.favorite.action = 'delete';
-    this.favorite.nomclient = this.authenService.utilisateur.username;
+    this.authenService.utilisateur.favoris.action = 'delete';
+    this.authenService.utilisateur.favoris.nomclient = this.authenService.utilisateur.username;
     if (produitDto) {
-      this.favorite.nomboutique = produitDto.nomboutique;
-      this.favorite.nomproduit = produitDto.nomProduit;
-      let index = this.favorite.produitsfavotisList.findIndex(p => p.idProduit == produitDto.idProduit);
-      this.favorite.produitsfavotisList.splice(index, 1);
-      this.calculfavorite(this.favorite);
+      this.authenService.utilisateur.favoris.nomboutique = produitDto.nomboutique;
+      this.authenService.utilisateur.favoris.nomproduit = produitDto.nomProduit;
+      let index = this.authenService.utilisateur.favoris.produitsfavotisList.findIndex(p => p.idProduit == produitDto.idProduit);
+      this.authenService.utilisateur.favoris.produitsfavotisList.splice(index, 1);
+      this.calculfavorite(this.authenService.utilisateur.favoris);
     } else if (boutique) {
-      this.favorite.nomboutique = boutique.nomBoutique;
-      let index = this.favorite.boutiquefavorisList.findIndex(p => p.idBoutique == boutique.idBoutique);
-      this.favorite.boutiquefavorisList.splice(index, 1);
-      this.calculfavorite(this.favorite);
+      this.authenService.utilisateur.favoris.nomboutique = boutique.nomBoutique;
+      let index = this.authenService.utilisateur.favoris.boutiquefavorisList.findIndex(p => p.idBoutique == boutique.idBoutique);
+      this.authenService.utilisateur.favoris.boutiquefavorisList.splice(index, 1);
+      this.calculfavorite(this.authenService.utilisateur.favoris);
     }
-    this.manageItemsToFavoris(this.favorite);
+    this.manageItemsToFavoris(this.authenService.utilisateur.favoris);
   }
 
 
   calculfavorite(favorite: FavorisDTO) {
-    if (favorite) {
+    if (this.authenService.utilisateur.favoris) {
       this.nb_favorite = 0;
-      this.nb_favorite += favorite.boutiquefavorisList.length;
-      this.nb_favorite += favorite.produitsfavotisList.length;
-      this.favorite = favorite;
+      this.nb_favorite += this.authenService.utilisateur.favoris.boutiquefavorisList.length;
+      this.nb_favorite += this.authenService.utilisateur.favoris.produitsfavotisList.length;
 
-      let user = JSON.parse(localStorage.getItem('user'));
+      let user = JSON.parse(localStorage.getItem('utilisateur'));
       if (user) {
         if (this.authenService.utilisateur.favoris) {
           this.authenService.utilisateur.favoris = favorite;
-          localStorage.setItem('user', JSON.stringify(this.authenService.utilisateur));
+          localStorage.setItem('utilisateur', JSON.stringify(this.authenService.utilisateur));
         }
 
       }

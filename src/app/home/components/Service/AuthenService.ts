@@ -57,7 +57,7 @@ export class AuthenService {
       this.router.navigateByUrl("/admin");
     }else if (roles.length==1) {
       this.utilisateur.role="client";
-      this.router.navigateByUrl("/tabclient/menuclient/acceuil");
+      this.router.navigateByUrl("/client/menuclient/acceuil");
     }
 
   }
