@@ -4,15 +4,18 @@ import {HttpClient} from "@angular/common/http";
 import {AuthenService} from "../../home/components/Service/AuthenService";
 import {AdresseIP} from "../../Service/AdresseIP";
 import {MainService} from "../../shared/services/MainService";
+import { CategorieProduitDTO } from "src/app/Model/CategorieProduitDTO";
 
 @Injectable()
 export class  ServiceProduit {
 
   produitList : ProduitDto [] = [];
+  produitListTemp : ProduitDto [] = [];
   produitPopulaire : ProduitDto [] = [];
   produitNonPopulaire : ProduitDto [] = [];
   nomProduit : string [] = [];
   nomProduitFilter : string [] = [];
+  categorieList : CategorieProduitDTO [] = [];
 
   constructor(public http:HttpClient,public authenService:AuthenService, private mainService : MainService) {
   }
@@ -31,6 +34,7 @@ export class  ServiceProduit {
           data=>{
             console.log(data);
             this.produitList = data;
+            this.produitListTemp = data;
             this.mainService.spinner.hide();
           }, error => {
             this.authenService.toastMessage(error.error.message);
@@ -59,5 +63,9 @@ export class  ServiceProduit {
 
   searchProduitByNom(nomproduit : string){
     return this.produitList.find(p=>{return p.nomProduit == nomproduit});
+  }
+
+  getAllCategorie() {
+    return this.http.get<CategorieProduitDTO[]>(AdresseIP.host + "all/categorie/");
   }
 }

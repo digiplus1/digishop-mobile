@@ -7,6 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { BoutiquesPageRoutingModule } from './boutiques-routing.module';
 
 import { BoutiquesPage } from './boutiques.page';
+import {AccueilboutiquesComponent} from "./components/accueilboutiques/accueilboutiques.component";
+import {InventairelistComponent} from "./components/inventairelist/inventairelist.component";
+import {ManagestockComponent} from "./components/managestock/managestock.component";
+import {OperationstockComponent} from "./components/operationstock/operationstock.component";
+import {ProduitlistComponent} from "./components/produitlist/produitlist.component";
+import {TransactionstockComponent} from "./components/transactionstock/transactionstock.component";
+import {DetailsproduitComponent} from "./components/produitlist/detailsproduit/detailsproduit.component";
+import {AddproduitComponent} from "./components/produitlist/addproduit/addproduit.component";
 
 @NgModule({
   imports: [
@@ -15,6 +23,7 @@ import { BoutiquesPage } from './boutiques.page';
     IonicModule,
     BoutiquesPageRoutingModule
   ],
-  declarations: [BoutiquesPage]
+  declarations: [BoutiquesPage, AccueilboutiquesComponent, InventairelistComponent, ManagestockComponent, OperationstockComponent,
+                  ProduitlistComponent, TransactionstockComponent, DetailsproduitComponent, AddproduitComponent]
 })
 export class BoutiquesPageModule {}

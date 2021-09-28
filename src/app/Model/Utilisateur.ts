@@ -29,4 +29,6 @@ export class Utilisateur {
   favoris:FavorisDTO;
   caisseSessions : CaisseSession [];
   boutique:BoutiquePos;
+  isProprietaire : boolean;
+  isVendeur : boolean;
 }

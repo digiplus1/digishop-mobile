@@ -5,6 +5,23 @@
     </ion-list>
   </div>
 <ion-content>
+  <ion-card *ngIf="active">
+      <ion-row class="justify-content-center">
+        <ion-label class="text-center">
+          <ion-text *ngIf="vendeurTemp.activevendeur">Voulez-vous désactiver le vendeur <strong class="text-danger">{{vendeurTemp.username}}</strong></ion-text>
+          <ion-text *ngIf="!vendeurTemp.activevendeur">Voulez-vous activer le vendeur <strong class="text-danger">{{vendeurTemp.username}}</strong></ion-text>
+        </ion-label>
+      </ion-row>
+    <ion-row>
+      <ion-col class="text-center">
+        <ion-icon (click)="valider()" color="primary" size="large" name="checkmark-circle-outline"></ion-icon>
+      </ion-col>
+      <ion-col class="text-center">
+        <ion-icon (click)="annuler()" color="secondary" size="large" name="close-circle-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
   <div *ngIf="serviceUser.vendeursList.length>0">
     <ion-card *ngFor="let c of vendeurs">
       <ion-row class="justify-content-center">

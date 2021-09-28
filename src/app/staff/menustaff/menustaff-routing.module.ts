@@ -36,16 +36,8 @@ const routes: Routes = [
         loadChildren: () => import('../components/dashboard/dashboard.module').then( m => m.DashboardPageModule)
       },
       {
-        path: 'produits',
-        loadChildren: () => import('../components/produits/produits.module').then( m => m.ProduitsPageModule)
-      },
-      {
         path: 'vendeurs',
         loadChildren: () => import('../components/vendeurs/vendeurs.module').then( m => m.VendeursPageModule)
-      },
-      {
-        path: 'inventaires',
-        loadChildren: () => import('../components/inventaires/inventaires.module').then( m => m.InventairesPageModule)
       },
       {
         path: 'boutique',

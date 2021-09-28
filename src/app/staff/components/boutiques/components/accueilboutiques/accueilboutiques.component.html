@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-segment scrollable
+               value="produit"
+               mode="md"
+               color="secondary"
+               [(ngModel)]="segmentModel"
+               (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="produit" checked>
+      <ion-icon name="albums-outline"></ion-icon>
+      <ion-label class="text-lowercase">Produits</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="stock">
+      <ion-icon name="card-outline"></ion-icon>
+      <ion-label class="text-lowercase">Stocks</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="inventaire">
+      <ion-icon name="clipboard-outline"></ion-icon>
+      <ion-label class="text-lowercase">Inventaires</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-header>
+
+<ion-content>
+  <app-produitlist *ngIf="segmentModel=='produit'"></app-produitlist>
+  <app-managestock *ngIf="segmentModel=='stock'"></app-managestock>
+  <app-inventairelist *ngIf="segmentModel=='inventaire'"></app-inventairelist>
+</ion-content>
