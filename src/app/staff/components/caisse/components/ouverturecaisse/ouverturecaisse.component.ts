@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {MainService} from "../../../../../shared/services/MainService";
 import {CaisseDTO} from "../../../../models/CaisseDTO";
 import {AuthenService} from "../../../../../home/components/Service/AuthenService";
 import {ServiceCaisse} from "../../../../services/ServiceCaisse";
