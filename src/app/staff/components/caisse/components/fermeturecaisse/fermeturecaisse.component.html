@@ -1,0 +1,28 @@
+<ion-content>
+
+  <ion-grid id="form">
+      <ion-icon (click)="goBack()" class="text-start" size="large" color="secondary" name="arrow-undo-outline"></ion-icon>
+      <h5 class="text-center" style="color: #0f5173"><strong>FERMETURE DE CAISSE</strong></h5>
+
+    <div class="text-center">
+      <img class="img-thumbnail" src="./assets/images/opensource.png" style="height: 150px; width: 150px; margin-bottom: 5%">
+    </div>
+
+    <ion-item lines="none" class="ion-margin-bottom">
+      <ion-input [(ngModel)]="montant" placeholder="Montant d'ouverture" type="number" required></ion-input>
+      <ion-icon slot="end" color="primary" name="cash-outline"></ion-icon>
+    </ion-item>
+
+
+    <ion-item lines="none" class="ion-margin-bottom">
+      <ion-input [(ngModel)]="commentaire" type="text" placeholder="Commentaire" required></ion-input>
+      <ion-icon slot="end" color="primary" name="information-outline"></ion-icon>
+    </ion-item>
+
+    <ion-button expand="block" (click)="onAction()" (keydown.enter)="onAction()" color="primary" shape="round" type="submit">
+      Valider
+    </ion-button>
+
+  </ion-grid>
+
+</ion-content>

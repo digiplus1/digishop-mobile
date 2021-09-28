@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-item lines="none">
+    <ion-icon (click)="goBack()" slot="start" size="large" color="primary" name="arrow-undo-outline"></ion-icon>
+  </ion-item>
+
+  <div>
+    <ion-searchbar (ionInput)="FilterElement($event)" [(ngModel)]="search" placeholder="Entrer une référence commande" name ="Entrer la référence" ></ion-searchbar>
+    <ion-list style="padding: unset">
+      <ion-item (click)="selectCmd(a.referencecommande)" lines="none" *ngFor="let a of serviceCommande.commandeRefListFilter">{{a.referencecommande}}</ion-item>
+    </ion-list>
+  </div>
+</ion-header>
+<ion-content>
+  <div *ngIf="cmdRef.length>0">
+    <ion-card *ngFor="let c of cmdRef">
+      <ion-row class="justify-content-center">
+        <ion-col>
+          <ion-label><strong>{{c.referencecommande}}</strong></ion-label>
+        </ion-col>
+        <ion-col class="text-center">
+          <ion-label color="secondary">{{c.statut}}</ion-label>
+        </ion-col>
+        <ion-col class="text-end">
+          <ion-button size="small" (click)="selectItem(c)">
+            <ion-icon name="send"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </div>
+</ion-content>

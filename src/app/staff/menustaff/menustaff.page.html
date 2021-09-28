@@ -1,0 +1,28 @@
+<ion-menu contentId="main">
+  <ion-content>
+    <div class="menu-header-bg">Menu</div>
+    <div class="header-content">
+      <img [src]="authenservice.utilisateur.photouser?authenservice.utilisateur.photouser:'assets/img/users.png'">
+      <ion-label>
+        <h2>{{authenservice.utilisateur.username}}</h2>
+        <p>{{authenservice.utilisateur.email}}</p>
+      </ion-label>
+    </div>
+    <ion-menu-toggle lines="none" class="menu-item" >
+      <ion-item  *ngFor="let m of menus" button (click)="onMenuAction(m)" [class]="m.status">
+        <ion-icon [color]="m.status=='active'?'secondary':'primary'" [name]="m.icon"></ion-icon><ion-label [color]="m.status=='active'?'secondary':'primary'" >{{m.title}}</ion-label>
+      </ion-item>
+    </ion-menu-toggle>
+  </ion-content>
+  <ion-footer>
+    <ion-item lines="none">
+      <ion-icon size="small" style="margin-left: 5%" name="call-outline" color="primary"></ion-icon>
+      <ion-label style="margin-left: 5%">6 77 10 40 40 / 6 96 96 10 11</ion-label>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-icon size="small" style="margin-left: 5%" name="mail-outline" color="danger"></ion-icon>
+      <ion-label style="margin-left: 5%">contact@digiplus-cm.com</ion-label>
+    </ion-item>
+  </ion-footer>
+</ion-menu>
+<ion-router-outlet id="main" main></ion-router-outlet>

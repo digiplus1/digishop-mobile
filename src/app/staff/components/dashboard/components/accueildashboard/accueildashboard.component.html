@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-segment scrollable
+               value="alerte"
+               mode="md"
+               color="secondary"
+               [(ngModel)]="segmentModel"
+               (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="alerte" checked>
+      <ion-icon name="alert-circle-outline"></ion-icon>
+      <ion-label class="text-lowercase">Stock Alert</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="sessions">
+      <ion-icon name="wallet"></ion-icon>
+      <ion-label class="text-lowercase">Sessions de Caisse</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="ventes">
+      <ion-icon name="cart-outline"></ion-icon>
+      <ion-label class="text-lowercase">Ventes</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-header>
+
+<ion-content>
+  <app-alertstock *ngIf="segmentModel == 'alerte'"></app-alertstock>
+  <app-sessioncaisse *ngIf="segmentModel == 'sessions'"></app-sessioncaisse>
+  <app-ventesdashboard *ngIf="segmentModel == 'ventes'"></app-ventesdashboard>
+</ion-content>
+
+<ion-footer *ngIf="serviceDash.testSegmentCaisse">
+  <ion-segment
+    value="ouverte"
+    mode="md"
+    color="primary"
+    [(ngModel)]="serviceDash.segmentCaisse">
+    <ion-segment-button value="ouverte" checked>
+      <ion-icon name="enter-outline"></ion-icon>
+      <ion-label class="text-lowercase">Sessions Ouvertes</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="fermee">
+      <ion-icon name="exit-outline"></ion-icon>
+      <ion-label class="text-lowercase">Sessions Fermées</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-footer>
+
+

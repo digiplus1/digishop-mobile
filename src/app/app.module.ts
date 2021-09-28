@@ -16,6 +16,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {QRScanner} from "@ionic-native/qr-scanner/ngx";
 import {BarcodeScanner} from "@ionic-native/barcode-scanner/ngx";
+import {DatePipe} from '@angular/common';
 
 const SERVICES = [
   MainService,
@@ -40,6 +41,7 @@ const SERVICES = [
     AuthenService,
     QRScanner,
     BarcodeScanner,
+    DatePipe,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
       SERVICES
     ],

@@ -1,0 +1,68 @@
+<ion-content>
+  <div class="box">
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="box-part text-center" (click)="navigateRoute('/menustaff/caisse/entreecaisse')">
+          <ion-icon name="enter-outline" size="large" color="secondary"></ion-icon>
+          <div class="title">
+            <h2>Entreé en Caisse</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="box-part text-center" (click)='navigateRoute("/menustaff/caisse/sortiecaisse")'>
+          <ion-icon name="exit-outline" size="large" color="secondary"></ion-icon>
+          <div class="title">
+            <h2>Sortie de Caisse</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="box-part text-center" (click)='navigateRoute("/menustaff/caisse/ventecaisse")'>
+          <ion-icon name="cart-outline" size="large" color="secondary"></ion-icon>
+          <div class="title">
+            <h2>Vente en Caisse</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="box-part text-center" (click)='navigateRoute("/menustaff/caisse/transactionscaisse")'>
+          <ion-icon name="clipboard-outline" size="large" color="secondary"></ion-icon>
+          <div class="title">
+            <h2>Transaction de Caisse</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="box-part text-center" (click)='navigateRoute("/menustaff/caisse/fermeturecaisse")'>
+          <ion-icon name="close-circle-outline" size="large" color="secondary"></ion-icon>
+          <div class="title">
+            <h2>Fermeture de Caisse</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="box-part text-center" (click)='navigateRoute("/menustaff/caisse/client")'>
+          <ion-icon name="person" size="large" color="secondary"></ion-icon>
+          <div class="title">
+            <h2>Compte Client</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="box-part text-center" (click)='navigateRoute("/menustaff/caisse/commandeclient")'>
+          <ion-icon name="book" size="large" color="secondary"></ion-icon>
+          <div class="title">
+            <h2>Commande Client</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

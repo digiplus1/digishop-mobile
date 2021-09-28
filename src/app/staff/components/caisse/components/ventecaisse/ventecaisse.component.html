@@ -1,0 +1,41 @@
+<ion-header>
+  <div id="headerV">
+    <ion-item lines="none">
+      <ion-icon (click)="goBack()" slot="start" size="large" color="primary" name="arrow-undo-outline"></ion-icon>
+      <ion-buttons (click)="savePanierToBrouillon()" slot="end" class="topright" align="right">
+        <ion-icon color="primary" size="large" name="card"></ion-icon>
+        <ion-label> Brouillon</ion-label>
+      </ion-buttons>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-buttons slot="start" style="margin-left: 20%">
+        <ion-icon color="secondary" size="large" name="cart-outline"></ion-icon>
+        <ion-label color="primary"><strong>{{servicepanier.panierCaisse.cartItems.length}}</strong></ion-label>
+      </ion-buttons>
+      <ion-buttons (click)="scanCode()" slot="end" style="margin-right: 30%">
+        <ion-icon color="secondary" name="aperture" size="large"></ion-icon>
+        <ion-label style="margin-top: 2px"> Scan</ion-label>
+      </ion-buttons>
+    </ion-item>
+  </div>
+
+
+  <div>
+    <ion-searchbar (ionInput)="FilterElement($event)" [(ngModel)]="search" placeholder="Rechercher un produit" name ="Entrer le nom du produit" ></ion-searchbar>
+    <ion-list style="padding: unset">
+      <ion-item (click)="addPanier(a)" lines="none" *ngFor="let a of serviceproduit.nomProduitFilter">{{a}}</ion-item>
+    </ion-list>
+  </div>
+
+</ion-header>
+<ion-content>
+<app-paniercaisse></app-paniercaisse>
+</ion-content>
+<ion-footer>
+  <ion-item class="footer" lines = "none">
+    <ion-button (click)="clearPanier()" color="secondary" expand="block">x Vider</ion-button>
+    <ion-button color="light" expand="block">{{servicepanier.panierCaisse.montanttotal}} FCFA</ion-button>
+    <ion-button (click)="payer()" color="primary" expand="block">Payer ></ion-button>
+  </ion-item>
+</ion-footer>

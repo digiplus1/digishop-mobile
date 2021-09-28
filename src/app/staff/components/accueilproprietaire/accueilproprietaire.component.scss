@@ -1,0 +1,37 @@
+ion-toolbar {
+  --background: #0f5173;
+  ion-buttons, ion-title {
+    color: white;
+  }
+}
+#active {
+  margin: 0%;
+  width: 100%;
+}
+
+.box{
+  padding:30px 20px;
+}
+
+.box-part{
+  background:#FFFFFF;
+  border-radius:20px;
+  padding:25px 10px;
+  margin:15px 15px;
+  cursor: pointer;
+}
+.text{
+  margin:20px 0px;
+}
+
+.blue-icon-fa{
+  color:#4183D7;
+}
+
+.white-icon-fa{
+  color:#fff;
+}
+.box-part:hover {
+  box-shadow: 0 0 11px rgba(33,33,33,.2);
+}
+

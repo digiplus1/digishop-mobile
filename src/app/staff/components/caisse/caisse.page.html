@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Gestion Caisse</ion-title>
+    <ion-label *ngIf="caisseService.SessionActive" slot="end">{{caisseService.SessionActive.soldesession}} FCFA</ion-label>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-router-outlet></ion-router-outlet>
+</ion-content>
+
+<ion-fab *ngIf="(this.dashService.etatVendeur.nbsessionouverte != 0 || this.caisseService.SessionActive != null)" slot="fixed" vertical="bottom" horizontal="end">
+  <ion-fab-button (click)="goVenteRapide()" title="Vente Rapide" color="secondary" mode="md" type="button">
+    <ion-icon name="flash"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

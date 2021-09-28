@@ -1,0 +1,101 @@
+<ion-content>
+  <div id="print-section" class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="invoice-title text-center">
+          <h2>RAPPORT DE SESSION</h2>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-4 text-center">
+        <address>
+          <strong>{{this.authenService.utilisateur.nomBoutique}} </strong><br>
+        </address>
+      </div>
+      <div class="col-md-4 text-center">
+        <address>
+          <strong> Vendeur : {{ this.authenService.utilisateur.username }} </strong><br>
+        </address>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title text-center"><strong>Détails</strong></h3>
+          </div>
+          <div class="panel-body">
+            <div class="table-responsive">
+              <table class="table table-condensed">
+                <thead>
+                <tr>
+                  <td class="text-left"><strong>Libelle</strong></td>
+                  <td class="text-center"><strong>Montant</strong></td>
+                </tr>
+                </thead>
+                <tbody >
+                <!-- foreach ($order->lineItems as $line) or some such thing here -->
+                <tr>
+                  <td class="text-left">Date ouverture</td>
+                  <td class="text-center">{{this.caisseService.SessionActive.dateouverture || 'dd/MM/yyyy'}}</td>
+                </tr>
+                <tr>
+                  <td class="text-left">Date fermeture</td>
+                  <td class="text-center">{{this.datetime || 'dd/MM/yyyy'}}</td>
+                </tr>
+                <tr>
+                  <td class="text-left">Montant fermeture</td>
+                  <td class="text-center">{{this.montant}}</td>
+                </tr>
+                <tr>
+                  <td class="text-left">Montant Ouverture</td>
+                  <td class="text-center">{{this.caisseService.SessionActive.montantinitial}}</td>
+                </tr>
+                <tr>
+                  <td class="text-left">Montant Orange Money</td>
+                  <td class="text-center">{{this.caisseService.caisseDTOTemp.om}}</td>
+                </tr>
+                <tr>
+                  <td class="text-left">Montant Mobile Money</td>
+                  <td class="text-center">{{this.caisseService.caisseDTOTemp.momo}}</td>
+                </tr>
+                <tr>
+                  <td class="text-left">Montant des Entrées</td>
+                  <td class="text-center">{{this.caisseService.caisseDTOTemp.entree}}</td>
+                </tr>
+                <tr>
+                  <td class="text-left">Montant des Sorties</td>
+                  <td class="text-center">{{this.caisseService.caisseDTOTemp.sortie}}</td>
+                </tr>
+                <tr>
+                  <td class="text-left">Solde en Caisse</td>
+                  <td class="text-center">{{this.caisseService.SessionActive.soldesession}}</td>
+                </tr>
+                <tr>
+                  <td class="text-left">Difference</td>
+                  <td class="text-center">{{(this.caisseService.SessionActive.soldesession) - this.montant}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ion-row>
+    <ion-col>
+      <ion-button size="small" color="primary" expand="block" (keydown.enter)= "fermetureCaisse()" (click)="fermetureCaisse()">Valider</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button size="small" color="danger" expand="block" (click)="dismiss()">Annuler</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button size="small" color="medium" expand="block" (click)="print()">Imprimer</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>

@@ -37,4 +37,5 @@ export class ProduitDto {
   manageStock:boolean;
   stock:Stock;
   lien:string;
+  populaire : boolean;
 }

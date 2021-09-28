@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: StaffPage
-  }
+  },
+  {
+    path: 'menustaff',
+    loadChildren: () => import('./menustaff/menustaff.module').then( m => m.MenustaffPageModule)
+  },
 ];
 
 @NgModule({

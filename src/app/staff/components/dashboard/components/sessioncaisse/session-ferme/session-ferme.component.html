@@ -1,0 +1,45 @@
+
+
+<ion-content>
+  <ion-grid *ngIf="serviceDash.sessionFermeeList.caisseSessions.length==0" class="ion-text-center" >
+    <img style="margin-top: 25%" src="./assets/images/empty.png" alt="Aucune fermeture de caisse trouvee">
+    <ion-label color="primary">Aucune fermeture de caisse trouvee</ion-label>
+  </ion-grid>
+
+  <ion-grid *ngFor="let cs of serviceDash.sessionFermeeList.caisseSessions">
+    <ion-card (click)="openRapport(cs)">
+      <ion-row class="header-row">
+        <ion-col style="padding-left: 10%;">
+          <ion-label class="ion-text-start"><strong>Ref session</strong></ion-label>
+        </ion-col>
+        <ion-col style="padding-left: 15%;">
+          <ion-label class="ion-text-end">{{cs.idcaissesession}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col style="padding-left: 10%;">
+          <ion-label class="ion-text-start"><strong>Vendeur</strong></ion-label>
+        </ion-col>
+        <ion-col style="padding-left: 15%;">
+          <ion-label class="ion-text-end">{{cs.nomuser}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col style="padding-left: 10%;">
+          <ion-label class="ion-text-start"><strong>Différence</strong></ion-label>
+        </ion-col>
+        <ion-col style="padding-left: 15%;">
+          <ion-label class="ion-text-end">{{cs.montantphysique - cs.montanttheorique}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col style="padding-left: 10%;">
+          <ion-label class="ion-text-start"><strong>Date Fermeture</strong></ion-label>
+        </ion-col>
+        <ion-col style="padding-left: 15%;">
+          <ion-label class="ion-text-end">{{cs.datefermeture | date:"dd-MM-yyyy HH:mm"}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-grid>
+</ion-content>

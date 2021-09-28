@@ -1,5 +1,7 @@
 import {Cart} from "./Cart";
 import {FavorisDTO} from "./FavorisDTO";
+import {CaisseSession} from "../staff/models/CaisseSession";
+import {BoutiquePos} from "./BoutiquePos";
 
 
 export class Utilisateur {
@@ -25,5 +27,6 @@ export class Utilisateur {
   nomBoutique:string;
   cart:Cart;
   favoris:FavorisDTO;
-
+  caisseSessions : CaisseSession [];
+  boutique:BoutiquePos;
 }

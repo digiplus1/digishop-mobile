@@ -23,11 +23,15 @@ export class Commande {
   codeclotureboutique:string;
   idcolis:number;
   dateLivraison:Date;
+  livreur:string;
   codeCoupon:string;
   montantCoupon:number;
+  montantRemise:number;
+  reduction:boolean;
   adresse:AdresseCommande;
   nomclient:string;
   phone:string;
+  codeorange:string;
   cartItems:CartItem[];
   montantcommande:number;
   payement:PayementDto;

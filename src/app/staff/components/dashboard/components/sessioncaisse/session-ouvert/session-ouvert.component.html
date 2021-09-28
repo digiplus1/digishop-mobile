@@ -1,0 +1,71 @@
+<ion-grid>
+  <ion-label color="primary"><h2 class="text-center"><strong>Montant</strong></h2></ion-label>
+    <ion-row>
+      <ion-col>
+        <ion-col style="padding-left: 5%">
+          <ion-label class="ion-text-start"><strong>Ligne : </strong></ion-label>
+        </ion-col>
+        <ion-col style="padding-left: 5%">
+          <ion-label color="secondary" class="ion-text-start">{{serviceDash.sessionOuverteList.montantligne}}</ion-label>
+        </ion-col>
+      </ion-col>
+      <ion-col>
+        <ion-col style="padding-left: 5%">
+          <ion-label class="ion-text-start"><strong>Boutique : </strong></ion-label>
+        </ion-col>
+        <ion-col style="padding-left: 5%">
+          <ion-label color="secondary" class="ion-text-start">{{serviceDash.sessionOuverteList.montantboutique}}</ion-label>
+        </ion-col>
+      </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col class="text-center"  style="padding-left: 5%">
+      <ion-label><strong>Total : </strong></ion-label>
+    </ion-col>
+    <ion-col>
+      <ion-label color="secondary" class="ion-text-start">{{serviceDash.sessionOuverteList.montanttotal}}</ion-label>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<ion-content>
+  <ion-grid *ngIf="serviceDash.sessionOuverteList.caisseSessions.length==0" class="ion-text-center" >
+    <img style="margin-top: 25%" src="./assets/images/empty.png" alt="Aucune caisse ouverte trouvee">
+    <ion-label color="primary">Aucune caisse ouverte trouvée</ion-label>
+  </ion-grid>
+
+  <ion-card *ngFor="let c of serviceDash.sessionOuverteList.caisseSessions">
+    <ion-row class="header-row">
+      <ion-col style="padding-left: 10%;">
+        <ion-label class="ion-text-start"><strong>ID Session</strong></ion-label>
+      </ion-col>
+      <ion-col style="padding-left: 15%;">
+        <ion-label class="ion-text-end">{{c.idcaissesession}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col style="padding-left: 10%;">
+        <ion-label class="ion-text-start"><strong>Date Ouverture</strong></ion-label>
+      </ion-col>
+      <ion-col style="padding-left: 15%;">
+        <ion-label class="ion-text-end">{{c.dateouverture | date : 'dd-MMM-yy h:mm'}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col style="padding-left: 10%;">
+        <ion-label class="ion-text-start"><strong>Vendeur</strong></ion-label>
+      </ion-col>
+      <ion-col style="padding-left: 15%;">
+        <ion-label class="ion-text-end">{{c.nomuser}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col style="padding-left: 10%;">
+        <ion-label class="ion-text-start"><strong>Solde</strong></ion-label>
+      </ion-col>
+      <ion-col style="padding-left: 15%;">
+        <ion-label class="ion-text-end">{{c.soldesession}}</ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</ion-content>

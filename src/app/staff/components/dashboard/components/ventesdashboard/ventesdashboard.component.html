@@ -1,0 +1,41 @@
+<ion-content>
+  <ion-label color="primary"><h2 class="text-center">Montant : <strong>{{serviceDash.montantVentes}}</strong></h2></ion-label>
+
+  <ion-grid  *ngIf="serviceDash.commandeDTOListFilter.length==0" class="ion-text-center" >
+    <img style="margin-top: 25%" src="./assets/images/empty.png" alt="Aucune alerte">
+    <ion-label color="primary">Aucune commande trouvée</ion-label>
+  </ion-grid>
+
+  <ion-grid>
+    <div *ngIf="serviceDash.commandeDTOListFilter.length>0">
+      <ion-card *ngFor="let c of serviceDash.commandeDTOListFilter">
+        <ion-row class="justify-content-center">
+          <ion-col>
+            <ion-row>
+              Ref : <ion-label color="primary"><strong>{{c.referencecommande}}</strong></ion-label>
+            </ion-row>
+            <br>
+            <ion-row>
+              Montant :<ion-label color="primary"><strong>{{c.montantcommande}}</strong></ion-label>
+            </ion-row>
+          </ion-col>
+          <ion-col style="padding-left: 5%" class="text-center text-lowercase">
+            <ion-row class="ion-text-center" *ngIf="c.nomclient">
+              Client : <ion-label color="secondary">{{c.nomclient}}</ion-label>
+            </ion-row>
+            <ion-row class="ion-text-center" *ngIf="c.nomvendeur">
+              Vendeur : <ion-label color="secondary">{{c.nomvendeur}}</ion-label>
+            </ion-row>
+            <ion-row class="ion-text-center">
+              Etat : <ion-label color="secondary">{{c.statut}}</ion-label>
+            </ion-row>
+          </ion-col>
+          <ion-col class="text-end">
+            <br>
+            <ion-icon class="ion-text-end" size="large" (click)="selectItem(c)" color="secondary" name="ellipsis-horizontal-outline"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </div>
+  </ion-grid>
+</ion-content>

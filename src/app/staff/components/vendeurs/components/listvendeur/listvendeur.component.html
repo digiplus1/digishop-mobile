@@ -1,0 +1,37 @@
+  <div>
+    <ion-searchbar (ionInput)="FilterElement($event)" [(ngModel)]="search" placeholder="Rechercher un vendeur" name ="Entrer le nom du vendeur" autocomplete="on" ></ion-searchbar>
+    <ion-list style="padding: unset">
+      <ion-item (click)="selectUser(a)" lines="none" *ngFor="let a of serviceUser.vendeursListFilter">{{a.username}}</ion-item>
+    </ion-list>
+  </div>
+<ion-content>
+  <div *ngIf="serviceUser.vendeursList.length>0">
+    <ion-card *ngFor="let c of vendeurs">
+      <ion-row class="justify-content-center">
+        <ion-col>
+          <ion-thumbnail>
+            <img [src]="c.photouser">
+          </ion-thumbnail>
+        </ion-col>
+        <ion-col class="text-center">
+          <ion-row>
+            <ion-label class="text-uppercase" color="secondary"><strong>{{c.username}}</strong></ion-label>
+          </ion-row>
+          <ion-row>
+            Statut :
+            <ion-label *ngIf="c.activevendeur" color="secondary"> Activé</ion-label>
+            <ion-label *ngIf="!c.activevendeur" color="secondary"> Désactivé</ion-label>
+          </ion-row>
+        </ion-col>
+        <ion-col class="text-end">
+          <ion-col>
+            <ion-icon size="large" color="primary" name="create-outline" (click)="showDetails(c)"></ion-icon>
+          </ion-col>
+          <ion-col>
+            <ion-icon size="large" color="secondary" name="close-outline" (click)="desactiveUser(c)"></ion-icon>
+          </ion-col>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </div>
+</ion-content>

@@ -1,0 +1,30 @@
+<ion-icon (click)="goBack()" class="text-start" size="large" color="secondary" name="arrow-undo-outline"></ion-icon>
+<h5 class="text-center" style="color: #0f5173"><strong>TRANSACTIONS DE CAISSE</strong></h5>
+
+<ion-segment scrollable
+             value="tout"
+             mode="md"
+             color="secondary"
+             [(ngModel)]="segmentModel"
+             (ionChange)="segmentChanged($event)">
+  <ion-segment-button value="tout" checked>
+    <ion-icon name="list"></ion-icon>
+    <ion-label>Tout</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="ventes">
+    <ion-icon name="wallet"></ion-icon>
+    <ion-label>Ventes</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="directs">
+    <ion-icon name="compass"></ion-icon>
+    <ion-label>Directs</ion-label>
+  </ion-segment-button>
+</ion-segment>
+
+<ion-content>
+
+    <app-list-transaction *ngIf="segmentModel=='tout'" [transac]="caisseService.caisseTransactionsList"></app-list-transaction>
+    <app-list-transaction *ngIf="segmentModel=='ventes'" [transac]="caisseService.ventesTransactionsList"></app-list-transaction>
+    <app-list-transaction *ngIf="segmentModel=='directs'" [transac]="caisseService.directsTransactionsList"></app-list-transaction>
+
+</ion-content>

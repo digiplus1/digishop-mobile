@@ -4,7 +4,7 @@ export class CartItem {
   idcartitem:number;
   quantite:number;
   prixunitaire:number;
-  montant:number;
+  montant:number = 0;
   description:string;
   produit:ProduitDto;
   nomproduit:string;

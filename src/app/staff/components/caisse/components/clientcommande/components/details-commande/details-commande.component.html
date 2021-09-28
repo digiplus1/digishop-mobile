@@ -1,0 +1,102 @@
+<ion-row *ngIf="is_cloture">
+  <ion-col class="col-sm-3">
+    <ion-label color="secondary"><strong>Code Cloture : </strong></ion-label>
+  </ion-col>
+  <ion-col class="col-sm-6">
+    <ion-input style="width: 100%; --background : #F2F2F2;" type="text" [(ngModel)] ="codeCloture"></ion-input>
+  </ion-col>
+  <ion-col class="col-sm-3 text-center">
+    <ion-icon size="large" name="send" color="primary" (click)="valider()"></ion-icon>
+    <ion-icon size="large" name="close" color="secondary" (click)="Annuler()"></ion-icon>
+  </ion-col>
+</ion-row>
+<ion-content>
+  <div  class="container">
+    <div id="print-sections">
+      <div class="row justify-content-center">
+        <div class="col-xs-12">
+          <div class="invoice-title">
+            <h2 class="text-center">Commande : <strong>{{this.serviceCommande.commandeDTOTemp.referencecommande}}</strong> </h2>
+          </div>
+          <hr>
+          <ion-row class="text-center">
+            <span class="text-danger"> <strong class="text-dark">Mode Commande :</strong> {{serviceCommande.commandeDTOTemp.modecommande}} </span><br>
+          </ion-row>
+          <div class="row">
+            <div class="col-xs-6 text-right" *ngIf="this.serviceCommande.commandeDTOTemp.client">
+              <address>
+                <strong>Client : {{this.serviceCommande.commandeDTOTemp.client.nomcomplet}}</strong><br>
+                Contact : {{this.serviceCommande.commandeDTOTemp.client.phone}}<br>
+                Email : {{this.serviceCommande.commandeDTOTemp.client.email}}
+              </address>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">
+              <address class="justify-content-end">
+                <span *ngIf="this.serviceCommande.commandeDTOTemp.payement.modepayement=='cash'" class="text-danger"> <strong class="text-dark">Mode de paiement:</strong> Cash </span>
+                <span *ngIf="this.serviceCommande.commandeDTOTemp.payement.modepayement=='ORANGE MONEY'" class="text-danger"> <strong class="text-dark">Mode de paiement:</strong> Orange Money </span>
+                <span *ngIf="this.serviceCommande.commandeDTOTemp.payement.modepayement=='MTN MOBILE MONEY'" class="text-danger"> <strong class="text-dark">Mode de paiement:</strong> MTN Mobile Money </span><br>
+                <strong>Commandé le :</strong> {{this.serviceCommande.commandeDTOTemp.datecommande | date:"dd-MM-yyyy HH:mm"}}
+              </address>
+              <div class="justify-content-end">
+                <span class="text-danger"> <strong class="text-dark">Statut :</strong> {{serviceCommande.commandeDTOTemp.payement.statut}} </span><br>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title text-center"><strong>Listes des produits</strong></h3>
+            </div>
+            <div class="panel-body">
+              <div class="table-responsive">
+                <table class="table table-condensed">
+                  <thead>
+                  <tr>
+                    <td><strong>Description</strong></td>
+                    <td class="text-center"><strong>Prix Unitaire</strong></td>
+                    <td class="text-center"><strong>Quantité</strong></td>
+                    <td class="text-right"><strong>Total</strong></td>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let item of this.serviceCommande.commandeDTOTemp.cartItems">
+                    <td>{{item.description}}</td>
+                    <td class="text-center">{{item.prixunitaire}}</td>
+                    <td class="text-center">{{item.quantite}}</td>
+                    <td class="text-right">{{item.montant}}</td>
+                  </tr>
+                  <tr>
+                    <td class="thick-line text-center" colspan="2"><strong>Sous total</strong></td>
+                    <td class="thick-line text-right" colspan="2">{{this.serviceCommande.commandeDTOTemp.montantcommande}} FCFA</td>
+                  </tr>
+                  <tr>
+                    <td class="no-line text-center" colspan="2"><strong>Livraison</strong></td>
+                    <td class="no-line text-right" colspan="2">{{this.serviceCommande.commandeDTOTemp.fraislivraison}} FCFA</td>
+                  </tr>
+                  <tr>
+                    <td class="no-line text-center" colspan="2"><strong>Total</strong></td>
+                    <td class="no-line text-right text-danger" colspan="2">{{this.serviceCommande.commandeDTOTemp.montantcommande + serviceCommande.commandeDTOTemp.fraislivraison}} FCFA</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-item class="footer" lines = "none">
+    <ion-button *ngIf="serviceCommande.commandeDTOTemp.payement.statut!='PAYEMENT EFFECTUE'" (click)="payer()" color="secondary" expand="block">Payer ></ion-button>
+    <ion-button (click)="cancel()" color="light" expand="block">Fermer</ion-button>
+    <ion-button *ngIf="serviceCommande.commandeDTOTemp.statut!='TERMINEE' && serviceCommande.commandeDTOTemp.payement.statut=='PAYEMENT EFFECTUE'"
+                (click)="cloturer()" color="primary" expand="block">Cloturer ></ion-button>
+  </ion-item>
+</ion-footer>

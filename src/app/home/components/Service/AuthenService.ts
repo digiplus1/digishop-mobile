@@ -6,6 +6,7 @@ import {AdresseIP} from "../../../Service/AdresseIP";
 import {PasswordResetRequestModel} from "../../../Model/PasswordResetRequestModel";
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {ToastController} from "@ionic/angular";
+import {BoutiquePos} from "../../../Model/BoutiquePos";
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class AuthenService {
   jwt:string;
   url_position:string;
   utilisateur:Utilisateur;
+  boutique : BoutiquePos;
   user_vendeur:Utilisateur;//cette variable est pour un client lorsque le vendeur prend le compte
   constructor(private router: Router,public http:HttpClient,public toastController: ToastController){
   }
@@ -36,6 +38,16 @@ export class AuthenService {
     return this.http.get<Utilisateur>(AdresseIP.host+"connection/"+user)
   }
 
+  getBoutique(){
+    return this.http.get<BoutiquePos>(AdresseIP.host+"getboutiquebyname/"+this.utilisateur.nomBoutique).subscribe(
+      data=>{
+        console.log(data);
+        this.boutique = data;
+      },error => {
+        this.toastMessage(error.error.message);
+      }
+    );
+  }
 
   ConnectAccountInShop(username:string){
     return this.http.get<Utilisateur>(AdresseIP.host+"connection/"+username+"/"+this.utilisateur.nomBoutique);
@@ -51,10 +63,10 @@ export class AuthenService {
       this.router.navigateByUrl("/monitoring");
     }else if (roles.length==3) {
       this.utilisateur.role="proprietaire";
-      this.router.navigateByUrl("/admin/boutique/"+this.utilisateur.nomBoutique);
+      this.router.navigateByUrl("/staff/menustaff/accueilproprietaire");
     }else if (roles.length==2) {
       this.utilisateur.role="vendeur";
-      this.router.navigateByUrl("/admin");
+      this.router.navigateByUrl("/staff/menustaff/accueilvendeur");
     }else if (roles.length==1) {
       this.utilisateur.role="client";
       this.router.navigateByUrl("/client/menuclient/acceuil");
@@ -103,5 +115,9 @@ this.jwt= localStorage.getItem('token');
   saveToken(){
     localStorage.setItem('utilisateur',JSON.stringify(this.utilisateur));
     localStorage.setItem('token',this.jwt);
+  }
+
+  getToken(){
+    return localStorage.getItem('token');
   }
 }

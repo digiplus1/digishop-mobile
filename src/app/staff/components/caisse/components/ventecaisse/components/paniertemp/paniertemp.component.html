@@ -1,0 +1,32 @@
+<ion-content class="main" >
+
+  <div class="text-center">
+    <ion-label><strong>Liste des brouillons</strong></ion-label>
+  </div>
+
+  <ion-card *ngIf="testaffiche==1">
+    <ion-item *ngFor="let v of servicePanier.panierTempList">
+      <ion-label>{{v.libelle}}</ion-label>
+      <ion-button size="small" (click)="selectItem(v)">
+        <ion-icon name="send"></ion-icon>
+      </ion-button>
+      <ion-button size="small" (click)="removeitem(v)">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-card>
+  <ion-card *ngIf="testaffiche==2">
+    <ion-item>
+      <ion-label position="floating">Entrer un nom :</ion-label>
+      <ion-input type="text" required [(ngModel)] = "libelle"></ion-input>
+    </ion-item>
+
+    <ion-button shape="round" (click)="saveBrouillon()" class="ion-margin-top text-secondary" color="secondary" type="submit" expand="block">
+      Valider
+    </ion-button>
+  </ion-card>
+</ion-content>
+
+<ion-footer class="text-center">
+  <ion-button shape="round" expand="block"  color="primary" (click)="dismiss()">Annuler</ion-button>
+</ion-footer>

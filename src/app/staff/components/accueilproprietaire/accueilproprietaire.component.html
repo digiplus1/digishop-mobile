@@ -1,0 +1,127 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Accueil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-button id="active" expand="full" size="small" color="{{color}}">{{text}}</ion-button>
+
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+      <div class="box-part text-center" (click)="navigateRoute('/staff/menustaff/caisse/accueil')">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-uppercase mb-1">Caisse Ouverte</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800" style="color: #0d4765"><b>{{this.DashService.etatVendeur.nbsessionouverte}}</b></div>
+            </div>
+            <div class="col-auto">
+              <ion-icon name="chevron-forward-outline" size="large" color="secondary"></ion-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+      <div class="box-part text-center" (click)="navigateRoute('/staff/menustaff/dashboard')">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-uppercase mb-1">Caisse Fermée</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800" style="color: #0d4765"><b>{{this.DashService.etatVendeur.nbsessionfermee}}</b></div>
+            </div>
+            <div class="col-auto">
+              <ion-icon name="chevron-forward-outline" size="large" color="secondary"></ion-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+      <div class="box-part text-center" (click)="navigateRoute('/staff/menustaff/produits')">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-uppercase mb-1">Produits</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800" style="color: #0d4765"><b>{{this.DashService.etatVendeur.nbproduit}}</b></div>
+            </div>
+            <div class="col-auto">
+              <ion-icon name="chevron-forward-outline" size="large" color="secondary"></ion-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+      <div class="box-part text-center" (click)="navigateRoute('/staff/menustaff/vendeurs')">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-uppercase mb-1">Vendeurs</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800" style="color: #0d4765"><b>{{this.DashService.etatVendeur.nbvendeur}}</b></div>
+            </div>
+            <div class="col-auto">
+              <ion-icon name="chevron-forward-outline" size="large" color="secondary"></ion-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+      <div class="box-part text-center" (click)="navigateRoute('/staff/menustaff/dashboard')">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-uppercase mb-1">Commandes</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800" style="color: #0d4765"><b>{{this.DashService.etatVendeur.nbcommande}}</b></div>
+            </div>
+            <div class="col-auto">
+              <ion-icon name="chevron-forward-outline" size="large" color="secondary"></ion-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+      <div class="box-part text-center" (click)="navigateRoute('/staff/menustaff/caisse/transactionscaisse')">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-uppercase mb-1">Transactions</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800" style="color: #0d4765"><b>{{this.DashService.etatVendeur.nbtransaction}}</b></div>
+            </div>
+            <div class="col-auto">
+              <ion-icon name="chevron-forward-outline" size="large" color="secondary"></ion-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+      <div class="box-part text-center" (click)="navigateRoute('/staff/menustaff/inventaires')">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-uppercase mb-1">Inventaires</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800" style="color: #0d4765"><b>{{this.DashService.etatVendeur.nbinventaire}}</b></div>
+            </div>
+            <div class="col-auto">
+              <ion-icon name="chevron-forward-outline" size="large" color="secondary"></ion-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</ion-content>
