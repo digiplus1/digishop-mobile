@@ -6,6 +6,7 @@ import {ProduitDto} from "../../Model/ProduitDto";
 import {Router} from "@angular/router";
 import {CartItem} from "../../Model/CartItem";
 import {AlertController} from "@ionic/angular";
+import {BoutiqueService} from "../Service/BoutiqueService";
 
 @Component({
   selector: 'app-panier',
@@ -15,7 +16,7 @@ import {AlertController} from "@ionic/angular";
 export class PanierPage implements OnInit {
 
   is_loading:boolean;
-  constructor(public authenService:AuthenService,public produitService:ProduitService,
+  constructor(public authenService:AuthenService,public produitService:ProduitService,public boutiqueService:BoutiqueService,
               public cartService:CartService,public router:Router,public alertCtrl:AlertController) { }
 
   ngOnInit() {
@@ -66,10 +67,21 @@ export class PanierPage implements OnInit {
     this.is_loading=true;
     this.cartService.getPanier(this.authenService.utilisateur.cart.idcart).subscribe(
       data=>{
-        this.is_loading=false;
+
         this.authenService.utilisateur.cart=data;
+        this.boutiqueService.getBoutiqueByName(this.authenService.utilisateur.cart.cartItems[0].produit.nomboutique).subscribe(
+          data=>{
+            this.is_loading=false;
+            this.boutiqueService.boutique=data;
+            this.router.navigateByUrl("client/adresse")
+          },error => {
+            this.is_loading=false;
+            this.authenService.toastMessage(error.error.message);
+          }
+        );
+
         this.authenService.saveToken()
-        this.router.navigateByUrl("client/adresse")
+
       },error => {
         this.is_loading=false;
         this.authenService.toastMessage(error.error.message);

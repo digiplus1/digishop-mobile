@@ -3,10 +3,55 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <h3 class="title" *ngIf="authenService.utilisateur.cart.cartItems.length" >{{authenService.utilisateur.cart.cartItems.length}} vers au panier</h3>
-    <ion-buttons slot="end" class=" ion-margin-horizontal">
-      <ion-icon name="heart-outline" color="danger" slot="icon-only"></ion-icon>
-      <ion-badge>{{authenService.utilisateur.cart.cartItems.length}}</ion-badge>
-    </ion-buttons>
+    <h3 class="title" *ngIf="authenService.utilisateur.cart.cartItems.length" >Mode de payement</h3>
   </ion-toolbar>
 </ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label>Mode de Payement</ion-label>
+    <ion-select interface="popover" (ionChange)="mode_paymnt($event)" placeholder="mode de livraison">
+      <ion-select-option value="1">MTN MONEY</ion-select-option>
+      <ion-select-option value="2">ORANGE MONEY</ion-select-option>
+      <ion-select-option value="3">PAYEMENT A LA LIVRAISON</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-card>
+
+
+    <ion-card-title class="ion-text-center">
+      <ion-item>
+        <ion-input [(ngModel)]="code_coupon" placeholder="Entrer le code coupon"></ion-input>
+        <ion-button (click)="check_coupon(code_coupon)">Valider</ion-button>
+      </ion-item>
+    </ion-card-title>
+    <ion-card-content>
+      <ion-item *ngFor="let c of commandeService.commande.cartItems">
+        <ion-thumbnail>
+          <ion-img [src]="c.produit.image"></ion-img>
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{c.description}}</h2>
+          <p>Prix: {{c.prixunitaire}}<sup>Fcfa</sup> * {{c.quantite}}</p>
+          <p>Total: {{c.montant}}<sup>Fcfa</sup></p>
+        </ion-label>
+      </ion-item>
+      <ion-row *ngIf="commandeService.commande.fraislivraison">
+        <ion-col></ion-col>
+        <ion-col>Livraison: {{commandeService.commande.fraislivraison}}<sup>Fcfa</sup></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col></ion-col>
+        <ion-col>Total: {{commandeService.commande.grandTotal +commandeService.commande.fraislivraison}}<sup>Fcfa</sup></ion-col>
+      </ion-row>
+    </ion-card-content>
+   <ion-card-subtitle>
+     <ion-item *ngIf="commandeService.commande.modepayement!='PAYEMENT A LA LIVRAISON'">
+       <ion-input [(ngModel)]="commandeService.commande.adresse.phone_livraison" placeholder="Confirmer le numéro de payement"></ion-input>
+     </ion-item>
+     <ion-button (click)="payer()" expand="full">Payer {{commandeService.commande.netaPayer}}<sup>Fcfa</sup></ion-button>
+   </ion-card-subtitle>
+  </ion-card>
+
+</ion-content>

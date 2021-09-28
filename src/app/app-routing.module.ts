@@ -8,17 +8,22 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },
-   {
-    path: 'staff',
-    loadChildren: () => import('./staff/staff.module').then( m => m.StaffPageModule)
-  },
-  {
     path: 'client',
     loadChildren: () => import('./client/client.module').then( m => m.ClientPageModule)
   },
+  {
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+  },
+  {
+    path: 'staff',
+    loadChildren: () => import('./staff/staff.module').then(m => m.StaffPageModule)
+  },
+  {
+    path: 'tabclient',
+    loadChildren: () => import('./tabclient/tabclient.module').then( m => m.TabclientPageModule)
+  },
+
 ];
 
 @NgModule({

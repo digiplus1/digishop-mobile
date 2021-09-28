@@ -6,6 +6,8 @@ import {Router} from "@angular/router";
 import {CategorieProduitDTO} from "../../../Model/CategorieProduitDTO";
 import {IonSearchbar} from "@ionic/angular";
 import {AuthenService} from "../../../home/components/Service/AuthenService";
+import {NatifService} from "../../Service/NatifService";
+import {FavoriteService} from "../../Service/FavoriteService";
 
 @Component({
   selector: 'app-acceuil',
@@ -30,7 +32,8 @@ export class AcceuilComponent implements OnInit {
     slidesOffsetBefore: 6
   };
 
-  constructor(public produitService:ProduitService,public boutiqueService:BoutiqueService,public router:Router,public authenService:AuthenService) {}
+  constructor(public produitService:ProduitService,public boutiqueService:BoutiqueService,public router:Router,
+              public authenService:AuthenService,public natifService:NatifService,public favoriteService:FavoriteService) {}
 
   ngOnInit() {
     this.produitService.getAllproduit();
@@ -67,5 +70,9 @@ export class AcceuilComponent implements OnInit {
 
   getValuer(n: string) {
     this.router.navigateByUrl("/client/resultat/"+n)
+  }
+
+  scanBoutique(){
+    this.natifService.scannerQrcode("boutique");
   }
 }

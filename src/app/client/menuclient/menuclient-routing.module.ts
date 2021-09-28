@@ -20,10 +20,6 @@ const routes: Routes = [
         component:AcceuilComponent
       },
       {
-        path:'favorite',
-        component:FavoriteComponent
-      },
-      {
         path:'commande',
         component:CommandeComponent
       },
@@ -35,6 +31,7 @@ const routes: Routes = [
         path:'coupon',
         component:CouponComponent
       }  ,
+
       {
         path:'apropos',
         component:AproposComponent

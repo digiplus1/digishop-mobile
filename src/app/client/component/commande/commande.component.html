@@ -3,5 +3,44 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
+    <ion-title>Commade en cours</ion-title>
   </ion-toolbar>
 </ion-header>
+
+<ion-content *ngIf="commandeService.commandes">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-list *ngFor="let c of commandeService.commandes" (click)="presentModal(c)">
+    <ion-row>
+      <ion-col><ion-label color="success">Référence</ion-label></ion-col>
+      <ion-col class="ion-text-center"><ion-label color="success">{{c.referencecommande}}</ion-label></ion-col>
+      <ion-col class="ion-text-right text-danger"><strong>{{c.netaPayer}}</strong><sup>Fcfa</sup></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col><ion-label>Boutique</ion-label></ion-col>
+      <ion-col class="ion-text-right"><ion-label>{{c.boutique.nomBoutique}}</ion-label></ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col><ion-label>Date</ion-label></ion-col>
+      <ion-col class="ion-text-right"><ion-label>{{c.datecommande| date:"dd MM yyyy HH:mm"}}</ion-label></ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col><ion-label>Status</ion-label></ion-col>
+      <ion-col  class="ion-text-right"><ion-label [ngStyle]="{color:getColor(c).couleur}">{{getColor(c).status}}</ion-label></ion-col>
+    </ion-row>
+  </ion-list>
+  <div class="empty-cart" *ngIf="commandeService.commandes.length==0">
+    <ion-icon name="ban-outline"></ion-icon>
+    <p>Pas de commandes en cours </p>
+  </div>
+  <ion-infinite-scroll (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+

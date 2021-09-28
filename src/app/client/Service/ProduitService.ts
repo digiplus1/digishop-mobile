@@ -45,7 +45,7 @@ export class ProduitService{
     return this.http.get<ProduitDto[]>(AdresseIP.host+'categorie/'+nomcategorie).subscribe(
       data=>{
         this.produits=data;
-        this.router.navigateByUrl("client/produits")
+        this.router.navigateByUrl("tabclient/client/produits")
       },error => {
         this.authenService.toastMessage(error.error.message);
       }
@@ -79,5 +79,19 @@ export class ProduitService{
 
   getAllProduitOrshop(mot:string){
     return this.http.get<ProduitBoutique>(AdresseIP.host+'recherche/'+mot)
+  }
+
+  getProduitByQrcode(qrcode:string){
+    return this.http.get<ProduitDto>(AdresseIP.host+'getproduitbyqcode/'+qrcode).subscribe(
+      data=>{
+        if (data){
+          this.produit=data;
+          this.router.navigateByUrl("tabclient/client/produits");
+        }
+
+      },error => {
+        this.authenService.toastMessage(error.error.message);
+      }
+    );
   }
 }

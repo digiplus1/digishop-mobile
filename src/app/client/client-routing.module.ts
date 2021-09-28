@@ -9,6 +9,8 @@ import {ListproduitsComponent} from "./component/acceuil/listproduits/listprodui
 import {ProduitboutiqueComponent} from "./component/acceuil/produitboutique/produitboutique.component";
 import {AdresseComponent} from "./component/acceuil/adresse/adresse.component";
 import {PayementComponent} from "./component/acceuil/payement/payement.component";
+import {FactureComponent} from "./component/facture/facture.component";
+import {FavoriteComponent} from "./component/favorite/favorite.component";
 
 const routes: Routes = [
   {
@@ -16,13 +18,19 @@ const routes: Routes = [
     component: ClientPage
 
   },
-  {
-    path: 'panier',
-    loadChildren: () => import('./panier/panier.module').then( m => m.PanierPageModule)
-  },
+
   {
     path: 'menuclient',
-    loadChildren: () => import('./menuclient/menuclient.module').then( m => m.MenuclientPageModule)
+    loadChildren: () => import('../client/menuclient/menuclient.module').then( m => m.MenuclientPageModule)
+  },
+
+  {
+    path: 'panier',
+    loadChildren: () => import('../client/panier/panier.module').then( m => m.PanierPageModule)
+  },
+  {
+    path:'favorite',
+    component:FavoriteComponent
   },
   {
     path: 'boutique',
@@ -52,6 +60,11 @@ const routes: Routes = [
     path:'payement',
     component:PayementComponent
   },
+  {
+    path:'facture',
+    component:FactureComponent
+  },
+
 ];
 
 @NgModule({

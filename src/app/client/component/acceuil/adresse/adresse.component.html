@@ -3,11 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <h3 class="title" *ngIf="authenService.utilisateur.cart.cartItems.length" >{{authenService.utilisateur.cart.cartItems.length}} vers au panier</h3>
-    <ion-buttons slot="end" class=" ion-margin-horizontal">
-      <ion-icon name="heart-outline" color="danger" slot="icon-only"></ion-icon>
-      <ion-badge>{{authenService.utilisateur.cart.cartItems.length}}</ion-badge>
-    </ion-buttons>
+    <h3 class="title">Adresse de livraison</h3>
   </ion-toolbar>
 </ion-header>
 
@@ -17,30 +13,74 @@
     <ion-card-content>
       <ion-item>
         <ion-label>Mode de Livraison</ion-label>
-        <ion-select interface="popover" (change)="selectmodeLivraison($event)" placeholder="Choisir le mode de livraison">
-          <ion-select-option *ngFor="let m of mode_livraison">{{m}}</ion-select-option>
+        <ion-select interface="popover" (ionChange)="selectmodeLivraison($event)" placeholder="mode de livraison">
+          <ion-select-option *ngFor="let m of mode_livraison" [value]="m">{{m}}</ion-select-option>
         </ion-select>
       </ion-item>
-      <ion-list [hidden]="type_livraison=='Adresse de livraison'">
-        <ion-item>
+      <ion-list [hidden]="type_livraison!='Adresse de livraison'">
+        <ion-item *ngIf="villes">
           <ion-label>Ville</ion-label>
-          <ion-select interface="popover"  (change)="selectquartier($event)" placeholder="Choisir la ville">
+          <ion-select interface="popover"  (ionChange)="selectquartier($event)" placeholder="Choisir la ville">
             <ion-select-option *ngFor="let v of villes">{{v.libelle_ville}}</ion-select-option>
           </ion-select>
         </ion-item>
-        <ion-item [hidden]="quartiers">
+        <ion-item >
           <ion-label>Quartier</ion-label>
-          <ion-select interface="popover"  (change)="selectsecteur($event)" placeholder="Choisir le quartier">
+          <ion-select interface="popover"  (ionChange)="selectsecteur($event)" placeholder="Choisir le quartier">
             <ion-select-option *ngFor="let q of quartiers">{{q.libelle_quartier}}</ion-select-option>
           </ion-select>
         </ion-item>
-        <ion-item [hidden]="secteurs">
+        <ion-item >
           <ion-label>Secteur</ion-label>
-          <ion-select interface="popover" (change)="selectlocalite($event)" placeholder="Choisir le secteur">
+          <ion-select interface="popover" (ionChange)="selectlocalite($event)" placeholder="Choisir le secteur">
             <ion-select-option *ngFor="let s of secteurs">{{s.libelle_secteur}}</ion-select-option>
           </ion-select>
         </ion-item>
+        <ion-item *ngIf="commandeService.commande.fraislivraison">
+          <ion-label>Type adresse</ion-label>
+          <ion-input [(ngModel)]="adresse.repere_address" placeholder="Choisir le secteur"></ion-input>
+        </ion-item>
       </ion-list>
+
+      <ion-card [hidden]="type_livraison!='Venir a la boutique'">
+        <img [src]="commandeService.commande.boutique.photoboutique">
+        <ion-card-content>
+          <ion-label>
+            <p>{{commandeService.commande.boutique.secteuractivite}}</p>
+            <h5 >{{commandeService.commande.boutique.nomBoutique}}</h5> <span>{{commandeService.commande.boutique.telephoneBoutique}} / {{commandeService.commande.boutique.emailBoutique}}</span>
+            <h5></h5><span>{{commandeService.commande.boutique.ville}} -> {{commandeService.commande.boutique.quartier}}  -> {{commandeService.commande.boutique.secteur}} -> {{commandeService.commande.boutique.adressBoutique}}</span>
+            <p >
+              {{commandeService.commande.boutique.description}}
+            </p>
+          </ion-label>
+        </ion-card-content>
+
+      </ion-card>
     </ion-card-content>
+    <ion-card-subtitle *ngIf="adresse.repere_address">
+      <ion-button expand="full" (click)="commander()">Commander</ion-button>
+    </ion-card-subtitle>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-title class="ion-text-center">Commande</ion-card-title>
+    <ion-item *ngFor="let c of commandeService.commande.cartItems">
+      <ion-thumbnail>
+        <ion-img [src]="c.produit.image"></ion-img>
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{c.description}}</h2>
+        <p>Prix: {{c.prixunitaire}}<sup>Fcfa</sup> * {{c.quantite}}</p>
+        <p>Total: {{c.montant}}<sup>Fcfa</sup></p>
+      </ion-label>
+    </ion-item>
+    <ion-row *ngIf="commandeService.commande.fraislivraison">
+      <ion-col></ion-col>
+      <ion-col>Livraison: {{commandeService.commande.fraislivraison}}<sup>Fcfa</sup></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col></ion-col>
+      <ion-col>Total: {{commandeService.commande.grandTotal +commandeService.commande.fraislivraison}}<sup>Fcfa</sup></ion-col>
+    </ion-row>
   </ion-card>
 </ion-content>

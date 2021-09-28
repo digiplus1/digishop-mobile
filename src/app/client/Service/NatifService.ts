@@ -7,11 +7,13 @@ import { Share } from '@capacitor/share';
 import {AdresseIP} from "../../Service/AdresseIP";
 import {QRScanner, QRScannerStatus} from "@ionic-native/qr-scanner/ngx";
 import {BarcodeScanner} from "@ionic-native/barcode-scanner/ngx";
+import {BoutiqueService} from "./BoutiqueService";
+import {ProduitService} from "./ProduitService";
 @Injectable()
 export class NatifService{
 
-constructor(public toastController: ToastController,public callNumber:CallNumber,public router: Router,
-            public authenservice: AuthenService,private qrScanner: QRScanner,private barcodeScanner: BarcodeScanner) {
+constructor(public toastController: ToastController,public callNumber:CallNumber,public router: Router,public boutiqueService:BoutiqueService,
+            public authenservice: AuthenService,private qrScanner: QRScanner,private barcodeScanner: BarcodeScanner,public produitService:ProduitService) {
 }
 
   callnumber(number:string){
@@ -37,7 +39,7 @@ constructor(public toastController: ToastController,public callNumber:CallNumber
     });
   }
 
-  scannerQrcode(){
+  scannerQrcode(type:string){
     this.qrScanner.prepare()
       .then((status: QRScannerStatus) => {
         if (status.authorized) {
@@ -47,7 +49,11 @@ constructor(public toastController: ToastController,public callNumber:CallNumber
           // start scanning
           let scanSub = this.qrScanner.scan().subscribe((text: string) => {
             console.log('Scanned something', text);
-
+            if (type=="produit"){
+              this.produitService.getProduitByQrcode(text);
+            }else {
+              this.boutiqueService.getBoutiqueByqrcode(text);
+            }
             this.qrScanner.hide(); // hide camera preview
             scanSub.unsubscribe(); // stop scanning
           });

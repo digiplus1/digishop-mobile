@@ -35,4 +35,18 @@ export class BoutiqueService{
       }
     );
   }
+  getBoutiqueByName(boutique:string){
+    return this.http.get<BoutiquePos>(AdresseIP.host+'getboutiquebyname/'+boutique)
+  }
+
+  getBoutiqueByqrcode(qrcode:string){
+    return this.http.get<BoutiquePos>(AdresseIP.host+'boutiques/qrcode/'+qrcode).subscribe(
+      data=>{
+        if (data){
+          this.boutique=data;
+          this.router.navigateByUrl("client/boutiques");
+        }
+      }
+    )
+  }
 }
