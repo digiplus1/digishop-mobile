@@ -20,7 +20,7 @@
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-list *ngFor="let c of commandeService.commandes" (click)="presentModal(c)">
+  <ion-list *ngFor="let c of commandeService.commandes" >
     <ion-row>
       <ion-col><ion-label color="success">Référence</ion-label></ion-col>
       <ion-col class="ion-text-center"><ion-label color="success">{{c.referencecommande}}</ion-label></ion-col>
