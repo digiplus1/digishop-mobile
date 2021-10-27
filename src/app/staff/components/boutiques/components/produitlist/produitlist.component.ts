@@ -6,6 +6,8 @@ import {AuthenService} from "../../../../../home/components/Service/AuthenServic
 import {ServiceBoutique} from "../../../../services/ServiceBoutique";
 import {ModalController} from "@ionic/angular";
 import {DetailsproduitComponent} from "./detailsproduit/detailsproduit.component";
+import {AddproduitComponent} from "./addproduit/addproduit.component";
+import {ServiceCatalogueCategorie} from "../../../../services/ServiceCatalogueCategorie";
 
 @Component({
   selector: 'app-produitlist',
@@ -17,12 +19,12 @@ export class ProduitlistComponent implements OnInit {
   produitListTemp: ProduitDto [] = [];
 
   constructor(public serviceProduit : ServiceProduit, private mainService : MainService, private modalController : ModalController,
-              public authenService : AuthenService, public serviceBoutique : ServiceBoutique) { }
+              public authenService : AuthenService, public serviceBoutique : ServiceBoutique, private serviceCatalogueCategorie: ServiceCatalogueCategorie) { }
 
   ngOnInit() {
     this.mainService.spinner.show();
     this.serviceProduit.getAllNomProduit(this.authenService.utilisateur.nomBoutique);
-    this.serviceProduit.getAllCategorie();
+    this.serviceCatalogueCategorie.findallnomcatalogue();
   }
 
   ionViewDidEnter(){
@@ -56,11 +58,16 @@ export class ProduitlistComponent implements OnInit {
   }
 
   async showDetails(prod: ProduitDto) {
+    this.serviceProduit.produit=prod;
     const modal = await this.modalController.create({
       component: DetailsproduitComponent,
-      componentProps: {
-        'produit': prod,
-      }
+    });
+    return await modal.present();
+  }
+
+  async openAddProductForm() {
+    const modal = await this.modalController.create({
+      component: AddproduitComponent,
     });
     return await modal.present();
   }

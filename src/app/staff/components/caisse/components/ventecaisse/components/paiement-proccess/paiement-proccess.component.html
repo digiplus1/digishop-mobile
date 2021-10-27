@@ -38,6 +38,19 @@
                     name="om"
                   ></ion-input>
         </ion-item>
+        <ng-container *ngIf="paiementService.affiche != ''">
+          <ion-item>
+            <ion-label position="floating">Entrer le nom de la personne</ion-label>
+            <ion-input list="operateur" type="text" expand="block" [(ngModel)]="operateurNom"></ion-input>
+            <datalist id="operateur">
+              <option *ngFor="let o of serviceCaisse.operateur">{{ o }}</option>
+            </datalist>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Commentaire</ion-label>
+            <ion-input type="text" expand="block" [(ngModel)]="commentaire"></ion-input>
+          </ion-item>
+        </ng-container>
       </ion-radio-group>
     </ion-card-content>
     <ion-card-subtitle>

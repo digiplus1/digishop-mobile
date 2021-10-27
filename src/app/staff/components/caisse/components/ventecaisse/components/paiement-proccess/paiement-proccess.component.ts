@@ -14,12 +14,16 @@ import {ServicePrinter} from "../../../../../../services/ServicePrinter";
 })
 export class PaiementProccessComponent implements OnInit {
   is_loading: boolean = false;
+  public operateurNom: string = '';
+  public commentaire: string = '';
 
   constructor(public paiementService : ServicePaiement, private modalController : ModalController,
               public panierService : ServicePanier, public serviceCaisse : ServiceCaisse,
               public authenService : AuthenService, public servicePrinter : ServicePrinter) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.serviceCaisse.getAlloperateur();
+  }
 
   cancel() {
     this.modalController.dismiss()
@@ -38,6 +42,8 @@ export class PaiementProccessComponent implements OnInit {
     cDTO.nomuser = this.authenService.utilisateur.username;
     cDTO.cartItems = this.panierService.panierCaisse.cartItems;
     cDTO.typepaiement = this.paiementService.affiche;
+    cDTO.operateurnom = this.operateurNom;
+    cDTO.commentaire = this.commentaire;
     if(this.paiementService.affiche=="ORANGE MONEY"){
       cDTO.om = Number(this.paiementService.om);
     } else if (this.paiementService.affiche=="MTN MOBILE MONEY"){

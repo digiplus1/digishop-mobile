@@ -22,19 +22,26 @@
           </ion-row>
           <ion-row>
             Statut :
-            <ion-label *ngIf="c.activeproduit" color="secondary"> Activé</ion-label>
-            <ion-label *ngIf="!c.activeproduit" color="secondary"> Désactivé</ion-label>
+            <ion-label  color="secondary"> {{c.activeproduit?'Activé':'Désactivé'}}</ion-label>
           </ion-row>
         </ion-col>
         <ion-col size="4" class="text-end">
-          <ion-col>
-            <ion-icon size="large" color="primary" name="create-outline" (click)="showDetails(c)"></ion-icon>
-          </ion-col>
-          <ion-col>
-            <ion-icon size="large" color="secondary" name="close-outline" (click)="deleteProd(c)"></ion-icon>
-          </ion-col>
+          <ng-container *ngIf="c.nomProduit != 'Generique'">
+            <ion-col>
+              <ion-icon size="large" color="primary" name="create-outline" (click)="showDetails(c)"></ion-icon>
+            </ion-col>
+            <ion-col>
+              <ion-icon size="large" color="secondary" name="close-outline" (click)="deleteProd(c)"></ion-icon>
+            </ion-col>
+          </ng-container>
         </ion-col>
       </ion-row>
     </ion-card>
   </ion-grid>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openAddProductForm()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

@@ -17,6 +17,7 @@ export class  ServiceCaisse {
   caisseTransactionsList : CaisseTransactions [] = [];
   directsTransactionsList : CaisseTransactions [] = [];
   ventesTransactionsList : CaisseTransactions [] = [];
+  operateur:string[];
 
   //Test d'affichage dans le compte client
   affiche : number = 1;
@@ -51,5 +52,16 @@ export class  ServiceCaisse {
 
   getEtatSession(idsession: number, username : string){
     return this.http.get<CaisseDTO>(AdresseIP.host+"getetatsession/"+idsession+"/"+username);
+  }
+
+  getAlloperateur(){
+
+    return this.http.get<string[]>(AdresseIP.host+'operateur/').subscribe(
+      data=>{
+        this.operateur=data;
+      },error => {
+        this.authenService.toastMessage(error.error.message)
+      }
+    )
   }
 }

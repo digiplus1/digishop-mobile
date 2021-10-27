@@ -9,6 +9,7 @@ import { CategorieProduitDTO } from "src/app/Model/CategorieProduitDTO";
 @Injectable()
 export class  ServiceProduit {
 
+  produit:ProduitDto = new ProduitDto();
   produitList : ProduitDto [] = [];
   produitListTemp : ProduitDto [] = [];
   produitPopulaire : ProduitDto [] = [];
@@ -16,6 +17,9 @@ export class  ServiceProduit {
   nomProduit : string [] = [];
   nomProduitFilter : string [] = [];
   categorieList : CategorieProduitDTO [] = [];
+  categorieListTemp : CategorieProduitDTO [] = [];
+  categorieNomList: string[] = [];
+  categorieFilter: string[] = [];
 
   constructor(public http:HttpClient,public authenService:AuthenService, private mainService : MainService) {
   }
@@ -67,5 +71,12 @@ export class  ServiceProduit {
 
   getAllCategorie() {
     return this.http.get<CategorieProduitDTO[]>(AdresseIP.host + "all/categorie/");
+  }
+
+  saveProduit(produitDto: ProduitDto) {
+    return this.http.post<ProduitDto>(AdresseIP.host+'saveproduit/',produitDto)
+  }
+  updateProduit(produitDto: ProduitDto) {
+    return this.http.put<ProduitDto>(AdresseIP.host+'updateproduit/',produitDto)
   }
 }

@@ -1,3 +1,62 @@
-<p>
-  addproduit works!
-</p>
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons (click)="closeM()" style="margin-left: 5px" slot="start">
+      <ion-icon color="primary" name="close"></ion-icon>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Ajouter un nouveau produit</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="primary" (click)="takePicture()">
+        <ion-icon  [name]="'camera-outline'"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-searchbar (ionInput)="FilterElement($event)" [(ngModel)]="catalogue" placeholder="Rechercher un catalogue" name ="Entrer le nom du catalogue" ></ion-searchbar>
+    <ion-list style="padding: unset">
+      <ion-item (click)="selectItem(a)" lines="none" *ngFor="let a of serviceCatalogueCategorie.listeNomCatalogueFilter">{{a}}</ion-item>
+    </ion-list>
+  </ion-grid>
+  <ion-grid *ngIf="catalogueSelected">
+    <form [formGroup]="formAddProduct" (ngSubmit)="addProduct()" novalidate>
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="floating">Nom produit</ion-label>
+        <ion-input formControlName="name" type="text"></ion-input>
+      </ion-item>
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="floating">Prix</ion-label>
+        <ion-input formControlName="prix" type="number" pattern="([1-9]?[0-9])|1000000"></ion-input>
+      </ion-item>
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="floating">Catégorie</ion-label>
+        <ion-input formControlName="categorie" type="text"></ion-input>
+      </ion-item>
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="floating">Poids</ion-label>
+        <ion-input formControlName="poids" type="number" pattern="([1-9]?[0-9])|1000000"></ion-input>
+      </ion-item>
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="floating">Marque</ion-label>
+        <ion-input formControlName="marque" type="text"></ion-input>
+      </ion-item>
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="floating">Caracteristiques</ion-label>
+        <ion-textarea formControlName="caracteristique"></ion-textarea>
+      </ion-item>
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="floating">Description</ion-label>
+        <ion-textarea formControlName="description"></ion-textarea>
+      </ion-item>
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="floating">Q-CODE</ion-label>
+        <ion-input formControlName="q-code" type="text"></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" shape="round" type="submit" [disabled]="isLoading==true">valider
+        <ion-spinner name="lines" *ngIf="isLoading"></ion-spinner>
+      </ion-button>
+    </form>
+  </ion-grid>
+
+</ion-content>

@@ -3,7 +3,7 @@
     <ion-buttons (click)="closeM()" style="margin-left: 5px" slot="start">
       <ion-icon color="primary" name="close"></ion-icon>
     </ion-buttons>
-    <ion-title class="ion-text-center">Informations</ion-title>
+    <ion-title class="ion-text-center">{{ edite?'Modifier ' + serviceProduit.produit.nomProduit:'Informations' }}</ion-title>
     <ion-buttons slot="end">
       <ion-button color="primary" (click)="takePicture()">
         <ion-icon  [name]="edite?'camera-outline':'create-outline'"></ion-icon>
@@ -16,7 +16,7 @@
   <ion-grid class="main-header">
     <div align="center">
       <ion-avatar>
-        <img [src]="vendeur.photouser?vendeur.photouser:'assets/img/users.png'">
+        <img [src]="serviceProduit.produit.image?serviceProduit.produit.image:'assets/img/generic_product.jpg'">
       </ion-avatar>
     </div>
   </ion-grid>
@@ -24,41 +24,65 @@
   <ion-list *ngIf="!edite" lines="full" >
     <ion-item>
       <ion-label>
-        <ion-text color="primary">Pseudo</ion-text>
+        <ion-text color="primary">Nom</ion-text>
         <p>
-          <ion-text color="dark">{{vendeur.username}}</ion-text>
+          <ion-text color="dark">{{serviceProduit.produit.nomProduit}}</ion-text>
         </p>
       </ion-label>
     </ion-item>
     <ion-item>
       <ion-label>
-        <ion-text color="primary">Nom complet</ion-text>
+        <ion-text color="primary">Marque</ion-text>
         <p>
-          <ion-text color="dark">{{vendeur.nomcomplet}}</ion-text>
+          <ion-text color="dark">{{ serviceProduit.produit.marque }}</ion-text>
         </p>
       </ion-label>
     </ion-item>
     <ion-item>
       <ion-label>
-        <ion-text color="primary">CNI</ion-text>
+        <ion-text color="primary">Prix</ion-text>
         <p>
-          <ion-text color="dark">{{vendeur.cni}}</ion-text>
+          <ion-text color="dark">{{ serviceProduit.produit.prixProduit }}</ion-text>
         </p>
       </ion-label>
     </ion-item>
     <ion-item>
       <ion-label>
-        <ion-text color="primary">E-mail</ion-text>
+        <ion-text color="primary">Poix</ion-text>
         <p>
-          <ion-text color="dark">{{vendeur.email}}</ion-text>
+          <ion-text color="dark">{{ serviceProduit.produit.poids }}</ion-text>
         </p>
       </ion-label>
     </ion-item>
     <ion-item>
       <ion-label>
-        <ion-text color="primary">Téléphone</ion-text>
+        <ion-text color="primary">Caractéristiques</ion-text>
         <p>
-          <ion-text color="dark">{{vendeur.phone}}</ion-text>
+          <ion-text color="dark">{{ serviceProduit.produit.caracteristiques }}</ion-text>
+        </p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <ion-text color="primary">Description</ion-text>
+        <p>
+          <ion-text color="dark">{{ serviceProduit.produit.description }}</ion-text>
+        </p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <ion-text color="primary">QR-CODE</ion-text>
+        <p>
+          <ion-text color="dark">{{ serviceProduit.produit.qcode }}</ion-text>
+        </p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <ion-text color="primary">Quantité</ion-text>
+        <p>
+          <ion-text color="dark">{{ serviceProduit.produit.quantiteEnStock }}</ion-text>
         </p>
       </ion-label>
     </ion-item>
@@ -67,18 +91,34 @@
 
   <ion-grid *ngIf="edite">
     <ion-item lines="none" class="ion-margin-bottom">
-      <ion-input [(ngModel)]="vendeur.nomcomplet"  type="text" placeholder="Nom complet"></ion-input>
+      <ion-input [(ngModel)]="serviceProduit.produit.nomProduit"  type="text" placeholder="Nom produit"></ion-input>
     </ion-item>
 
     <ion-item lines="none" class="ion-margin-bottom">
-      <ion-input type="email" [(ngModel)]="vendeur.email" placeholder=" E-mail"></ion-input>
+      <ion-input type="text" [(ngModel)]="serviceProduit.produit.prixProduit" placeholder="Prix"></ion-input>
     </ion-item>
     <ion-item lines="none" class="ion-margin-bottom">
-      <ion-input type="text" [(ngModel)]="vendeur.cni" placeholder=" CNI"></ion-input>
+      <ion-input type="text" [(ngModel)]="serviceProduit.produit.marque" placeholder="Marque"></ion-input>
     </ion-item>
 
     <ion-item lines="none" class="ion-margin-bottom">
-      <ion-input type="number" [(ngModel)]="vendeur.phone" placeholder="Contact" ></ion-input>
+      <ion-input type="number" [(ngModel)]="serviceProduit.produit.poids" placeholder="Poids" ></ion-input>
+    </ion-item>
+
+    <ion-item lines="none" class="ion-margin-bottom">
+      <ion-textarea [(ngModel)]="serviceProduit.produit.caracteristiques" placeholder="Caractéristiques" ></ion-textarea>
+    </ion-item>
+
+    <ion-item lines="none" class="ion-margin-bottom">
+      <ion-textarea [(ngModel)]="serviceProduit.produit.description" placeholder="Description" ></ion-textarea>
+    </ion-item>
+
+    <ion-item lines="none" class="ion-margin-bottom">
+      <ion-input type="text" [(ngModel)]="serviceProduit.produit.qcode" placeholder="QR-CODE" ></ion-input>
+    </ion-item>
+
+    <ion-item lines="none" class="ion-margin-bottom">
+      <ion-input type="number" [(ngModel)]="serviceProduit.produit.quantiteEnStock" placeholder="Quantité" disabled></ion-input>
     </ion-item>
 
     <ion-button expand="block" shape="round" type="submit" [disabled]="isLoading==true" (click)="update()" (keydown.enter)="update()">Mettre à jour

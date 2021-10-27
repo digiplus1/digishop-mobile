@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
             this.authenservice.verifierLocalStorage();
           },error => {
             this.is_loading=false;
-            this.authenservice.toastMessage(error.error.message)
+            this.authenservice.toastMessage(error.error.message);
           }
         );
 

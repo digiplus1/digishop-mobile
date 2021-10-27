@@ -1,3 +1,42 @@
-<p>
-  managestock works!
-</p>
+<ion-content>
+  <ion-grid>
+    <ion-searchbar (ionInput)="FilterElement($event)" [(ngModel)]="search" placeholder="Rechercher un produit" name ="Entrer le nom du produit" ></ion-searchbar>
+    <ion-list style="padding: unset">
+      <ion-item (click)="selectItem(a)" lines="none" *ngFor="let a of serviceProduit.nomProduitFilter">{{a}}</ion-item>
+    </ion-list>
+  </ion-grid>
+
+  <ion-grid *ngIf="serviceProduit.produitList.length>0">
+    <ng-container *ngFor="let c of serviceProduit.produitListTemp">
+      <ion-card *ngIf="c.nomProduit != 'Generique'">
+        <ion-row class="justify-content-center">
+          <ion-col size="2">
+            <ion-thumbnail>
+              <img [src]="c.image">
+            </ion-thumbnail>
+          </ion-col>
+          <ion-col size="5" class="text-center">
+            <ion-row>
+              <ion-label class="text-uppercase" color="secondary"><strong>{{c.nomProduit}}</strong></ion-label>
+            </ion-row>
+            <ion-row>
+              Statut :
+              <ion-label  color="secondary"> {{c.activeproduit?'Activé':'Désactivé'}}</ion-label>
+            </ion-row>
+          </ion-col>
+          <ion-col size="1" class="text-center">
+            <ion-label><h2><strong>{{ c.quantiteEnStock }}</strong></h2></ion-label>
+          </ion-col>
+          <ion-col size="4" class="text-end">
+            <ion-col>
+              <ion-icon size="large" color="success" name="add-outline" (click)="showDetails(c)"></ion-icon>
+            </ion-col>
+            <ion-col>
+              <ion-icon size="large" color="danger" name="remove-outline" (click)="deleteProd(c)"></ion-icon>
+            </ion-col>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </ng-container>
+  </ion-grid>
+</ion-content>
