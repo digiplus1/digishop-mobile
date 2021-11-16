@@ -73,6 +73,6 @@ export class AcceuilComponent implements OnInit {
   }
 
   scanBoutique(){
-    this.natifService.scannerQrcode("boutique");
+    this.natifService.scannerbarcode("boutique");
   }
 }

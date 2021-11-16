@@ -94,6 +94,6 @@ export class BoutiquePage implements OnInit {
   }
 
   scanProduit() {
-    this.natifService.scannerQrcode("produit")
+    this.natifService.scannerbarcode("produit")
   }
 }

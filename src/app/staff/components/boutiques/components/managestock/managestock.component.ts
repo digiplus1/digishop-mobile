@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ServiceProduit} from "../../../../services/ServiceProduit";
+import {ProduitDto} from "../../../../../Model/ProduitDto";
 
 @Component({
   selector: 'app-managestock',
@@ -41,4 +42,11 @@ export class ManagestockComponent implements OnInit {
     this.FilterElement(null);
   }
 
+  showDetails(c: ProduitDto) {
+
+  }
+
+  deleteProd(c: ProduitDto) {
+
+  }
 }
