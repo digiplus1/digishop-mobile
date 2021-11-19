@@ -25,6 +25,7 @@ import {ServicePrinter} from "./services/ServicePrinter";
 import {AccueilvendeurComponent} from "./components/accueilvendeur/accueilvendeur.component";
 import {AccueilproprietaireComponent} from "./components/accueilproprietaire/accueilproprietaire.component";
 import {ProfilDetailComponent} from "./components/profil-detail/profil-detail.component";
+import {Printer} from "@ionic-native/printer/ngx";
 
 const SERVICES = [
   ServiceBanniere,
@@ -41,7 +42,8 @@ const SERVICES = [
   ServiceTransaction,
   ServiceUtilisateur,
   ServiceDash,
-  ServicePrinter
+  ServicePrinter,
+
 ]
 
 @NgModule({
@@ -53,6 +55,7 @@ const SERVICES = [
   ],
   declarations: [StaffPage, AccueilvendeurComponent, AccueilproprietaireComponent, ProfilDetailComponent],
   providers: [
+    Printer,
     SERVICES
   ]
 })

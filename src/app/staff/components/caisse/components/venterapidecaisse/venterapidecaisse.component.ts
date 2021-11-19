@@ -10,7 +10,9 @@ import {Cart} from "../../../../../Model/Cart";
 import {PaiementProccessComponent} from "../ventecaisse/components/paiement-proccess/paiement-proccess.component";
 import {ModalController} from "@ionic/angular";
 import {Router} from "@angular/router";
-
+import {ServicePrinter} from "../../../../services/ServicePrinter";
+import { Printer, PrintOptions } from '@ionic-native/printer/ngx';
+import {CaisseTransactions} from "../../../../models/CaisseTransactions";
 @Component({
   selector: 'app-venterapidecaisse',
   templateUrl: './venterapidecaisse.component.html',
@@ -29,7 +31,7 @@ export class VenterapidecaisseComponent implements OnInit {
   };
   constructor(public caisseService : ServiceCaisse, public mainService : MainService, public authenService : AuthenService,
               public serviceProduit : ServiceProduit, public servicepanier : ServicePanier, private modalController : ModalController,
-              private router : Router) { }
+              private router : Router,public printService:ServicePrinter,) { }
 
   ngOnInit() {
     this.testMore = true;
@@ -244,4 +246,5 @@ export class VenterapidecaisseComponent implements OnInit {
       this.testMore = false;
     }
   }
+
 }

@@ -73,6 +73,7 @@ export class PaiementProccessComponent implements OnInit {
           }else if (this.serviceCaisse.caisseDTOTemp.commande.payement.statut=="PENDING"){
             this.serviceCaisse.caisseDTOTemp.commande.message="Merci de confirmer le paiement sur votre mobile et de cliquer sur le button pour continuer";
           }else if (this.serviceCaisse.caisseDTOTemp.commande.payement.statut=="SUCCESSFUL"){
+            this.servicePrinter.initializeTicketVenteAfter(this.serviceCaisse.caisseDTOTemp.caisseTransaction);
             this.serviceCaisse.caisseDTOTemp.commande.message="Merci d'avoir confirmé le paiement nous vous remercions pour cela";
           }
         }else if (this.serviceCaisse.caisseDTOTemp.commande.modepayement=="ORANGE MONEY"){
@@ -82,6 +83,8 @@ export class PaiementProccessComponent implements OnInit {
         }
         if (this.serviceCaisse.caisseDTOTemp.commande.modepayement!="CASH"){
           this.openpaiement(this.serviceCaisse.caisseDTOTemp);
+        }else {
+          this.servicePrinter.initializeTicketVenteAfter(this.serviceCaisse.caisseDTOTemp.caisseTransaction)
         }
 
         this.serviceCaisse.SessionActive.soldesession = this.serviceCaisse.caisseDTOTemp.soldesession;

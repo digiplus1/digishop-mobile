@@ -10,6 +10,8 @@ import {ModalController} from "@ionic/angular";
 import {PaiementProccessComponent} from "./components/paiement-proccess/paiement-proccess.component";
 import {PaniertempComponent} from "./components/paniertemp/paniertemp.component";
 import {GeneriqueComponent} from "./components/generique/generique.component";
+import {Printer, PrintOptions} from "@ionic-native/printer/ngx";
+import {CaisseTransactions} from "../../../../models/CaisseTransactions";
 
 @Component({
   selector: 'app-ventecaisse',
@@ -22,7 +24,7 @@ export class VentecaisseComponent implements OnInit {
   cartItemTemp : CartItem;
   search: string = "";
   constructor(public serviceproduit : ServiceProduit, private router : Router, private autheService : AuthenService,
-              public servicepanier : ServicePanier, private mainService : MainService, public modalController : ModalController,) { }
+              public servicepanier : ServicePanier, private mainService : MainService,public authenService : AuthenService, public modalController : ModalController,) { }
 
   ngOnInit() {
     if(this.serviceproduit.produitList.length==0 || this.serviceproduit.nomProduit.length==0){
@@ -134,4 +136,5 @@ export class VentecaisseComponent implements OnInit {
   clearPanier() {
     this.servicepanier.clearPanier();
   }
+
 }
