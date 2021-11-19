@@ -10,7 +10,7 @@ export class Utilisateur {
   cni: string;
   email: string;
   nomcomplet: string;
-  id_user: number;
+  iduser: number;
   password: string;
   phone: string;
   photouser: string;

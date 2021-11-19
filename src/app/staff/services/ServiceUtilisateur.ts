@@ -20,7 +20,7 @@ export class  ServiceUtilisateur {
     return this.http.get<Utilisateur[]>(AdresseIP.host + "getallvendeursisactivebyshop/" + nomboutique);
   }
 
-  activeOrDesactiveVendeur(AvD : ActiveVendeurDTO){
-    return this.http.post<Utilisateur>(AdresseIP.host+"active_desactive_vendeur",AvD)
+  activeOrDesactiveVendeur(iduser : number){
+    return this.http.get<boolean>(AdresseIP.host+"active_desactive_user/"+iduser)
   }
 }

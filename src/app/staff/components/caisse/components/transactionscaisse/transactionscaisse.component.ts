@@ -18,10 +18,10 @@ export class TransactionscaisseComponent implements OnInit {
     this.caisseService.ventesTransactionsList=[];
     this.caisseService.directsTransactionsList=[];
      this.mainService.spinner.show()
-      this.caisseService.getAllTransactionBySessionAndUser(this.caisseService.SessionActive.idcaissesession, this.autheService.utilisateur.username).subscribe(
+      this.caisseService.getAllTransactionBySessionAndUser(this.caisseService.SessionActive.idcaissesession).subscribe(
         data=>{
           console.log(data);
-          this.caisseService.caisseTransactionsList = data;
+          this.caisseService.caisseTransactionsList = data["content"];
         },error => {
           this.autheService.toastMessage(error.error.message);
           this.mainService.spinner.hide();

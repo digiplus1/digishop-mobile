@@ -36,8 +36,7 @@
           </ion-row>
           <ion-row>
             Statut :
-            <ion-label *ngIf="c.activevendeur" color="secondary"> Activé</ion-label>
-            <ion-label *ngIf="!c.activevendeur" color="secondary"> Désactivé</ion-label>
+            <ion-label [color]="c.ativeuser?'success':'danger'">{{c.ativeuser?'Activé':'Désactivé'}}</ion-label>
           </ion-row>
         </ion-col>
         <ion-col class="text-end">

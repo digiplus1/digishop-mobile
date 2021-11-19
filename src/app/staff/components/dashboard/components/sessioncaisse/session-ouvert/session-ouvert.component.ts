@@ -21,7 +21,7 @@ export class SessionOuvertComponent implements OnInit {
 
     let sessionO : SessionOuverte = new SessionOuverte();
     sessionO.nomuser = this.authenservice.utilisateur.username;
-    sessionO.nomboutique = this.authenservice.utilisateur.nomBoutique;
+    sessionO.nomboutique = this.authenservice.boutique.nomBoutique;
 
     this.serviceDash.checkSessionOuverteInShop(sessionO).subscribe(
       data=>{

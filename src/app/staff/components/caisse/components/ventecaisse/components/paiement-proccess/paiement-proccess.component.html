@@ -29,15 +29,6 @@
           <ion-label>ORANGE MONEY</ion-label>
           <ion-radio (click)="select('ORANGE MONEY')"></ion-radio>
         </ion-item>
-        <ion-item  *ngIf="paiementService.affiche == 'ORANGE MONEY'">
-          <ion-label position="floating">Entrer le numero : </ion-label>
-          <ion-input
-                    type="text"
-                    expand="block"
-                    [(ngModel)]="paiementService.om"
-                    name="om"
-                  ></ion-input>
-        </ion-item>
         <ng-container *ngIf="paiementService.affiche != ''">
           <ion-item>
             <ion-label position="floating">Entrer le nom de la personne</ion-label>

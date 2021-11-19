@@ -6,6 +6,9 @@ import {ServiceCaisse} from "../../../../../../services/ServiceCaisse";
 import {CaisseDTO} from "../../../../../../models/CaisseDTO";
 import {AuthenService} from "../../../../../../../home/components/Service/AuthenService";
 import {ServicePrinter} from "../../../../../../services/ServicePrinter";
+import {CaisseSession} from "../../../../../../models/CaisseSession";
+import {RapportFermetureComponent} from "../../../../../dashboard/modals/rapport-fermeture/rapport-fermeture.component";
+import {ModalconfirmComponent} from "./modalconfirm/modalconfirm.component";
 
 @Component({
   selector: 'app-paiement-proccess',
@@ -34,6 +37,17 @@ export class PaiementProccessComponent implements OnInit {
     this.paiementService.affiche = s;
   }
 
+  async openpaiement(cT : CaisseDTO) {
+    const modal = await this.modalController.create({
+      component: ModalconfirmComponent,
+      cssClass:"modalpaymentconfirm",
+      componentProps: {
+        'payment' : cT
+      }
+    });
+    return await modal.present();
+  }
+
   onAction() {
     this.is_loading = true;
     let cDTO : CaisseDTO = new CaisseDTO();
@@ -44,9 +58,7 @@ export class PaiementProccessComponent implements OnInit {
     cDTO.typepaiement = this.paiementService.affiche;
     cDTO.operateurnom = this.operateurNom;
     cDTO.commentaire = this.commentaire;
-    if(this.paiementService.affiche=="ORANGE MONEY"){
-      cDTO.om = Number(this.paiementService.om);
-    } else if (this.paiementService.affiche=="MTN MOBILE MONEY"){
+   if (this.paiementService.affiche=="MTN MOBILE MONEY"){
       cDTO.momo = Number(this.paiementService.momo);
     }
 
@@ -60,6 +72,23 @@ export class PaiementProccessComponent implements OnInit {
       },
       ()=>{
         this.is_loading = false;
+        if (this.serviceCaisse.caisseDTOTemp.commande.modepayement=="MTN MOBILE MONEY"){
+          if (this.serviceCaisse.caisseDTOTemp.commande.payement.statut=="FAILED"){
+            this.serviceCaisse.caisseDTOTemp.commande.message="Votre solde est insufisant";
+          }else if (this.serviceCaisse.caisseDTOTemp.commande.payement.statut=="PENDING"){
+            this.serviceCaisse.caisseDTOTemp.commande.message="Merci de confirmer le paiement sur votre mobile et de cliquer sur le button pour continuer";
+          }else if (this.serviceCaisse.caisseDTOTemp.commande.payement.statut=="SUCCESSFUL"){
+            this.serviceCaisse.caisseDTOTemp.commande.message="Merci d'avoir confirmé le paiement nous vous remercions pour cela";
+          }
+        }else if (this.serviceCaisse.caisseDTOTemp.commande.modepayement=="ORANGE MONEY"){
+          if (this.serviceCaisse.caisseDTOTemp.commande.payement.url_to_connect){
+            this.serviceCaisse.caisseDTOTemp.commande.message="Merci de cliquer sur le button pour continuer l'opération de paiment sur "+this.serviceCaisse.caisseDTOTemp.commande.modepayement;
+          }
+        }
+        if (this.serviceCaisse.caisseDTOTemp.commande.modepayement!="CASH"){
+          this.openpaiement(this.serviceCaisse.caisseDTOTemp);
+        }
+
         this.serviceCaisse.SessionActive.soldesession = this.serviceCaisse.caisseDTOTemp.soldesession;
         this.serviceCaisse.caisseTransactionsList.push(this.serviceCaisse.caisseDTOTemp.caisseTransaction);
         this.serviceCaisse.ventesTransactionsList.push(this.serviceCaisse.caisseDTOTemp.caisseTransaction);

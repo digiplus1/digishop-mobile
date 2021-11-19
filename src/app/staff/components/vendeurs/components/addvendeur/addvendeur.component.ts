@@ -39,7 +39,7 @@ export class AddvendeurComponent implements OnInit {
       this.isLoading = true;
       this.vendeur.isVendeur = true;
       this.vendeur.vendeur = true;
-      this.vendeur.nomBoutique = this.authenservice.utilisateur.nomBoutique;
+      this.vendeur.nomBoutique = this.authenservice.boutique.nomBoutique;
       this.vendeur.role = "vendeur";
 
       this.authenservice.register(this.vendeur).subscribe(

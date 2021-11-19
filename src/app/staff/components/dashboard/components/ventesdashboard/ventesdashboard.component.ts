@@ -20,7 +20,7 @@ export class VentesdashboardComponent implements OnInit {
   ngOnInit() {
     this.mainService.spinner.show();
 
-    this.serviceDash.getlistCommande(this.authenService.utilisateur.nomBoutique,this.authenService.utilisateur.username).subscribe(
+    this.serviceDash.getlistCommande(this.authenService.boutique.nomBoutique,this.authenService.utilisateur.username).subscribe(
       data=>{
         console.log(data);
         this.serviceDash.commandeDTOList = data;

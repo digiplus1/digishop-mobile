@@ -32,7 +32,7 @@ export class VentecaisseComponent implements OnInit {
 
   initializeData () {
     this.mainService.spinner.show()
-    this.serviceproduit.getAllNomProduit(this.autheService.utilisateur.nomBoutique);
+    this.serviceproduit.getAllNomProduit(this.autheService.boutique.nomBoutique);
   }
 
   goBack() {

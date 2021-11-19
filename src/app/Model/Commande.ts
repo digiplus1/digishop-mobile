@@ -45,4 +45,5 @@ export class Commande {
 
   type_facture:string;
   remerciement:string;
+  message: string;
 }

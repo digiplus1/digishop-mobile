@@ -5,4 +5,5 @@ export class PayementDto {
   datecreation:Date;
   statut:string;
   montantpayement:number;
+  url_to_connect: string;
 }

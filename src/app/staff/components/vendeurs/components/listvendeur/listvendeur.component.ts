@@ -24,7 +24,7 @@ export class ListvendeurComponent implements OnInit {
   ngOnInit() {
     this.mainService.spinner.show();
 
-    this.serviceUser.getAllVendeurs(this.authenService.utilisateur.nomBoutique).subscribe(
+    this.serviceUser.getAllVendeurs(this.authenService.boutique.nomBoutique).subscribe(
       data=>{
         console.log(data)
         this.serviceUser.vendeursList = data;
@@ -74,24 +74,20 @@ export class ListvendeurComponent implements OnInit {
 
   valider() {
     this.mainService.spinner.show();
-
-    let aVD : ActiveVendeurDTO = new ActiveVendeurDTO();
-    aVD.nomBoutique = this.vendeurTemp.nomBoutique;
-    aVD.idVendeur = this.vendeurTemp.id_user;
-    aVD.active_desactive = !this.vendeurTemp.activevendeur;
-
-    this.serviceUser.activeOrDesactiveVendeur(aVD).subscribe(
+    console.log(this.vendeurTemp);
+    this.serviceUser.activeOrDesactiveVendeur(this.vendeurTemp.iduser).subscribe(
       data=>{
         console.log(data);
         if(data!=null){
-          this.serviceUser.vendeursList.forEach(v=>{ if(v.id_user == data.id_user){ v = data; } })
-          this.vendeurs.forEach(v=>{ if(v.id_user == data.id_user){ v = data; } })
+         let index= this.serviceUser.vendeursList.findIndex(v=>v.iduser==this.vendeurTemp.iduser);
+          this.vendeurs[index].ativeuser=!this.vendeurs[index].ativeuser;
         } else {
           this.authenService.toastMessage("Un problème rencontré. Rééssayer.")
         }
         this.annuler();
         this.mainService.spinner.hide();
       }, error => {
+        this.mainService.spinner.hide();
         this.authenService.toastMessage(error.error.message)
         this.annuler();
         this.mainService.spinner.hide();

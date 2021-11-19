@@ -25,7 +25,7 @@ export class SessionFermeComponent implements OnInit {
 
     let sessionF : SessionFermee = new SessionFermee();
     sessionF.nomuser = this.authenService.utilisateur.username;
-    sessionF.nomboutique = this.authenService.utilisateur.nomBoutique;
+    sessionF.nomboutique = this.authenService.boutique.nomBoutique;
 
     this.serviceDash.checkSessionFermeeInShop(sessionF).subscribe(
       data=>{

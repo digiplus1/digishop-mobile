@@ -21,7 +21,7 @@ export class AlertstockComponent implements OnInit {
 
     let stockA : StockAlert = new StockAlert();
     stockA.nomuser = this.authenService.utilisateur.username;
-    stockA.nomboutique = this.authenService.utilisateur.nomBoutique;
+    stockA.nomboutique = this.authenService.boutique.nomBoutique;
 
     this.serviceDash.checkAlertStockInShop(stockA).subscribe(
       data=>{
