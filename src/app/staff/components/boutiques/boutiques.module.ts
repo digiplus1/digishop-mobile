@@ -15,6 +15,7 @@ import {ProduitlistComponent} from "./components/produitlist/produitlist.compone
 import {TransactionstockComponent} from "./components/transactionstock/transactionstock.component";
 import {DetailsproduitComponent} from "./components/produitlist/detailsproduit/detailsproduit.component";
 import {AddproduitComponent} from "./components/produitlist/addproduit/addproduit.component";
+import {RemoveStockComponent} from "./components/managestock/remove-stock/remove-stock.component";
 
 @NgModule({
   imports: [
@@ -25,6 +26,6 @@ import {AddproduitComponent} from "./components/produitlist/addproduit/addprodui
     ReactiveFormsModule
   ],
   declarations: [BoutiquesPage, AccueilboutiquesComponent, InventairelistComponent, ManagestockComponent, OperationstockComponent,
-                  ProduitlistComponent, TransactionstockComponent, DetailsproduitComponent, AddproduitComponent]
+                  ProduitlistComponent, TransactionstockComponent, DetailsproduitComponent, AddproduitComponent, RemoveStockComponent]
 })
 export class BoutiquesPageModule {}

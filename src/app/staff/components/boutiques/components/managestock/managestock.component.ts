@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import {ServiceProduit} from "../../../../services/ServiceProduit";
 import {ProduitDto} from "../../../../../Model/ProduitDto";
 import {Stock} from "../../../../../Model/Stock";
+import {ServiceUtilisateur} from "../../../../services/ServiceUtilisateur";
+import {AuthenService} from "../../../../../home/components/Service/AuthenService";
+import {DetailsproduitComponent} from "../produitlist/detailsproduit/detailsproduit.component";
+import {MainService} from "../../../../../shared/services/MainService";
+import {RemoveStockComponent} from "./remove-stock/remove-stock.component";
+import {ModalController} from "@ionic/angular";
 
 @Component({
   selector: 'app-managestock',
@@ -15,9 +21,12 @@ export class ManagestockComponent implements OnInit {
     'SORTIE DE STOCK',
     'RETOUR DE STOCK',
     // 'RESERVE DE STOCK'
-  ];
+  ]
+  public quantite: number = 0;
   constructor(
-    public serviceProduit: ServiceProduit
+    public serviceProduit: ServiceProduit,
+    public authService: AuthenService,
+    private modalController : ModalController,
   ) { }
 
   ngOnInit() {}
@@ -48,20 +57,38 @@ export class ManagestockComponent implements OnInit {
     this.FilterElement(null);
   }
 
-  showDetails(c: ProduitDto) {
-
+  addStock(c: ProduitDto) {
+    if (c.quantite_tempon != 0) {
+      let stock = new Stock();
+      stock.idProduit = c.idProduit;
+      stock.idUser = this.authService.utilisateur.iduser
+      stock.quantite = c.quantite_tempon;
+      stock.typeStock = this.type_stock[0];
+      this.saveStock(stock);
+    }
   }
 
-  deleteProd(c: ProduitDto) {
-
+  async removeStock(prod: ProduitDto) {
+    this.serviceProduit.produit=prod;
+    const modal = await this.modalController.create({
+      component: RemoveStockComponent,
+      cssClass: 'removestock'
+    });
+    return await modal.present();
   }
 
   saveStock(stock:Stock){
     this.serviceProduit.savestockbyShop(stock).subscribe(
       data => {
         this.serviceProduit.produit.stock = data;
+        let index = this.serviceProduit.produitListTemp.findIndex(p => p.idProduit == data.produit.idProduit)
+        this.serviceProduit.produitListTemp.splice(index, 1);
+        this.serviceProduit.produitListTemp.reverse();
+        this.serviceProduit.produitListTemp.push(data.produit);
+        this.serviceProduit.produitListTemp.reverse();
       },error => {
-
+        this.authService.toastMessage("Erreur survenu lors de l'opération");
+        console.log(error);
       }
     );
   }

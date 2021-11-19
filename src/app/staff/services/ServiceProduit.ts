@@ -40,6 +40,9 @@ export class  ServiceProduit {
             console.log(data);
             this.produitList = data;
             this.produitListTemp = data;
+            this.produitListTemp.forEach(p => {
+              p.quantite_tempon = 0;
+            });
             this.mainService.spinner.hide();
           }, error => {
             this.authenService.toastMessage(error.error.message);

@@ -1,0 +1,26 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons (click)="closeM()" style="margin-left: 5px" slot="start">
+      <ion-icon color="primary" name="close"></ion-icon>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Sortie de stock de {{ serviceProduit.produit.nomProduit }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+    <ion-item lines="none">
+      <ion-input type="number" [(ngModel)]="serviceProduit.produit.quantite_tempon" placeholder="Poids" ></ion-input>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-textarea [(ngModel)]="serviceProduit.produit.description" placeholder="Caractéristiques" ></ion-textarea>
+    </ion-item>
+
+    <ion-button size="small" shape="round" type="submit" [disabled]="isLoading==true" (click)="removeStock(serviceProduit.produit)" (keydown.enter)="removeStock(serviceProduit.produit)">Valider
+      <ion-spinner name="lines" *ngIf="isLoading"></ion-spinner>
+    </ion-button>
+    <ion-button size="small" shape="round" color="danger" (click)="closeM()">Annuler</ion-button>
+  </ion-grid>
+</ion-content>

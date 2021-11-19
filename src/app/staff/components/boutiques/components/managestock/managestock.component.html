@@ -15,24 +15,26 @@
               <img [src]="c.image">
             </ion-thumbnail>
           </ion-col>
-          <ion-col size="5" class="text-center">
+          <ion-col size="4" class="text-center">
             <ion-row>
-              <ion-label class="text-uppercase" color="secondary"><strong>{{c.nomProduit}}</strong></ion-label>
+              <ion-label color="secondary">{{c.nomProduit}}:{{ c.quantiteEnStock }}</ion-label>
             </ion-row>
             <ion-row>
               Statut :
               <ion-label  color="secondary"> {{c.activeproduit?'Activé':'Désactivé'}}</ion-label>
             </ion-row>
           </ion-col>
-          <ion-col size="1" class="text-center">
-            <ion-label><h2><strong>{{ c.quantiteEnStock }}</strong></h2></ion-label>
+          <ion-col size="3" class="text-center">
+            <ion-item>
+              <ion-input type="number" [(ngModel)]="c.quantite_tempon"></ion-input>
+            </ion-item>
           </ion-col>
-          <ion-col size="4" class="text-end">
+          <ion-col size="3">
             <ion-col>
-              <ion-icon size="large" color="success" name="add-outline" (click)="showDetails(c)"></ion-icon>
+              <ion-icon size="large" color="success" name="add-outline" (click)="addStock(c)"></ion-icon>
             </ion-col>
             <ion-col>
-              <ion-icon size="large" color="danger" name="remove-outline" (click)="deleteProd(c)"></ion-icon>
+              <ion-icon size="large" color="danger" name="remove-outline" (click)="removeStock(c)"></ion-icon>
             </ion-col>
           </ion-col>
         </ion-row>

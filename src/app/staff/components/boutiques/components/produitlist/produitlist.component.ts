@@ -18,7 +18,7 @@ export class ProduitlistComponent implements OnInit {
   search: string = "";
   produitListTemp: ProduitDto [] = [];
 
-  constructor(public serviceProduit : ServiceProduit, private mainService : MainService, private modalController : ModalController,
+    constructor(public serviceProduit : ServiceProduit, private mainService : MainService, private modalController : ModalController,
               public authenService : AuthenService, public serviceBoutique : ServiceBoutique, private serviceCatalogueCategorie: ServiceCatalogueCategorie) { }
 
   ngOnInit() {

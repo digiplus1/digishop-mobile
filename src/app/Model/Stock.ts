@@ -1,3 +1,5 @@
+import {ProduitDto} from "./ProduitDto";
+
 export class Stock {
   idstock:number;
   totalStock:number;
@@ -14,4 +16,5 @@ export class Stock {
   idProduit:number;
   managePeremption:boolean;
   commentaire:string;
+  produit: ProduitDto;
 }

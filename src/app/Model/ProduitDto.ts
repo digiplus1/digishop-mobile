@@ -38,4 +38,6 @@ export class ProduitDto {
   stock:Stock;
   lien:string;
   populaire : boolean;
+
+  quantite_tempon: number = 0;
 }
