@@ -3,6 +3,7 @@ import {ServiceCaisse} from "../../../../../../../services/ServiceCaisse";
 import {ModalController, NavParams} from "@ionic/angular";
 import {CaisseDTO} from "../../../../../../../models/CaisseDTO";
 import {Commande} from "../../../../../../../../Model/Commande";
+import {ServicePrinter} from "../../../../../../../services/ServicePrinter";
 
 @Component({
   selector: 'app-modalconfirm',
@@ -12,10 +13,11 @@ import {Commande} from "../../../../../../../../Model/Commande";
 export class ModalconfirmComponent implements OnInit {
 
   caissedto:CaisseDTO;
-  constructor( public serviceCaisse : ServiceCaisse,private navParam : NavParams,  private modalController : ModalController) { }
+  constructor( public serviceCaisse : ServiceCaisse,private navParam : NavParams,public servicePrinter : ServicePrinter,
+               private modalController : ModalController) { }
 
   ngOnInit() {
-    this.caissedto = this.navParam.get("modalpaymentconfirm");
+    this.caissedto = this.navParam.get("payment");
   }
 
   getstatus(commande: Commande) {
@@ -31,6 +33,7 @@ export class ModalconfirmComponent implements OnInit {
             }else if (data.commande.payement.statut=="PENDING"){
               this.caissedto.commande.message="Merci de confirmer le paiement sur votre mobile et de cliquer sur le button pour continuer";
             }else if (data.commande.payement.statut=="SUCCESSFUL"){
+              this.servicePrinter.initializeTicketVenteAfter(data.caisseTransaction)
               this.modalController.dismiss();
               this.caissedto.commande.message="Merci d'avoir confirmé le paiement nous vous remercions pour cela";
             }
@@ -42,4 +45,7 @@ export class ModalconfirmComponent implements OnInit {
     }
   }
 
+  closepaiement() {
+    this.modalController.dismiss();
+  }
 }

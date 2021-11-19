@@ -10,7 +10,9 @@ import {Cart} from "../../../../../Model/Cart";
 import {PaiementProccessComponent} from "../ventecaisse/components/paiement-proccess/paiement-proccess.component";
 import {ModalController} from "@ionic/angular";
 import {Router} from "@angular/router";
-
+import {ServicePrinter} from "../../../../services/ServicePrinter";
+import { Printer, PrintOptions } from '@ionic-native/printer/ngx';
+import {CaisseTransactions} from "../../../../models/CaisseTransactions";
 @Component({
   selector: 'app-venterapidecaisse',
   templateUrl: './venterapidecaisse.component.html',
@@ -21,17 +23,22 @@ export class VenterapidecaisseComponent implements OnInit {
   testMore : boolean = true;
   cartTemp : Cart = new Cart();
   prodList : ProduitDto [] = [];
-
+  slideopts = {
+    initialSilde: 0,
+    spaceBetween: 0,
+    slidesPerView: 2.8,
+    slidesOffsetBefore: 5
+  };
   constructor(public caisseService : ServiceCaisse, public mainService : MainService, public authenService : AuthenService,
               public serviceProduit : ServiceProduit, public servicepanier : ServicePanier, private modalController : ModalController,
-              private router : Router) { }
+              private router : Router,public printService:ServicePrinter,) { }
 
   ngOnInit() {
     this.testMore = true;
 
     if(this.serviceProduit.produitList.length==0){
       this.mainService.spinner.show();
-      this.serviceProduit.getAllProduitPopulaire(this.authenService.utilisateur.nomBoutique).subscribe(
+      this.serviceProduit.getAllProduit(this.authenService.boutique.nomBoutique).subscribe(
         data=>{
           console.log(data);
           this.serviceProduit.produitPopulaire = data.filter(p=> p.nomProduit!="Generique");
@@ -215,7 +222,7 @@ export class VenterapidecaisseComponent implements OnInit {
     if(this.serviceProduit.produitList.length<1){
       if(this.serviceProduit.produitNonPopulaire.length<1){
         this.mainService.spinner.show();
-        this.serviceProduit.getAllProduitNonPopulaire(this.authenService.utilisateur.nomBoutique).subscribe(
+        this.serviceProduit.getAllProduit(this.authenService.boutique.nomBoutique).subscribe(
           data=>{
             console.log(data);
             this.serviceProduit.produitNonPopulaire = data.filter(p=> p.nomProduit!="Generique");
@@ -239,4 +246,5 @@ export class VenterapidecaisseComponent implements OnInit {
       this.testMore = false;
     }
   }
+
 }
