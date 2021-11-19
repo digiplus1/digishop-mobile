@@ -6,8 +6,6 @@ import {ServiceCaisse} from "../../../../../../services/ServiceCaisse";
 import {CaisseDTO} from "../../../../../../models/CaisseDTO";
 import {AuthenService} from "../../../../../../../home/components/Service/AuthenService";
 import {ServicePrinter} from "../../../../../../services/ServicePrinter";
-import {CaisseSession} from "../../../../../../models/CaisseSession";
-import {RapportFermetureComponent} from "../../../../../dashboard/modals/rapport-fermeture/rapport-fermeture.component";
 import {ModalconfirmComponent} from "./modalconfirm/modalconfirm.component";
 
 @Component({
@@ -58,10 +56,7 @@ export class PaiementProccessComponent implements OnInit {
     cDTO.typepaiement = this.paiementService.affiche;
     cDTO.operateurnom = this.operateurNom;
     cDTO.commentaire = this.commentaire;
-   if (this.paiementService.affiche=="MTN MOBILE MONEY"){
-      cDTO.momo = Number(this.paiementService.momo);
-    }
-
+    cDTO.phone= this.paiementService.momo;
     this.serviceCaisse.ManageCaisse(cDTO).subscribe(
       data=>{
         console.log(data);

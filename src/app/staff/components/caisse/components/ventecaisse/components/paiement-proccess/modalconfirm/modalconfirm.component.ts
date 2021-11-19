@@ -15,7 +15,7 @@ export class ModalconfirmComponent implements OnInit {
   constructor( public serviceCaisse : ServiceCaisse,private navParam : NavParams,  private modalController : ModalController) { }
 
   ngOnInit() {
-    this.caissedto = this.navParam.get("modalpaymentconfirm");
+    this.caissedto = this.navParam.get("payment");
   }
 
   getstatus(commande: Commande) {
@@ -42,4 +42,7 @@ export class ModalconfirmComponent implements OnInit {
     }
   }
 
+  closepaiement() {
+    this.modalController.dismiss();
+  }
 }
