@@ -5,6 +5,7 @@ import {AuthenService} from "../../home/components/Service/AuthenService";
 import {AdresseIP} from "../../Service/AdresseIP";
 import {MainService} from "../../shared/services/MainService";
 import { CategorieProduitDTO } from "src/app/Model/CategorieProduitDTO";
+import {Stock} from "../../Model/Stock";
 
 @Injectable()
 export class  ServiceProduit {
@@ -78,5 +79,9 @@ export class  ServiceProduit {
   }
   updateProduit(produitDto: ProduitDto) {
     return this.http.put<ProduitDto>(AdresseIP.host+'updateproduit/',produitDto)
+  }
+
+  savestockbyShop(stock:Stock) {
+    return this.http.post<Stock>(AdresseIP.host + 'manageStock',stock)
   }
 }

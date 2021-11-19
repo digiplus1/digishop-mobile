@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ServiceProduit} from "../../../../services/ServiceProduit";
 import {ProduitDto} from "../../../../../Model/ProduitDto";
+import {Stock} from "../../../../../Model/Stock";
 
 @Component({
   selector: 'app-managestock',
@@ -9,7 +10,12 @@ import {ProduitDto} from "../../../../../Model/ProduitDto";
 })
 export class ManagestockComponent implements OnInit {
   public search: string;
-
+  type_stock = [
+    'ENTREE EN STOCK',
+    'SORTIE DE STOCK',
+    'RETOUR DE STOCK',
+    // 'RESERVE DE STOCK'
+  ];
   constructor(
     public serviceProduit: ServiceProduit
   ) { }
@@ -48,5 +54,15 @@ export class ManagestockComponent implements OnInit {
 
   deleteProd(c: ProduitDto) {
 
+  }
+
+  saveStock(stock:Stock){
+    this.serviceProduit.savestockbyShop(stock).subscribe(
+      data => {
+        this.serviceProduit.produit.stock = data;
+      },error => {
+
+      }
+    );
   }
 }
