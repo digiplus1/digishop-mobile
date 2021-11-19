@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AppUser} from "../../models/appUser";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
@@ -33,11 +33,12 @@ export class RegisterComponent implements OnInit {
 
   initregister() {
     this.registerForm = this.formBuilder.group({
-        nomcomplet: ['', Validators.required],
-        username: ['', Validators.required],
+        /*    nomcomplet: ['', Validators.required],
+            username: ['', Validators.required],
+            acceptTerms: [false, Validators.requiredTrue],
+            email: ['', [Validators.required, Validators.email]],*/
         phone: ['', Validators.required],
         acceptTerms: [false, Validators.requiredTrue],
-        email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(8)]],
         password2: ['', [Validators.required, Validators.minLength(8)]],
       }

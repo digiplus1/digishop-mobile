@@ -1,4 +1,4 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -14,8 +14,9 @@ import {NotificationService} from "./shared/services/NotificationService";
 import {MainService} from "./shared/services/MainService";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
-import {BarcodeScanner} from "@ionic-native/barcode-scanner/ngx";
 import {DatePipe} from '@angular/common';
+import {BarcodeScanner} from "@ionic-native/barcode-scanner/ngx";
+
 
 const SERVICES = [
   MainService,
@@ -39,10 +40,11 @@ const SERVICES = [
   providers: [
     AuthenService,
     DatePipe,
+    BarcodeScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
       SERVICES
     ],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+
 })
 export class AppModule {}

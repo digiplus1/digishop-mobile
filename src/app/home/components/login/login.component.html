@@ -21,7 +21,7 @@
   </div>
   <form id="form" [formGroup]="registerForm" (ngSubmit)="onRegister()">
     <ion-item lines="none" class="ion-margin-bottom">
-      <ion-input formControlName="username" placeholder="Pseudo"
+      <ion-input formControlName="username" placeholder="Téléphone" type="number"
                  [ngClass]="{ 'is-invalid': submittedRegister && g.username.errors }"></ion-input>
       <ion-icon slot="end" color="primary" name="person-outline"></ion-icon>
     </ion-item>
