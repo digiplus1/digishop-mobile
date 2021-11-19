@@ -49,6 +49,17 @@ export class AuthenService {
     );
   }
 
+  getBoutiqueByLien(){
+    return this.http.get<BoutiquePos>(AdresseIP.host+"getboutiquebylien/"+this.utilisateur.nomBoutique).subscribe(
+      data=>{
+        console.log(data);
+        this.boutique = data;
+      },error => {
+        this.toastMessage(error.error.message);
+      }
+    );
+  }
+
   ConnectAccountInShop(username:string){
     return this.http.get<Utilisateur>(AdresseIP.host+"connection/"+username+"/"+this.utilisateur.nomBoutique);
   }

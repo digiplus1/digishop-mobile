@@ -36,7 +36,7 @@ export class AccueilvendeurComponent implements OnInit {
       },
       error => {console.log(error);this.mainService.spinner.hide()},
       ()=>{
-        this.DashService.getEtatDashVendeur().subscribe(
+        /*this.DashService.getEtatDashVendeur().subscribe(
           data=>{
             this.mainService.spinner.hide()
             console.log(data);
@@ -45,7 +45,7 @@ export class AccueilvendeurComponent implements OnInit {
             console.log(error)
             this.mainService.spinner.hide();
           }
-        )
+        )*/
       }
     );
   }

@@ -36,7 +36,7 @@ export class MenustaffPage implements OnInit {
     } else {
       this.menus = this.menuProp;
     }
-    this.authenservice.getBoutique();
+    this.authenservice.getBoutiqueByLien();
   }
 
   onMenuAction(url) {
