@@ -5,6 +5,7 @@ import {AuthenService} from "../../home/components/Service/AuthenService";
 import {ServiceProduit} from "./ServiceProduit";
 import {CaisseTransactions} from "../models/CaisseTransactions";
 import {BluetoothSerial} from "@ionic-native/bluetooth-serial/ngx";
+import {Commande} from "../../Model/Commande";
 
 
 @Injectable()
@@ -87,6 +88,31 @@ export class ServicePrinter {
     console.log(this.printVente)
     //this.printer.isAvailable().then();
 
+  }
+
+  initializeTicketClient(cmd : Commande){
+
+    this.printVente+="\n \t Facture \n\n";
+    this.printVente+="\n" + new Date().toString();
+    this.printVente+="\n Boutique : " + this.authenService.utilisateur.nomBoutique;
+    this.printVente+="\n Contact : " + this.authenService.boutique.telephoneBoutique;
+    this.printVente+="\n Vendeur  : " + this.authenService.utilisateur.username;
+    this.printVente+="\n -------------------------------";
+    this.printVente+="\n Client  : " + this.authenService.user_vendeur.username;
+    this.printVente+="\n -------------------------------";
+    this.printVente+="\n Designation \t Quantite \t Montant";
+    cmd.cartItems.forEach(c=>{
+      this.printVente+="\n "+ c.description.normalize("NFD").replace(/[\u0300-\u036f]/g, "")+"   "+c.quantite+"    "+"   "+c.montant;
+    });
+    this.printVente+="\n Frais de livraison :  \t" + cmd.fraislivraison;
+    this.printVente+="\n Montant HT : \t" + ((cmd.montantcommande) - (cmd.montantcommande * 0.1925)).toFixed(1);
+    this.printVente+="\n Montant TVA : \t" + (cmd.montantcommande * 0.1925).toFixed(1);
+    this.printVente+="\n Montant TTC : \t" + cmd.montantcommande.toFixed(1);
+
+    this.printVente+="\n Merci pour votre visite!!!" ;
+    this.printVente+="\n \n \n \n \n \n" ;
+
+    console.log(this.printVente)
   }
 
   searchBluetoothPrinter()

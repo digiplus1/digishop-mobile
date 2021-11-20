@@ -73,6 +73,7 @@ export class PaiementClientComponent implements OnInit {
                   donnee=>{
                     console.log(donnee)
                     this.serviceCommande.commandeDTOTemp = donnee;
+                    this.servicePrinter.initializeTicketClient(donnee);
                   },error => {
                     if(error.error.message!=""){
                       this.authenService.toastMessage(error.error.message);
@@ -91,6 +92,8 @@ export class PaiementClientComponent implements OnInit {
                     this.paiementService.momo="";
                     this.paiementService.codeOrange="";
                     this.cancel();
+
+                    this.servicePrinter.sendToBluetoothPrinter(this.servicePrinter.selectedPrinter, this.servicePrinter.printVente);
 
                   }
                 )
