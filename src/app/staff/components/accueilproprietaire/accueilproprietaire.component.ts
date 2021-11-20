@@ -6,6 +6,9 @@ import {MainService} from "../../../shared/services/MainService";
 import {ServiceDash} from "../../services/ServiceDash";
 import {BoutiqueService} from "../../../client/Service/BoutiqueService";
 import {ServiceBoutique} from "../../services/ServiceBoutique";
+import {ModalController} from "@ionic/angular";
+import {PrinterlistComponent} from "../printerlist/printerlist.component";
+import {ServicePrinter} from "../../services/ServicePrinter";
 
 @Component({
   selector: 'app-accueilproprietaire',
@@ -19,8 +22,8 @@ export class AccueilproprietaireComponent implements OnInit {
               public caisseService : ServiceCaisse,
               private router : Router,
               public boutiqueService:ServiceBoutique,
-              private mainService : MainService,
-              public DashService : ServiceDash) { }
+              private mainService : MainService, private printer : ServicePrinter,
+              public DashService : ServiceDash, public modalController : ModalController) { }
 
   ngOnInit() {
     console.log(this.authentificationService.utilisateur)
@@ -41,6 +44,16 @@ export class AccueilproprietaireComponent implements OnInit {
       error => {console.log(error);this.mainService.spinner.hide()},
       ()=>{
         this.mainService.spinner.hide()
+
+        //Récupération de l'imprimante
+        let print = localStorage.getItem("printer");
+        if(print == null) {
+          this.mainService.notificationService.showInfo("Aucune imprimante présente. Bien vouloir définir une.")
+          this.printerModal();
+        } else {
+          this.printer.selectedPrinter = print;
+        }
+
        /* this.DashService.getEtatDashVendeur().subscribe(
           data=>{
             this.mainService.spinner.hide()
@@ -80,4 +93,11 @@ export class AccueilproprietaireComponent implements OnInit {
     }
   }
 
+  async printerModal() {
+    const modal = await this.modalController.create({
+      component: PrinterlistComponent,
+      cssClass: 'my-custom-css'
+    });
+    return await modal.present();
+  }
 }

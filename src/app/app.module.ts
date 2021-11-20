@@ -16,15 +16,18 @@ import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {DatePipe} from '@angular/common';
 import {BarcodeScanner} from "@ionic-native/barcode-scanner/ngx";
+import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
+import {PrinterlistComponent} from "./staff/components/printerlist/printerlist.component";
 
 
 const SERVICES = [
   MainService,
   NotificationService,
+  BluetoothSerial,
 ]
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, PrinterlistComponent],
   entryComponents: [],
 
   imports: [

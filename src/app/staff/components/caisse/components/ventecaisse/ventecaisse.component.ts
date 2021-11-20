@@ -10,7 +10,6 @@ import {ModalController} from "@ionic/angular";
 import {PaiementProccessComponent} from "./components/paiement-proccess/paiement-proccess.component";
 import {PaniertempComponent} from "./components/paniertemp/paniertemp.component";
 import {GeneriqueComponent} from "./components/generique/generique.component";
-import {Printer, PrintOptions} from "@ionic-native/printer/ngx";
 import {CaisseTransactions} from "../../../../models/CaisseTransactions";
 
 @Component({

@@ -11,7 +11,6 @@ import {PaiementProccessComponent} from "../ventecaisse/components/paiement-proc
 import {ModalController} from "@ionic/angular";
 import {Router} from "@angular/router";
 import {ServicePrinter} from "../../../../services/ServicePrinter";
-import { Printer, PrintOptions } from '@ionic-native/printer/ngx';
 import {CaisseTransactions} from "../../../../models/CaisseTransactions";
 @Component({
   selector: 'app-venterapidecaisse',

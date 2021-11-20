@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title slot="start">Gerer les imprimantes...</ion-title>
+    <ion-icon (click)="refreshList()" slot="end" size="large" name="refresh-circle-outline"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content no-bounce >
+  <ion-card>
+    <ion-item *ngFor="let v of printeService.bluetoothList">
+      <ion-label>{{v.name}}</ion-label>
+      <ion-button slot="end" (click)="selectPrinter(v.id)">
+        <ion-icon name="send"></ion-icon>
+      </ion-button>
+    </ion-item>
+    <ion-card-subtitle>
+      <ion-label color="primary">Imprimante Active : <strong>{{printeService.selectedPrinter}}</strong></ion-label>
+    </ion-card-subtitle>
+  </ion-card>
+</ion-content>
+
+<ion-footer class="ion-justify-content-center">
+  <ion-button color="primary" (click)="dismiss()">Fermer</ion-button>
+</ion-footer>

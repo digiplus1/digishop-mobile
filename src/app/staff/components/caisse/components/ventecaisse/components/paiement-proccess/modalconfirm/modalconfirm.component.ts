@@ -14,7 +14,7 @@ export class ModalconfirmComponent implements OnInit {
 
   caissedto:CaisseDTO;
   constructor( public serviceCaisse : ServiceCaisse,private navParam : NavParams,public servicePrinter : ServicePrinter,
-               private modalController : ModalController) { }
+               private modalController : ModalController, private printer : ServicePrinter) { }
 
   ngOnInit() {
     this.caissedto = this.navParam.get("payment");
@@ -33,13 +33,15 @@ export class ModalconfirmComponent implements OnInit {
             }else if (data.commande.payement.statut=="PENDING"){
               this.caissedto.commande.message="Merci de confirmer le paiement sur votre mobile et de cliquer sur le button pour continuer";
             }else if (data.commande.payement.statut=="SUCCESSFUL"){
-              this.servicePrinter.initializeTicketVenteAfter(data.caisseTransaction)
+              this.servicePrinter.initializeTicketVenteBefore(data.caisseTransaction)
               this.modalController.dismiss();
               this.caissedto.commande.message="Merci d'avoir confirmé le paiement nous vous remercions pour cela";
             }
           }
         },error => {
           this.caissedto.commande.message=error.error.message;
+        }, ()=> {
+          this.printer.sendToBluetoothPrinter(this.printer.selectedPrinter, this.printer.printVente);
         }
       )
     }

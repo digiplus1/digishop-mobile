@@ -1,3 +1,3 @@
 export class UrlConfig {
-  static apiUrl = "localhost:8080/"
+  static apiUrl = 'localhost:8080/';
 }
