@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { BoutiquesPage } from './boutiques.page';
 import {AccueilboutiquesComponent} from "./components/accueilboutiques/accueilboutiques.component";
+import {InventairelistModule} from "./components/inventairelist/inventairelist.module";
 
 const routes: Routes = [
   {
@@ -15,7 +16,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [
+    InventairelistModule,
+    RouterModule.forChild(routes)
+  ],
   exports: [RouterModule],
 })
 export class BoutiquesPageRoutingModule {}

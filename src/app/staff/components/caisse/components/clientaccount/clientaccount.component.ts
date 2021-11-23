@@ -11,6 +11,7 @@ import {ModalController} from "@ionic/angular";
 import {MainService} from "../../../../../shared/services/MainService";
 import {PaiementProccessComponent} from "../ventecaisse/components/paiement-proccess/paiement-proccess.component";
 import {PaiementClientComponent} from "./components/paiement-client/paiement-client.component";
+import {PaniermodalComponent} from "./components/paniermodal/paniermodal.component";
 
 @Component({
   selector: 'app-clientaccount',
@@ -29,7 +30,7 @@ export class ClientaccountComponent implements OnInit {
   ngOnInit() {
     if(this.serviceproduit.produitList.length==0 || this.serviceproduit.nomProduit.length==0){
       this.mainService.spinner.show()
-      this.serviceproduit.getAllNomProduit(this.authenService.utilisateur.nomBoutique);
+      this.serviceproduit.getAllNomProduit(this.authenService.boutique.nomBoutique);
     }
   }
 
@@ -137,6 +138,17 @@ export class ClientaccountComponent implements OnInit {
     if (this.panierService.panierCaisse.cartItems.length > 0) {
       const modal = await this.modalController.create({
         component: PaiementClientComponent,
+      });
+      return await modal.present();
+    } else {
+      this.authenService.toastMessage("Aucun produit ajouté.")
+    }
+  }
+
+  async panier() {
+    if (this.panierService.panierCaisse.cartItems.length > 0) {
+      const modal = await this.modalController.create({
+        component: PaniermodalComponent,
       });
       return await modal.present();
     } else {

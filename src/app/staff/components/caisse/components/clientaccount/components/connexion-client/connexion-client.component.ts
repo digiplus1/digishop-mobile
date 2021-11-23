@@ -50,7 +50,7 @@ export class ConnexionClientComponent implements OnInit {
               if(this.authenService.user_vendeur.cart.cartItems.length>0){
                 let test : boolean = false;
                 this.authenService.user_vendeur.cart.cartItems.forEach(c=>{
-                  if (c.produit.nomboutique != this.authenService.utilisateur.nomBoutique){
+                  if (c.produit.nomboutique != this.authenService.boutique.nomBoutique){
                     test = true;
                   }
                 })

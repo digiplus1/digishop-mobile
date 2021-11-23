@@ -1,0 +1,34 @@
+<ion-card>
+  <ion-card-content>
+    <table class="table table-striped table-bordered">
+      <tr>
+        <th>
+          <div class="custom-control custom-checkbox"><input id="my-input" class="custom-control-input" type="checkbox"
+                                                             [checked]="isChecked" (click)="checkuncheckall()"><label
+            for="my-input" class="custom-control-label"><span>Tout</span></label></div>
+        <th>id</th>
+        <th>Produit</th>
+      </tr>
+      <tbody>
+      <tr *ngFor="let u of stockService.produitInventaires ">
+        <td>
+          <div class="custom-control custom-checkbox"><input [id]="u.idProduit" class="custom-control-input"
+                                                             type="checkbox" [checked]="isChecked"
+                                                             (change)="add_id(u.idProduit)"><label [for]="u.idProduit"
+                                                                                                   class="custom-control-label"><span></span></label>
+          </div>
+        </td>
+        <td>{{u.idProduit}}</td>
+        <td>{{u.nomProduit}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </ion-card-content>
+  <div class="row">
+    <div class="col"></div>
+    <div class="col">
+      <ion-button size="small" class="btn-primary" (click)="initieInventaire(inventaireInit)">Initier</ion-button>
+    </div>
+    <div class="col"></div>
+  </div>
+</ion-card>

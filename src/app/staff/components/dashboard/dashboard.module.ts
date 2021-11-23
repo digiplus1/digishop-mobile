@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import { IonicModule } from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 
-import { DashboardPageRoutingModule } from './dashboard-routing.module';
+import {DashboardPageRoutingModule} from './dashboard-routing.module';
 
-import { DashboardPage } from './dashboard.page';
+import {DashboardPage} from './dashboard.page';
 import {AlertstockComponent} from "./components/alertstock/alertstock.component";
 import {SessionOuvertComponent} from "./components/sessioncaisse/session-ouvert/session-ouvert.component";
 import {SessionFermeComponent} from "./components/sessioncaisse/session-ferme/session-ferme.component";
@@ -17,6 +17,7 @@ import {SessionOFilterComponent} from "./modals/session-ofilter/session-ofilter.
 import {SessionFFilterComponent} from "./modals/session-ffilter/session-ffilter.component";
 import {VenteFilterComponent} from "./modals/vente-filter/vente-filter.component";
 import {RapportFermetureComponent} from "./modals/rapport-fermeture/rapport-fermeture.component";
+import {VentesdashboardModule} from "./components/ventesdashboard/ventesdashboard.module";
 
 @NgModule({
   imports: [
@@ -24,11 +25,13 @@ import {RapportFermetureComponent} from "./modals/rapport-fermeture/rapport-ferm
     FormsModule,
     IonicModule,
     DashboardPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    VentesdashboardModule,
   ],
   declarations: [DashboardPage,
     AlertstockComponent, SessionOuvertComponent, SessionFermeComponent, SessioncaisseComponent,
     VentesdashboardComponent, AccueildashboardComponent, SessionOFilterComponent, SessionFFilterComponent,
     VenteFilterComponent, RapportFermetureComponent]
 })
-export class DashboardPageModule {}
+export class DashboardPageModule {
+}

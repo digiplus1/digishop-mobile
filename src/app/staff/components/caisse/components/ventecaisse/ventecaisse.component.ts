@@ -11,6 +11,7 @@ import {PaiementProccessComponent} from "./components/paiement-proccess/paiement
 import {PaniertempComponent} from "./components/paniertemp/paniertemp.component";
 import {GeneriqueComponent} from "./components/generique/generique.component";
 import {CaisseTransactions} from "../../../../models/CaisseTransactions";
+import {BarcodeScanner} from "@ionic-native/barcode-scanner/ngx";
 
 @Component({
   selector: 'app-ventecaisse',
@@ -22,7 +23,7 @@ export class VentecaisseComponent implements OnInit {
   produitTemp : ProduitDto;
   cartItemTemp : CartItem;
   search: string = "";
-  constructor(public serviceproduit : ServiceProduit, private router : Router, private autheService : AuthenService,
+  constructor(public serviceproduit : ServiceProduit, private router : Router, private autheService : AuthenService,private barcodeScanner: BarcodeScanner,
               public servicepanier : ServicePanier, private mainService : MainService,public authenService : AuthenService, public modalController : ModalController,) { }
 
   ngOnInit() {
@@ -61,7 +62,21 @@ export class VentecaisseComponent implements OnInit {
   }
 
   scanCode() {
-
+      this.barcodeScanner.scan().then(barcodeData => {
+        this.mainService.spinner.show();
+       this.serviceproduit.getproductByBarcode(barcodeData.text).subscribe(
+         data=>{
+           this.mainService.spinner.hide();
+           this.addPanier(data.nomProduit);
+           this.mainService.notificationService.showSuccess("Ajout avec succes")
+         },error => {
+           this.mainService.spinner.hide();
+           this.mainService.notificationService.showError(error.error.message)
+         }
+       )
+      }).catch(err => {
+        console.log('Error', err);
+      });
   }
 
   FilterElement(ev: any) {

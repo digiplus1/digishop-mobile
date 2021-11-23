@@ -45,7 +45,7 @@
       </ion-radio-group>
     </ion-card-content>
     <ion-card-subtitle>
-      <ion-button expand="block" [disabled]="is_loading==true" (click)="onAction()" (keydown.enter)="onAction()" color="primary" shape="round" type="submit">
+      <ion-button expand="block" [disabled]="is_loading==true || !paiementService.affiche" (click)="onAction()" (keydown.enter)="onAction()" color="primary" shape="round" type="submit">
         Finaliser
         <div *ngIf="is_loading"><ion-spinner name="lines"></ion-spinner></div>
       </ion-button>

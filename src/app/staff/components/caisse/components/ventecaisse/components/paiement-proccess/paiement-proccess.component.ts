@@ -7,6 +7,7 @@ import {CaisseDTO} from "../../../../../../models/CaisseDTO";
 import {AuthenService} from "../../../../../../../home/components/Service/AuthenService";
 import {ServicePrinter} from "../../../../../../services/ServicePrinter";
 import {ModalconfirmComponent} from "./modalconfirm/modalconfirm.component";
+import {Commande} from "../../../../../../../Model/Commande";
 
 @Component({
   selector: 'app-paiement-proccess',
@@ -35,7 +36,7 @@ export class PaiementProccessComponent implements OnInit {
     this.paiementService.affiche = s;
   }
 
-  async openpaiement(cT : CaisseDTO) {
+  async openpaiement(cT : Commande) {
     const modal = await this.modalController.create({
       component: ModalconfirmComponent,
       cssClass:"modalpaymentconfirm",
@@ -82,7 +83,7 @@ export class PaiementProccessComponent implements OnInit {
           }
         }
         if (this.serviceCaisse.caisseDTOTemp.commande.modepayement!="CASH"){
-          this.openpaiement(this.serviceCaisse.caisseDTOTemp);
+          this.openpaiement(this.serviceCaisse.caisseDTOTemp.commande);
         }else {
           this.servicePrinter.initializeTicketVenteBefore(this.serviceCaisse.caisseDTOTemp.caisseTransaction)
         }

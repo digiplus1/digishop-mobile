@@ -1,3 +1,31 @@
-<p>
-  inventairelist works!
-</p>
+<ion-content>
+  <ion-segment scrollable="true" swipeGesture="false" class="ion-margin-bottom " (ionChange)="segmentChanged($event)" [(ngModel)]="segment">
+    <ion-segment-button value="0">
+      <ion-label>Initier</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="1">
+      <ion-label>Non valider</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="2">
+      <ion-label>Valider</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="3">
+      <ion-label>Terminer</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-slides class="slides-wrapper" #slider (ionSlideDidChange)="slideChanged()">
+    <ion-slide>
+        <app-initinventaire></app-initinventaire>
+    </ion-slide>
+    <ion-slide>
+      <app-nonvalidinventaire></app-nonvalidinventaire>
+    </ion-slide>
+    <ion-slide>
+      <app-validinventaire [inventaire_to_valider]="inventaire_to_valider"></app-validinventaire>
+    </ion-slide>
+    <ion-slide>
+      <app-inventaireterminer></app-inventaireterminer>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

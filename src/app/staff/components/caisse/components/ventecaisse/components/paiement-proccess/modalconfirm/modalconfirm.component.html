@@ -4,11 +4,11 @@
       <ion-icon  (click)="closepaiement()" name="close-outline"></ion-icon>
     </ion-card-header>
     <ion-card-content class="ion-text-center">
-      <h5 class="card-title "><b>{{caissedto.commande.modepayement}}</b></h5>
-      <p class="card-text ">{{caissedto.commande.message}}</p>
+      <h5 class="card-title "><b>{{commande.modepayement}}</b></h5>
+      <p class="card-text ">{{commande.message}}</p>
     </ion-card-content>
     <ion-card-subtitle class="text-center">
-      <ion-button type="button" (click)="getstatus(caissedto.commande)">Continuer</ion-button>
+      <ion-button type="button" (click)="getstatus(commande)">Continuer</ion-button>
     </ion-card-subtitle>
   </ion-card>
 </ion-content>

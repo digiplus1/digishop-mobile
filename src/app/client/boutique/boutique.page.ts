@@ -80,7 +80,6 @@ export class BoutiquePage implements OnInit {
     this.slider.getActiveIndex().then(index => {
       this.segment = index;
     });
-
   }
 
 

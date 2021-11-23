@@ -27,6 +27,7 @@ export class ManagestockComponent implements OnInit {
     public serviceProduit: ServiceProduit,
     public authService: AuthenService,
     private modalController : ModalController,
+    private mainService : MainService,
   ) { }
 
   ngOnInit() {}
@@ -78,8 +79,10 @@ export class ManagestockComponent implements OnInit {
   }
 
   saveStock(stock:Stock){
+    this.mainService.spinner.show();
     this.serviceProduit.savestockbyShop(stock).subscribe(
       data => {
+        this.mainService.spinner.hide();
         this.serviceProduit.produit.stock = data;
         let index = this.serviceProduit.produitListTemp.findIndex(p => p.idProduit == data.produit.idProduit)
         this.serviceProduit.produitListTemp.splice(index, 1);
@@ -87,6 +90,7 @@ export class ManagestockComponent implements OnInit {
         this.serviceProduit.produitListTemp.push(data.produit);
         this.serviceProduit.produitListTemp.reverse();
       },error => {
+        this.mainService.spinner.hide();
         this.authService.toastMessage("Erreur survenu lors de l'opération");
         console.log(error);
       }

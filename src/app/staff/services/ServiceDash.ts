@@ -9,6 +9,8 @@ import {SessionOuverte} from "../components/dashboard/models/SessionOuverte";
 import {SessionFermee} from "../components/dashboard/models/SessionFermee";
 import {CountObjectValue} from "../components/dashboard/models/CountObjectValue";
 import {Commande} from "../../Model/Commande";
+import {CommandePage} from "../../Model/CommandePage";
+import {ClotureCommandeDTO} from "../components/dashboard/models/ClotureCommandeDTO";
 
 @Injectable()
 export class ServiceDash {
@@ -72,6 +74,18 @@ export class ServiceDash {
   }
 
   getlistCommande (nomboutique : string, nomuser : string){
-    return this.http.get<Commande[]>(AdresseIP.host + "getallcommandesbyshop/" + nomboutique + "/" + nomuser);
+    return this.http.get<Commande[]>(AdresseIP.host + "getcommandebyboutiqueisencours/" + nomboutique);
+  }
+
+  getCommandesByBoutiqueIsEncours(){
+    return this.http.get<CommandePage>(AdresseIP.host+'getcommandebyboutiqueisencours/'+this.authenService.boutique.nomBoutique)
+  }
+
+  getCommandesByBoutiqueIsTermine(){
+    return this.http.get<CommandePage>(AdresseIP.host+'getcommandebyboutiqueistermine/'+this.authenService.boutique.nomBoutique)
+  }
+
+  ClotureCommande(cloture:ClotureCommandeDTO){
+    return this.http.post<boolean>(AdresseIP.host+'cloturecommande',cloture)
   }
 }

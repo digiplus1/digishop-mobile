@@ -1,0 +1,47 @@
+<div *ngIf="stockService.inventaireValidePage">
+  <div id="accordion">
+    <div class="card" *ngFor="let i of stockService.inventaireValidePage.content">
+      <div class="card-header" [id]="'headingOne'+i.idinventaire">
+
+        <div class="col-md-8 d-flex">
+          <h5 class="mb-0">
+            <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#collapseOne'+i.idinventaire" aria-expanded="true" aria-controls="collapseOne">
+              Initié le {{i.datecreation|date:"dd/MM/yy HH:mm"}} Appliqué le {{i.dateapplication|date:"dd/MM/yy HH:mm"}} Validé le: {{i.datevalidation|date:"dd/MM/yy HH:mm"}}
+            </button>
+          </h5>
+        </div>
+        <div class="col-md-2 justify-content-center d-flex">
+        </div>
+        <div class="col-md-2 justify-content-center d-flex">
+          <button (click)="getAllInventaireValide()"><ion-icon ></ion-icon></button>
+
+        </div>
+      </div>
+
+      <div [id]="'collapseOne'+i.idinventaire" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="card-body">
+
+          <div class="table-responsive">
+
+            <table class="table table-striped table-bordered">
+              <tbody>
+              <tr>
+                <th>Produit</th>
+                <th>Physique</th>
+                <th>Theorique</th>
+                <th>difference</th>
+              </tr>
+              <tr *ngFor="let u of i.inventaireItemList ">
+                <td>{{u.produit.nomProduit}}</td>
+                <td>{{u.quantitephysique}}</td>
+                <td>{{u.quantitetheorique}}</td>
+                <td>{{u.difference}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

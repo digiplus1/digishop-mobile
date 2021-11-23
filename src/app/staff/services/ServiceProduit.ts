@@ -68,7 +68,9 @@ export class  ServiceProduit {
   getAllProduitNonPopulaire (nomboutique : string) {
     return this.http.get<ProduitDto[]>(AdresseIP.host + "getProduitNotPopulaire/" + nomboutique);
   }
-
+getproductByBarcode(barecode:string){
+  return this.http.get<ProduitDto>(AdresseIP.host+'getproduitbyqcode/'+barecode)
+}
   searchProduitByNom(nomproduit : string){
     return this.produitList.find(p=>{return p.nomProduit == nomproduit});
   }

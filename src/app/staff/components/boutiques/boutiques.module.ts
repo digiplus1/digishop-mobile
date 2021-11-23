@@ -16,15 +16,17 @@ import {TransactionstockComponent} from "./components/transactionstock/transacti
 import {DetailsproduitComponent} from "./components/produitlist/detailsproduit/detailsproduit.component";
 import {AddproduitComponent} from "./components/produitlist/addproduit/addproduit.component";
 import {RemoveStockComponent} from "./components/managestock/remove-stock/remove-stock.component";
+import {InventairelistModule} from "./components/inventairelist/inventairelist.module";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    BoutiquesPageRoutingModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        BoutiquesPageRoutingModule,
+        ReactiveFormsModule,
+        InventairelistModule
+    ],
   declarations: [BoutiquesPage, AccueilboutiquesComponent, InventairelistComponent, ManagestockComponent, OperationstockComponent,
                   ProduitlistComponent, TransactionstockComponent, DetailsproduitComponent, AddproduitComponent, RemoveStockComponent]
 })
