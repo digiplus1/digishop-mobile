@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ModalController, NavParams} from "@ionic/angular";
 import {ServiceDash} from "../../../../services/ServiceDash";
 import {CaisseSession} from "../../../../models/CaisseSession";
+import {CaisseDTO} from "../../../../models/CaisseDTO";
 
 @Component({
   selector: 'app-rapport-fermeture',
@@ -17,29 +18,11 @@ export class RapportFermetureComponent implements OnInit {
   public allMOMO: number = 0;
   public allCASH: number = 0;
 
-  cstemp : CaisseSession;
+  cstemp : CaisseDTO;
   constructor(private modalController : ModalController, private navParam : NavParams, public serviceDash : ServiceDash) { }
 
   ngOnInit() {
-
     this.cstemp = this.navParam.get("session");
-
-    this.cstemp.caisseTransactions.forEach(ct=>{
-        if(ct.typetransaction == "Entree en caisse"){
-          this.allentre += ct.montanttransaction;
-        } else if(ct.typetransaction == "Sortie de caiss") {
-          this.allsortir += ct.montanttransaction;
-        } else if(ct.typetransaction == "Vente en caisse"){
-          this.allvente += ct.montanttransaction;
-          if(ct.typepaiement == "CASH"){
-            this.allCASH += ct.montanttransaction;
-          } else if(ct.typepaiement == "MTN MOBILE MONEY"){
-            this.allMOMO += ct.montanttransaction;
-          } else if(ct.typepaiement == "ORANGE MONEY") {
-            this.allOM += ct.montanttransaction;
-          }
-        }
-    })
   }
 
   onPrint() {

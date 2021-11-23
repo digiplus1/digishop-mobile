@@ -116,7 +116,8 @@ this.jwt= localStorage.getItem('token');
 
   deconnexion() {
     this.utilisateur=null;
-    localStorage.clear();
+    localStorage.removeItem("token");
+    localStorage.removeItem("utilisateur");
     this.router.navigateByUrl('');
   }
   updateuser(user:Utilisateur) {

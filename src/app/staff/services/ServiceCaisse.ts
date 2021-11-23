@@ -50,7 +50,9 @@ export class  ServiceCaisse {
   getSession(username : string){
     return this.http.get<CaisseDTO>(AdresseIP.host+"session/"+username);
   }
-
+  finByidcaissesession(idsession:number){
+    return this.http.get<CaisseDTO>(AdresseIP.host+"session_caisse_id/"+idsession);
+  }
   getEtatSession(idsession: number, username : string){
     return this.http.get<CaisseDTO>(AdresseIP.host+"getetatsession/"+idsession+"/"+username);
   }

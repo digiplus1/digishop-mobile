@@ -7,7 +7,7 @@
   </ion-grid>
 
   <ion-grid *ngFor="let cs of serviceDash.sessionFermeeList.caisseSessions">
-    <ion-card (click)="openRapport(cs)">
+    <ion-card (click)="finByidcaissesession(cs.idcaissesession)">
       <ion-row class="header-row">
         <ion-col style="padding-left: 10%;">
           <ion-label class="ion-text-start"><strong>Ref session</strong></ion-label>

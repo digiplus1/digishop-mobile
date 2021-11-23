@@ -38,6 +38,4 @@ export class CaisseDTO {
   boutique:BoutiquePos;
   nomBoutique:string;
   soldecaisse:string;
-  caisseSessions:CaisseSession[];
-  caisseTransactionsHorsSessions:CaisseTransactionsHorsSession[];
 }

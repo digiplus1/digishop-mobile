@@ -8,6 +8,8 @@ import {ModalController} from "@ionic/angular";
 import {SessionOFilterComponent} from "../../../modals/session-ofilter/session-ofilter.component";
 import {RapportFermetureComponent} from "../../../modals/rapport-fermeture/rapport-fermeture.component";
 import {CaisseSession} from "../../../../../models/CaisseSession";
+import {ServiceCaisse} from "../../../../../services/ServiceCaisse";
+import {CaisseDTO} from "../../../../../models/CaisseDTO";
 
 @Component({
   selector: 'app-session-ferme',
@@ -16,7 +18,7 @@ import {CaisseSession} from "../../../../../models/CaisseSession";
 })
 export class SessionFermeComponent implements OnInit {
 
-  constructor(public serviceDash : ServiceDash, public authenService : AuthenService,
+  constructor(public serviceDash : ServiceDash, public authenService : AuthenService,public caisseService:ServiceCaisse,
               public mainService : MainService, public modalController : ModalController) { }
 
   ngOnInit() {
@@ -40,8 +42,20 @@ export class SessionFermeComponent implements OnInit {
       }
     )
   }
+  finByidcaissesession(idsession:number){
+    this.mainService.spinner.show();
+    this.caisseService.finByidcaissesession(idsession).subscribe(
+      data=>{
+        this.mainService.spinner.hide();
+        this.openRapport(data)
+      },error => {
+        this.mainService.notificationService.showError(error.error.message)
+        this.mainService.spinner.hide();
+      }
+    )
+  }
+  async openRapport(cT : CaisseDTO) {
 
-  async openRapport(cT : CaisseSession) {
     const modal = await this.modalController.create({
       component: RapportFermetureComponent,
       componentProps: {
