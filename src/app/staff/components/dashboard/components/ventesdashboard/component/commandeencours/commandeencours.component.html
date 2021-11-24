@@ -15,6 +15,7 @@
           <th>Ref</th>
           <th>Client</th>
           <th>Vendeur</th>
+          <th>date</th>
           <th>Détail</th>
         </tr>
 
@@ -22,6 +23,7 @@
           <td>{{c.referencecommande}}</td>
           <td>{{c.nomclient}}</td>
           <td>{{c.nomvendeur}}</td>
+          <td>{{c.datecommande|date:'dd/MM/yy HH:mm'}}</td>
           <td> <ion-icon class="text-success" (click)="selectItem(c)" color="success" name="eye-outline"></ion-icon></td>
         </tr>
         </tbody>

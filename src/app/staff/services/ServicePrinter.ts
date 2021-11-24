@@ -125,6 +125,8 @@ export class ServicePrinter {
     console.log(this.printVente)
   }
 
+
+
   searchBluetoothPrinter()
   {//This will return a list of bluetooth devices
     return this.bluetoothSerial.list();

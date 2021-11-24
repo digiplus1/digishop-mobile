@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {CaisseTransactionDTOPage} from "../models/CaisseTransactionDTOPage";
 import {AdresseIP} from "../../Service/AdresseIP";
 import {BoutiquePos} from "../../Model/BoutiquePos";
+import {EtatBord} from "../models/EtatBord";
 
 @Injectable()
 export class  ServiceBoutique {
@@ -14,7 +15,9 @@ export class  ServiceBoutique {
   constructor(public http:HttpClient,public authenService:AuthenService,public router:Router) {
   }
 
-
+  getEtatBord() {
+    return this.http.get<EtatBord>(AdresseIP.host+"etatbord/")
+  }
   getBoutiqueByLien(lienBoutique:string){
     return this.http.get<BoutiquePos>(AdresseIP.host+"getboutiquebylien/"+lienBoutique)
   }

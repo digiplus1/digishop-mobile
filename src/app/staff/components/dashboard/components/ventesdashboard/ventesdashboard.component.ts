@@ -26,32 +26,8 @@ export class VentesdashboardComponent implements OnInit {
   }
 
   getAllVenteTerminer() {
-    this.serviceDash.commandeDTOList=[];
-    this.mainService.spinner.show();
-    this.serviceDash.getCommandesByBoutiqueIsTermine().subscribe(
-      data => {
-        console.log(data);
-        this.serviceDash.commandeDTOList = data.content;
-        this.serviceDash.commandeDTOListFilter = data.content;
-        this.mainService.spinner.hide();
-      }, error => {
-        this.mainService.spinner.hide();
-        this.authenService.toastMessage(error.error.message)
-      }, () => {
-        this.serviceDash.montantVentes = 0;
-        this.serviceDash.commandeDTOList.forEach(c => {
-          this.serviceDash.nomvendeurVList.push(c.nomvendeur);
-          this.serviceDash.modepaiementVList.push(c.modepayement);
-          this.serviceDash.modecommandeVList.push(c.modecommande);
 
-          this.serviceDash.montantVentes += (c.montantcommande + c.fraislivraison);
-        })
-
-        this.serviceDash.nomvendeurVList = [...new Set(this.serviceDash.nomvendeurVList)];
-        this.serviceDash.modepaiementVList = [...new Set(this.serviceDash.modepaiementVList)];
-        this.serviceDash.modecommandeVList = [...new Set(this.serviceDash.modecommandeVList)];
-      }
-    )
+    this.serviceDash.getCommandesByBoutiqueIsTermine(0);
   }
 
 
@@ -60,7 +36,7 @@ export class VentesdashboardComponent implements OnInit {
     this.serviceDash.commandeDTOList=[];
     this.serviceDash.getCommandesByBoutiqueIsEncours().subscribe(
       data => {
-        console.log(data);
+        this.serviceDash.commandePage=data;
         this.serviceDash.commandeDTOList = data.content;
         this.serviceDash.commandeDTOListFilter = data.content;
         this.mainService.spinner.hide();

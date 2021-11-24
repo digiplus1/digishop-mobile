@@ -11,6 +11,8 @@ import {CountObjectValue} from "../components/dashboard/models/CountObjectValue"
 import {Commande} from "../../Model/Commande";
 import {CommandePage} from "../../Model/CommandePage";
 import {ClotureCommandeDTO} from "../components/dashboard/models/ClotureCommandeDTO";
+import {MainService} from "../../shared/services/MainService";
+import {EtatBord} from "../models/EtatBord";
 
 @Injectable()
 export class ServiceDash {
@@ -25,7 +27,7 @@ export class ServiceDash {
   sessionOuverteList : SessionOuverte = new SessionOuverte();
   sessionFermeeList : SessionFermee = new SessionFermee();
   CountO : CountObjectValue = new CountObjectValue();
-
+  commandePage:CommandePage;
   nomvendeurO : string = "";
   modepaiementO : string = "";
 
@@ -50,7 +52,7 @@ export class ServiceDash {
   datefinV : Date;
   datefinVTemp : string;
 
-  constructor(public http:HttpClient,public authenService:AuthenService,public router:Router) {
+  constructor(public http:HttpClient,private mainService: MainService,public authenService:AuthenService,public router:Router) {
   }
 
   getEtatDashVendeur(){
@@ -81,8 +83,36 @@ export class ServiceDash {
     return this.http.get<CommandePage>(AdresseIP.host+'getcommandebyboutiqueisencours/'+this.authenService.boutique.nomBoutique)
   }
 
-  getCommandesByBoutiqueIsTermine(){
-    return this.http.get<CommandePage>(AdresseIP.host+'getcommandebyboutiqueistermine/'+this.authenService.boutique.nomBoutique)
+  getEtatBordBoutique() {
+    return this.http.get<EtatBord>(AdresseIP.host+"etatbord/boutique/"+this.authenService.utilisateur.iduser)
+  }
+  getCommandesByBoutiqueIsTermine(page:number){
+    this.commandeDTOList=[];
+    this.mainService.spinner.show();
+    return this.http.get<CommandePage>(AdresseIP.host+'getcommandebyboutiqueistermine/'+this.authenService.boutique.nomBoutique).subscribe(
+      data => {
+        this.commandePage=data;
+        this.commandeDTOList = data.content;
+        this.commandeDTOListFilter = data.content;
+        this.mainService.spinner.hide();
+      }, error => {
+        this.mainService.spinner.hide();
+        this.authenService.toastMessage(error.error.message)
+      }, () => {
+        this.montantVentes = 0;
+        this.commandeDTOList.forEach(c => {
+          this.nomvendeurVList.push(c.nomvendeur);
+          this.modepaiementVList.push(c.modepayement);
+          this.modecommandeVList.push(c.modecommande);
+
+          this.montantVentes += (c.montantcommande + c.fraislivraison);
+        })
+
+        this.nomvendeurVList = [...new Set(this.nomvendeurVList)];
+        this.modepaiementVList = [...new Set(this.modepaiementVList)];
+        this.modecommandeVList = [...new Set(this.modecommandeVList)];
+      }
+    )
   }
 
   ClotureCommande(cloture:ClotureCommandeDTO){

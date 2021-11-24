@@ -9,6 +9,7 @@ import {ServiceBoutique} from "../../services/ServiceBoutique";
 import {ModalController} from "@ionic/angular";
 import {PrinterlistComponent} from "../printerlist/printerlist.component";
 import {ServicePrinter} from "../../services/ServicePrinter";
+import {EtatBord} from "../../models/EtatBord";
 
 @Component({
   selector: 'app-accueilproprietaire',
@@ -18,6 +19,7 @@ import {ServicePrinter} from "../../services/ServicePrinter";
 export class AccueilproprietaireComponent implements OnInit {
   color : string="danger";
   text : string="Aucune Session Active";
+  etabord:EtatBord=new EtatBord();
   constructor(private authentificationService : AuthenService,
               public caisseService : ServiceCaisse,
               private router : Router,
@@ -26,7 +28,7 @@ export class AccueilproprietaireComponent implements OnInit {
               public DashService : ServiceDash, public modalController : ModalController) { }
 
   ngOnInit() {
-    console.log(this.authentificationService.utilisateur)
+    this.getEtatBord();
     this.mainService.spinner.show()
 
     this.caisseService.getSession(this.authentificationService.utilisateur.username).subscribe(
@@ -66,6 +68,13 @@ export class AccueilproprietaireComponent implements OnInit {
         )*/
       }
     );
+  }
+  getEtatBord(){
+    this.DashService.getEtatBordBoutique().subscribe(
+      data=>{
+        this.etabord=data;
+      }
+    )
   }
 
   getBoutique(lienboutique:string){
