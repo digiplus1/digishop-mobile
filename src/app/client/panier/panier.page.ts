@@ -22,9 +22,7 @@ export class PanierPage implements OnInit {
   ngOnInit() {
   }
 
-  ajouter(c: CartItem) {
-    this.cartService.ajouter_panier(c.produit,1,"add");
-  }
+
   async remove_qty(c:CartItem) {
     if (c.quantite==1){
       const alert=await this.alertCtrl.create({
@@ -45,6 +43,9 @@ export class PanierPage implements OnInit {
       this.cartService.ajouter_panier(c.produit,1,"remove")
     }
 
+  }
+  ajouter(c: CartItem) {
+    this.cartService.ajouter_panier(c.produit,1,"add");
   }
   async delete_round(c: CartItem) {
     const alert=await this.alertCtrl.create({

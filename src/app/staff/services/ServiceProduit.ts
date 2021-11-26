@@ -56,6 +56,9 @@ export class  ServiceProduit {
   getProduitByNomAndBoutique(nomproduit : string, nomboutique : string) {
     return this.http.get<ProduitDto>(AdresseIP.host + "getproduitbynomproduitandboutique/" + nomproduit + "/" + nomboutique)
   }
+  findAllByProduitPopulaire(boutique:string){
+    return this.http.get<ProduitDto[]>(AdresseIP.host+'getProduitPopulaire/'+boutique)
+  }
 
   getAllProduit (nomboutique : string) {
     return this.http.get<ProduitDto[]>(AdresseIP.host + "produit_shop/" + nomboutique);

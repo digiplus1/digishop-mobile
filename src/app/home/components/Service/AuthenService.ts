@@ -61,7 +61,7 @@ export class AuthenService {
   }
 
   ConnectAccountInShop(username:string){
-    return this.http.get<Utilisateur>(AdresseIP.host+"connection/"+username+"/"+this.utilisateur.nomBoutique);
+    return this.http.get<Utilisateur>(AdresseIP.host+"connection/"+username+"/"+this.boutique.nomBoutique);
   }
 
 //cette methode permet de choisir la route de navigation apres le login

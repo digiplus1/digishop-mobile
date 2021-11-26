@@ -14,9 +14,6 @@ export class CartService{
 
   constructor(public http:HttpClient,public authenService:AuthenService,public router:Router) {}
 
-
-
-
   ajouter_panier(produit: ProduitDto, qty: number, action: string) {
     if((produit.quantiteEnStock>0 && produit.manageStock)|| (produit.quantiteEnStock<=0 && !produit.manageStock)){
       this.cartitem = new CartItem();
@@ -63,6 +60,7 @@ export class CartService{
       this.authenService.toastMessage("Le produit "+produit.nomProduit+" n'existe plus en stock")
     }
   }
+
 
   private calcul_price() {
     let icount: number = 0;

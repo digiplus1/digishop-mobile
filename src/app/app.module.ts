@@ -18,6 +18,7 @@ import {DatePipe} from '@angular/common';
 import {BarcodeScanner} from "@ionic-native/barcode-scanner/ngx";
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
 import {PrinterlistComponent} from "./staff/components/printerlist/printerlist.component";
+import {CartService} from "./client/Service/CartService";
 
 
 const SERVICES = [
@@ -44,6 +45,7 @@ const SERVICES = [
     AuthenService,
     DatePipe,
     BarcodeScanner,
+    CartService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
       SERVICES
     ],

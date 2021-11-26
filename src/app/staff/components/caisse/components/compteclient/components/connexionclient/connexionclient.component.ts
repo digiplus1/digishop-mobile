@@ -1,16 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {AuthenService} from "../../../../../../../home/components/Service/AuthenService";
 import {ServicePanier} from "../../../../../../services/ServicePanier";
-import {Cart} from "../../../../../../../Model/Cart";
 import {ServiceCaisse} from "../../../../../../services/ServiceCaisse";
+import {Cart} from "../../../../../../../Model/Cart";
 
 @Component({
-  selector: 'app-connexion-client',
-  templateUrl: './connexion-client.component.html',
-  styleUrls: ['./connexion-client.component.scss'],
+  selector: 'app-connexionclient',
+  templateUrl: './connexionclient.component.html',
+  styleUrls: ['./connexionclient.component.scss'],
 })
-export class ConnexionClientComponent implements OnInit {
+export class ConnexionclientComponent implements OnInit {
   login: string = "";
   is_loading: boolean = false;
   is_loading2: boolean = false;
@@ -45,28 +45,8 @@ export class ConnexionClientComponent implements OnInit {
             if(!this.authenService.user_vendeur.client){
               this.authenService.toastMessage("Impossible de se connecter avec ce compte.")
               this.authenService.user_vendeur = null;
-            } else {
-              if(this.authenService.user_vendeur.cart.cartItems.length>0){
-                let test : boolean = false;
-                this.authenService.user_vendeur.cart.cartItems.forEach(c=>{
-                  if (c.produit.nomboutique != this.authenService.boutique.nomBoutique){
-                    test = true;
-                  }
-                })
-                if (test){
-                  this.serviceCaisse.affiche = 2;
-                } else {
-                  this.panierService.panierCaisse = this.authenService.user_vendeur.cart;
-                  this.panierService.refreshPanier();
-                  this.serviceCaisse.affiche = 3;
-                  this.authenService.toastMessage("Connexion réussie")
-                }
-              } else {
-                this.panierService.panierCaisse = this.authenService.user_vendeur.cart;
-                this.panierService.refreshPanier();
-                this.serviceCaisse.affiche = 3;
-                this.authenService.toastMessage("Connexion réussie")
-              }
+            }else {
+              this.router.navigateByUrl("staff/menustaff/caisse/client/bodycart")
             }
           }
         }
@@ -89,9 +69,9 @@ export class ConnexionClientComponent implements OnInit {
           this.authenService.toastMessage("Une erreure est survenue lors de la suppression.")
           this.annuler();
         }
-    },error => {
-      this.authenService.toastMessage(error.error.message);
-      this.is_loading=false;
-    })
+      },error => {
+        this.authenService.toastMessage(error.error.message);
+        this.is_loading=false;
+      })
   }
 }

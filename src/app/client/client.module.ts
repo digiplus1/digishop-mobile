@@ -44,7 +44,7 @@ import {HistoriqueComponent} from "./component/historique/historique.component";
     NatifService,
     ProduitService,
     BoutiqueService,
-    CartService,
+
     FavoriteService,
     CommandeClientService,
     DigiXpresService,

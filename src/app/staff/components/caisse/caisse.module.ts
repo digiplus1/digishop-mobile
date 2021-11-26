@@ -25,6 +25,7 @@ import {ConnexionClientComponent} from "./components/clientaccount/components/co
 import {PaiementClientComponent} from "./components/clientaccount/components/paiement-client/paiement-client.component";
 import {DetailsCommandeComponent} from "./components/clientcommande/components/details-commande/details-commande.component";
 import {VenterapidecaisseComponent} from "./components/venterapidecaisse/venterapidecaisse.component";
+import {CompteclientModule} from "./components/compteclient/compteclient.module";
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import {VenterapidecaisseComponent} from "./components/venterapidecaisse/ventera
     FormsModule,
     IonicModule,
     CaissePageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CompteclientModule
   ],
     declarations: [CaissePage,
         AccueilcaisseComponent, ClientaccountComponent, ClientcommandeComponent, EntreecaisseComponent,

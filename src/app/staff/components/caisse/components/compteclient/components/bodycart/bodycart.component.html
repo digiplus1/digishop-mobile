@@ -1,0 +1,39 @@
+<ion-header>
+  <div id="headerV">
+    <ion-item lines="none">
+      <ion-icon (click)="goBack()" slot="start" size="large" color="primary" name="arrow-undo-outline"></ion-icon>
+      <ion-buttons (click)="scanCode()" slot="end" style="margin-right: 10%">
+        <ion-icon color="success" name="aperture" size="large"></ion-icon>
+        <ion-label style="margin-top: 2px"> Scan</ion-label>
+      </ion-buttons>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-buttons slot="start" style="margin-left: 20%" (click)="panier()">
+        <ion-icon color="secondary" size="large" name="cart-outline"></ion-icon>
+        <ion-label color="primary"><strong>{{authenService.user_vendeur.cart.cartItems.length}}</strong></ion-label>
+      </ion-buttons>
+      <ion-label slot="end"><strong>{{authenService.user_vendeur.cart.montanttotal}}<sup>Fcfa</sup></strong></ion-label>
+    </ion-item>
+  </div>
+
+
+  <div>
+    <ion-searchbar (ionInput)="FilterElement($event)" [(ngModel)]="search" placeholder="Rechercher un produit"
+                   name="Entrer le nom du produit"></ion-searchbar>
+  </div>
+
+</ion-header>
+<ion-content>
+  <ion-row>
+    <ion-col class="card" size="4" *ngFor="let p of produits" (click)="addPanier(p)">
+      <img [src]="p.image" alt="">
+          <ion-label class="nom_produt">{{p.nomProduit}}</ion-label>
+          <ion-row>
+            <ion-col><ion-label class="nom_produt">{{p.prixProduit}}<sup>Fcfa</sup></ion-label></ion-col>
+            <ion-col><ion-label class="nom_produt">Qte: <span>{{p.quantiteEnStock}}</span></ion-label></ion-col>
+          </ion-row>
+    </ion-col>
+  </ion-row>
+</ion-content>
+

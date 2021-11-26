@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ServiceProduit} from "../../../../../services/ServiceProduit";
 import {ServiceCatalogueCategorie} from "../../../../../services/ServiceCatalogueCategorie";
 import {CatalogueProduit} from "../../../../../../Model/CatalogueProduit";
-import {MainService} from "../../../../../../shared/services/MainService";
+import {Camera, CameraResultType} from "@capacitor/camera";
 import {ModalController} from "@ionic/angular";
 import {AuthenService} from "../../../../../../home/components/Service/AuthenService";
 
@@ -94,7 +94,6 @@ export class AddproduitComponent implements OnInit {
     this.serviceProduit.produit.qcode = this.formAddProduct.get('q-code').value;
     this.serviceProduit.produit.nomboutique = this.authenService.boutique.nomBoutique
 
-    console.log(this.authenService.boutique);
 
     this.serviceProduit.saveProduit(this.serviceProduit.produit).subscribe(
       res => {
@@ -112,7 +111,13 @@ export class AddproduitComponent implements OnInit {
     )
   }
 
-  takePicture() {
-
+  async takePicture() {
+      await Camera.getPhoto({
+        quality: 90,
+        allowEditing: false,
+        resultType: CameraResultType.Base64,
+      }).then(i => {
+        this.serviceProduit.produit.image = "data:image/png;base64," + i.base64String
+      });
   }
 }

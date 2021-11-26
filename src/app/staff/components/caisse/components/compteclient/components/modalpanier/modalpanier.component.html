@@ -1,0 +1,32 @@
+<ion-content>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-item lines="none">
+        <ion-label color="primary"> <strong>Panier</strong></ion-label>
+        <ion-icon (click)="cancel()" slot="end" name="close-outline"></ion-icon>
+      </ion-item>
+    </ion-card-header>
+    <ion-card-content>
+      <div *ngFor="let i of authenService.user_vendeur.cart.cartItems" class="d-flex flex-row justify-content-between align-items-center p-2 bg-white mt-2 rounded">
+        <div class="mr-1"><img class="rounded" [src]="i.produit.image" width="70"></div>
+        <div class="d-flex flex-column align-items-center product-details"><span class="font-weight-bold">{{i.description}}</span>
+        </div>
+        <div class="d-flex flex-row align-items-center qty"><ion-icon name="remove-outline" color="danger" (click)="remove_qty(i)"></ion-icon>
+          <h5 class="text-grey mt-1 mr-1 ml-1">{{i.quantite}}</h5><ion-icon name="add-outline" color="success"  (click)="ajouter(i)"></ion-icon>
+        </div>
+        <div>
+          <h5 class="text-grey">{{i.montant}}<sup>Fcfa</sup></h5>
+        </div>
+        <div class="d-flex align-items-center" (click)="delete_round(i)"><i class="fa fa-trash mb-1 text-danger"></i></div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+<ion-footer>
+  <ion-item class="footer" lines="none">
+    <ion-button (click)="clearPanier()" color="secondary" expand="block">x Vider</ion-button>
+    <ion-button color="light" expand="block">{{authenService.user_vendeur.cart.montanttotal}} FCFA</ion-button>
+    <ion-button (click)="payer()" color="primary" expand="block">Payer ></ion-button>
+  </ion-item>
+</ion-footer>

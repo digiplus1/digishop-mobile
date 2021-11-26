@@ -12,6 +12,7 @@ import {MainService} from "../../../../../shared/services/MainService";
 import {PaiementProccessComponent} from "../ventecaisse/components/paiement-proccess/paiement-proccess.component";
 import {PaiementClientComponent} from "./components/paiement-client/paiement-client.component";
 import {PaniermodalComponent} from "./components/paniermodal/paniermodal.component";
+import {CartService} from "../../../../../client/Service/CartService";
 
 @Component({
   selector: 'app-clientaccount',
@@ -22,7 +23,7 @@ export class ClientaccountComponent implements OnInit {
   search : string = "";
   private cartItemTemp: CartItem;
 
-  constructor(private router : Router, public authenService : AuthenService,
+  constructor(private router : Router, public authenService : AuthenService,public cartService:CartService,
               public panierService : ServicePanier, public serviceproduit : ServiceProduit,
               public serviceCaisse : ServiceCaisse, public modalController : ModalController,
               private mainService : MainService) { }
@@ -93,27 +94,9 @@ export class ClientaccountComponent implements OnInit {
     this.search = "";
     if(produit){
       if (prod.toLowerCase().indexOf("generique")>-1) {
-        console.log("Generique")
         this.generiqueModal(produit);
       } else {
-        console.log("Produit")
-        if(produit.quantiteEnStock > 0 || !produit.manageStock){
-          this.cartItemTemp = new CartItem();
-          this.cartItemTemp.produit = produit;
-          this.cartItemTemp.quantite = 1;
-          this.cartItemTemp.description = produit.nomProduit;
-          this.cartItemTemp.prixunitaire = produit.prixProduit;
-          this.cartItemTemp.montant = this.cartItemTemp.quantite * this.cartItemTemp.prixunitaire;
-          this.cartItemTemp.idproduit = produit.idProduit;
-          this.cartItemTemp.nomproduit = produit.nomProduit;
-
-          this.panierService.addItem(this.cartItemTemp);
-
-          this.FilterElement(null);
-          this.search = "";
-        } else {
-          this.authenService.toastMessage("Le stock du produit est insuffisant.");
-        }
+        this.cartService.ajouter_panier(prod,1,"add")
       }
     } else {
       this.authenService.toastMessage("Le produit n'existe pas.");

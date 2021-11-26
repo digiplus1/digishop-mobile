@@ -1,0 +1,36 @@
+<ion-content>
+  <ion-grid class="form">
+
+    <ion-icon (click)="goBack()" class="text-start" size="large" color="secondary" name="arrow-undo-outline"></ion-icon>
+    <h5 class="text-center" style="color: #0f5173"><strong>CONNEXION</strong></h5>
+
+    <div class="text-center">
+      <img class="img-thumbnail" src="./assets/images/opensource.png" style="height: 150px; width: 150px; margin-bottom: 5%">
+    </div>
+
+    <ion-item lines="none" class="ion-margin-bottom">
+      <ion-input [(ngModel)]="login" placeholder="Entrer le téléphone ou username" type="text" required></ion-input>
+      <ion-icon slot="end" color="primary" name="person"></ion-icon>
+    </ion-item>
+
+    <ion-button expand="block" [disabled]="is_loading==true" (click)="onAction()" (keydown.enter)="onAction()" color="primary" shape="round" type="submit">
+      Valider
+      <div *ngIf="is_loading"><ion-spinner name="lines"></ion-spinner></div>
+    </ion-button>
+  </ion-grid>
+
+  <ion-grid class="form" *ngIf="serviceCaisse.affiche == 2">
+    <ion-text class="ion-text-justify">
+      <strong class="text-danger">NB : </strong> Un ou plusieurs produits de votre panier n'appartienent pas à cette boutique.
+      Pour poursuivre il faudrait vider le panier. Êtes-vous d'accord ?
+    </ion-text>
+    <ion-item class="footer" lines = "none">
+      <ion-button (click)="annuler()" color="light" expand="block">Annuler</ion-button>
+      <ion-button expand="block" [disabled]="is_loading2==true" (click)="poursuivre()" color="primary" shape="round" type="submit">
+        Poursuivre
+        <div *ngIf="is_loading2"><ion-spinner name="lines"></ion-spinner></div>
+      </ion-button>
+    </ion-item>
+  </ion-grid>
+
+</ion-content>

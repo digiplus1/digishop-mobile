@@ -29,8 +29,16 @@ export class AccueilproprietaireComponent implements OnInit {
 
   ngOnInit() {
     this.getEtatBord();
-    this.mainService.spinner.show()
+    this.getSession();
 
+  }
+  ionViewDidEnter() {
+    this.getEtatBord();
+    this.getSession();
+  }
+
+  getSession(){
+    this.mainService.spinner.show()
     this.caisseService.getSession(this.authentificationService.utilisateur.username).subscribe(
       data=> {
         console.log(data)
@@ -56,16 +64,16 @@ export class AccueilproprietaireComponent implements OnInit {
           this.printer.selectedPrinter = print;
         }
 
-       /* this.DashService.getEtatDashVendeur().subscribe(
-          data=>{
-            this.mainService.spinner.hide()
-            console.log(data);
-            this.DashService.etatVendeur = data;
-          }, error => {
-            console.log(error)
-            this.mainService.spinner.hide();
-          }
-        )*/
+        /* this.DashService.getEtatDashVendeur().subscribe(
+           data=>{
+             this.mainService.spinner.hide()
+             console.log(data);
+             this.DashService.etatVendeur = data;
+           }, error => {
+             console.log(error)
+             this.mainService.spinner.hide();
+           }
+         )*/
       }
     );
   }

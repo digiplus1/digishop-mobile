@@ -12,6 +12,9 @@ import {TransactionscaisseComponent} from "./components/transactionscaisse/trans
 import {VentecaisseComponent} from "./components/ventecaisse/ventecaisse.component";
 import {VenterapidecaisseComponent} from "./components/venterapidecaisse/venterapidecaisse.component";
 import {AccueilcaisseComponent} from "./components/accueilcaisse/accueilcaisse.component";
+import {CompteclientComponent} from "./components/compteclient/compteclient.component";
+import {ConnexionclientComponent} from "./components/compteclient/components/connexionclient/connexionclient.component";
+import {BodycartComponent} from "./components/compteclient/components/bodycart/bodycart.component";
 
 const routes: Routes = [
   {
@@ -19,7 +22,15 @@ const routes: Routes = [
     component: CaissePage,
     children: [
       { path: 'accueil', component: AccueilcaisseComponent,},
-      { path: 'client', component: ClientaccountComponent,},
+      {
+        path: 'client',
+        component: CompteclientComponent,
+        children:[
+          {path:'connexion',component:ConnexionclientComponent},
+          {path:'bodycart',component:BodycartComponent}
+        ]
+
+      },
       { path: 'commandeclient', component: ClientcommandeComponent,},
       { path: 'entreecaisse', component:EntreecaisseComponent,},
       { path: 'fermeturecaisse', component: FermeturecaisseComponent,},

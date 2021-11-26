@@ -15,8 +15,9 @@ export class CaisseDTO {
   statut:string;
   soldesession:number=0;
   nomuser:string;
+  phoneclient:string;//cette variable est pour verifier si c'est la prise à main du compte d'un client
   caisseTransaction : CaisseTransactions;
-  id_user:number;
+  iduser:number;
   montanttransaction:number;
   commentaire:string;
   action:string;

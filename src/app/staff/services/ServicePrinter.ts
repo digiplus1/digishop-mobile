@@ -83,7 +83,7 @@ export class ServicePrinter {
     this.printVente+="\n Designation \t Quantite \t Montant";
     transaction.commande.cartItems.forEach(c=>{
       if(c.quantite!=0){
-        this.printVente+="\n "+ c.description.normalize("NFD").replace(/[\u0300-\u036f]/g, "").substr(0,15)+"  \t   "+c.quantite+"  \t   "+"  \t  "+c.montant+"XAF";
+        this.printVente+="\n "+ c.description.normalize("NFD").replace(/[\u0300-\u036f]/g, "").substr(0,15)+"  "+c.quantite+"  "+"  "+c.montant+"XAF";
       }
     });
     this.printVente+="\n Montant Total : \t" + transaction.commande.montantcommande+"XAF";
