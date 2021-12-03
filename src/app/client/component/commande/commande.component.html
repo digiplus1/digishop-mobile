@@ -8,9 +8,6 @@
 </ion-header>
 
 <ion-content *ngIf="commandeService.commandes">
-  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
   <ion-list *ngFor="let c of commandeService.commandes" (click)="presentModal(c)">
     <ion-row>
       <ion-col><ion-label color="success">Référence</ion-label></ion-col>

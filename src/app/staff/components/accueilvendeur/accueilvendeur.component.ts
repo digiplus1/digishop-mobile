@@ -23,11 +23,9 @@ export class AccueilvendeurComponent implements OnInit {
               public DashService : ServiceDash) { }
 
   ngOnInit() {
-    console.log(this.authentificationService.utilisateur)
     this.mainService.spinner.show()
     this.caisseService.getSession(this.authentificationService.utilisateur.username).subscribe(
       data=> {
-        console.log(data)
         if(data==null){
           this.color = "danger";
           this.text = "Aucune Session Active"
@@ -37,9 +35,9 @@ export class AccueilvendeurComponent implements OnInit {
           this.caisseService.SessionActive = data;
         }
       },
-      error => {console.log(error);this.mainService.spinner.hide()},
+      error => {this.mainService.spinner.hide()},
       ()=>{
-
+        this.mainService.spinner.hide();
         //Récupération de l'imprimante
         let print = localStorage.getItem("printer");
         if(print == null) {
@@ -52,10 +50,10 @@ export class AccueilvendeurComponent implements OnInit {
         /*this.DashService.getEtatDashVendeur().subscribe(
           data=>{
             this.mainService.spinner.hide()
-            console.log(data);
+
             this.DashService.etatVendeur = data;
           }, error => {
-            console.log(error)
+
             this.mainService.spinner.hide();
           }
         )*/

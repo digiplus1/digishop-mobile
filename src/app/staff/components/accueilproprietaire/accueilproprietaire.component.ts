@@ -54,7 +54,6 @@ export class AccueilproprietaireComponent implements OnInit {
       error => {console.log(error);this.mainService.spinner.hide()},
       ()=>{
         this.mainService.spinner.hide()
-
         //Récupération de l'imprimante
         let print = localStorage.getItem("printer");
         if(print == null) {

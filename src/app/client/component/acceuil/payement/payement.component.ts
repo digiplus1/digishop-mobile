@@ -3,13 +3,16 @@ import {AuthenService} from "../../../../home/components/Service/AuthenService";
 import {ProduitService} from "../../../Service/ProduitService";
 import {CartService} from "../../../Service/CartService";
 import {Router} from "@angular/router";
-import {AlertController} from "@ionic/angular";
+import {AlertController, ModalController} from "@ionic/angular";
 import {CommandeClientService} from "../../../Service/CommandeClientService";
 import {BoutiqueService} from "../../../Service/BoutiqueService";
 import {DigiXpresService} from "../../../Service/DigiXpresService";
 import {CouponDTO} from "../../../../Model/CouponDTO";
 import {CouponService} from "../../../Service/CouponService";
 import {Cart} from "../../../../Model/Cart";
+import {Commande} from "../../../../Model/Commande";
+import {ModalconfirmComponent} from "../../../../staff/components/caisse/components/ventecaisse/components/paiement-proccess/modalconfirm/modalconfirm.component";
+import {ModalpayementclientComponent} from "./modalpayementclient/modalpayementclient.component";
 
 @Component({
   selector: 'app-payement',
@@ -22,7 +25,8 @@ export class PayementComponent implements OnInit {
   coupon: CouponDTO;
   is_loading: boolean;
 
-  constructor(public authenService: AuthenService, public produitService: ProduitService, public commandeService: CommandeClientService, public boutiqueService: BoutiqueService,
+  constructor(public authenService: AuthenService, public produitService: ProduitService,  private modalController : ModalController,
+              public commandeService: CommandeClientService, public boutiqueService: BoutiqueService,
               public cartService: CartService, public router: Router, public alertCtrl: AlertController, public digixpresService: DigiXpresService, public couponClientService: CouponService) {
   }
 
@@ -59,17 +63,44 @@ export class PayementComponent implements OnInit {
     )
   }
 
-
+  async openpaiement(cT : Commande) {
+    const modal = await this.modalController.create({
+      component: ModalpayementclientComponent,
+      cssClass:"modalpaymentconfirm",
+      componentProps: {
+        'payment' : cT
+      }
+    });
+    return await modal.present();
+  }
   payer() {
     this.commandeService.commande.modecommande = "ligne";
     this.commandeService.commande.phone = this.commandeService.commande.client.phone;
     this.commandeService.commande.nomclient = this.commandeService.commande.client.username;
-    console.log(this.commandeService.commande);
+    this.is_loading=true;
     this.commandeService.createCommande(this.commandeService.commande).subscribe(
       data => {
+        this.is_loading=false;
         data.type_facture = "Facture";
         this.commandeService.commande = data;
+        if (data.modepayement=="MTN MOBILE MONEY"){
+          if (data.payement.statut=="FAILED"){
+            this.commandeService.commande.message="Votre solde est insufisant";
+          }else if (data.payement.statut=="PENDING"){
+            this.commandeService.commande.message="Merci de confirmer le paiement sur votre mobile et de cliquer sur le button pour continuer";
+          }else if (data.payement.statut=="SUCCESSFUL"){
+            this.commandeService.commande.message="Merci d'avoir confirmé le paiement nous vous remercions pour cela";
+          }
+        }else if (data.modepayement=="ORANGE MONEY"){
+          if (data.payement.url_to_connect){
+            this.commandeService.commande.message="Merci de cliquer sur le button pour continuer l'opération de paiment sur "+data.modepayement;
+          }
+        }
+        if (data.modepayement=="ORANGE MONEY" || data.modepayement=="MTN MOBILE MONEY"){
+          this.openpaiement(data)
+        }
       }, error => {
+        this.is_loading=false;
         this.authenService.toastMessage(error.error.message);
       }
     )

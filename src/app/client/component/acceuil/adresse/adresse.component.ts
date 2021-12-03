@@ -165,13 +165,15 @@ export class AdresseComponent implements OnInit {
     this.commandeService.commande.modecommande="ligne";
     this.commandeService.commande.phone=this.commandeService.commande.client.phone;
     this.commandeService.commande.nomclient=this.commandeService.commande.client.username;
-    console.log(this.commandeService.commande);
+    this.is_loading=true;
     this.commandeService.createCommande(this.commandeService.commande).subscribe(
       data=>{
+        this.is_loading=false;
         data.type_facture="Facture";
         this.commandeService.commande=data;
 
       },error => {
+        this.is_loading=false;
         this.authenService.toastMessage(error.error.message);
       },()=>{
         this.authenService.utilisateur.cart.cartItems=[];

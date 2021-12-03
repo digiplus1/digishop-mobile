@@ -39,8 +39,12 @@ export class CommandeClientService {
 
       return this.http.get<CommandePage>(AdresseIP.host+'getcommandebyclientisencours/'+this.authenService.utilisateur.username+'?size=10&page='+page).subscribe(
         data=>{
+          if (this.commandes==null){
+            this.commandes=[];
+          }
           this.commandePage=data;
           this.commandes=data.content;
+
         },error => {
           this.authenService.toastMessage(error.error.message)
         }
@@ -71,7 +75,10 @@ export class CommandeClientService {
 
     }
   }
+  tchekCommande(commande1:Commande){
+    return this.http.post<Commande>(AdresseIP.host+'digipay/tchek/',commande1);
 
+  }
   getCommandesByIdcommde(idcomm:number){
     if (this.authenService.utilisateur){
       return this.http.get<Commande>(AdresseIP.host+'getcommandebyid/'+idcomm);

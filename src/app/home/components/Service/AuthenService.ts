@@ -22,7 +22,6 @@ export class AuthenService {
   }
 
   register(user){
-    console.log(user);
     return this.http.post<Utilisateur>(AdresseIP.host+"register",user)
   }
 
@@ -41,7 +40,6 @@ export class AuthenService {
   getBoutique(){
     return this.http.get<BoutiquePos>(AdresseIP.host+"getboutiquebyname/"+this.utilisateur.nomBoutique).subscribe(
       data=>{
-        console.log(data);
         this.boutique = data;
       },error => {
         this.toastMessage(error.error.message);
@@ -52,7 +50,6 @@ export class AuthenService {
   getBoutiqueByLien(){
     return this.http.get<BoutiquePos>(AdresseIP.host+"getboutiquebylien/"+this.utilisateur.nomBoutique).subscribe(
       data=>{
-        console.log(data);
         this.boutique = data;
       },error => {
         this.toastMessage(error.error.message);

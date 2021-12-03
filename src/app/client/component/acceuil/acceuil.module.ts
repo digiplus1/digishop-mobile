@@ -13,7 +13,6 @@ import {ListboutiquesModule} from "./listboutiques/listboutiques.module";
 import {ProduitboutiqueModule} from "./produitboutique/produitboutique.module";
 import {PayementModule} from "./payement/payement.module";
 import {AdresseModule} from "./adresse/adresse.module";
-import {CommandeClientService} from "../../Service/CommandeClientService";
 import {FactureModule} from "../facture/facture.module";
 import {CommandeModule} from "../commande/commande.module";
 

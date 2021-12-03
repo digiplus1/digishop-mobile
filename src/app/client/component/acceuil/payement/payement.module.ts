@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import {PayementComponent} from "./payement.component";
 import {IonicModule} from "@ionic/angular";
 import {FormsModule} from "@angular/forms";
+import {ModalpayementclientComponent} from "./modalpayementclient/modalpayementclient.component";
 
 
 
 @NgModule({
-  declarations: [PayementComponent],
+  declarations: [PayementComponent,ModalpayementclientComponent],
   imports: [
     CommonModule,
     IonicModule,

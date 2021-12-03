@@ -13,7 +13,7 @@
     <ion-card-content>
       <ion-item>
         <ion-label>Mode de Livraison</ion-label>
-        <ion-select interface="popover" (ionChange)="selectmodeLivraison($event)" placeholder="mode de livraison">
+        <ion-select interface="popover" (ionChange)="selectmodeLivraison($event)">
           <ion-select-option *ngFor="let m of mode_livraison" [value]="m">{{m}}</ion-select-option>
         </ion-select>
       </ion-item>
@@ -58,7 +58,9 @@
       </ion-card>
     </ion-card-content>
     <ion-card-subtitle *ngIf="adresse.repere_address">
-      <ion-button expand="full" (click)="commander()">Commander</ion-button>
+      <ion-button expand="full" [disabled]="is_loading==true" (click)="commander()">Commander
+        <ion-spinner name="lines" *ngIf="is_loading"></ion-spinner>
+      </ion-button>
     </ion-card-subtitle>
   </ion-card>
 

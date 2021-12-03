@@ -1,0 +1,19 @@
+<ion-content>
+  <ion-card>
+    <ion-card-header slot="end">
+      <ion-icon  (click)="closepaiement()" name="close-outline"></ion-icon>
+    </ion-card-header>
+    <ion-card-content class="ion-text-center">
+      <h5 class="card-title "><b>{{commande.modepayement}}</b></h5>
+      <p class="card-text ">{{commande.message}}</p>
+    </ion-card-content>
+    <ion-card-subtitle class="text-center">
+      <ion-button type="button" [disabled]="is_loading==true" (click)="getstatus(commande)">Continuer
+        <ion-spinner name="lines" *ngIf="is_loading"></ion-spinner>
+      </ion-button>
+      <ion-button type="button" color="warning" (click)="terminer()">Terminer
+
+      </ion-button>
+    </ion-card-subtitle>
+  </ion-card>
+</ion-content>

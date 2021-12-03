@@ -50,7 +50,10 @@
      <ion-item *ngIf="commandeService.commande.modepayement!='PAYEMENT A LA LIVRAISON'">
        <ion-input [(ngModel)]="commandeService.commande.adresse.phone_livraison" placeholder="Confirmer le numéro de payement"></ion-input>
      </ion-item>
-     <ion-button (click)="payer()" expand="full">Payer {{commandeService.commande.netaPayer}}<sup>Fcfa</sup></ion-button>
+     <ion-button (click)="payer()" [disabled]="is_loading==true ||this.commandeService.commande.modepayement==null " expand="full">Payer {{commandeService.commande.netaPayer}}<sup>Fcfa</sup>
+       <ion-spinner name="lines" *ngIf="is_loading"></ion-spinner>
+     </ion-button>
+
    </ion-card-subtitle>
   </ion-card>
 
