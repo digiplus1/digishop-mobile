@@ -28,8 +28,8 @@ constructor(public toastController: ToastController,public callNumber:CallNumber
   async share(image:string,url:string){
 
     await Share.share({
-      text: AdresseIP.host+url,
-      url: image,
+      text: image,
+      url: AdresseIP.host+url,
       dialogTitle: 'Digishop',
     }).then(result=>{
       this.authenservice.toastMessage(result.activityType)

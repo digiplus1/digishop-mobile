@@ -65,8 +65,9 @@
                           name="call-outline"></ion-icon>
               </ion-col>
               <ion-col>
-                <ion-icon (click)="natifService.share(boutiqueService.boutique.photoboutique,'/mode/'+boutiqueService.boutique.lien)"
-                          name="share-social-outline"></ion-icon>
+                <ion-icon (click)="natifService.share(boutiqueService.boutique.photoboutique,'boutique/'+boutiqueService.boutique.lien)"
+                          name="share-social-outline">
+                </ion-icon>
               </ion-col>
             </ion-row>
           </ion-card-header>
