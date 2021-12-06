@@ -39,4 +39,5 @@ export class CaisseDTO {
   boutique:BoutiquePos;
   nomBoutique:string;
   soldecaisse:string;
+  totalvente: number;
 }

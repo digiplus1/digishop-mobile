@@ -24,7 +24,7 @@
           <td>{{c.nomclient}}</td>
           <td>{{c.nomvendeur}}</td>
           <td>{{c.datepayement|date:'dd/MM/yy HH:mm'}}</td>
-          <td> <ion-icon class="text-success" (click)="selectItem(c)" color="success" name="eye-outline"></ion-icon></td>
+          <td (click)="selectItem(c)"> <ion-icon class="text-success"  color="success" name="eye-outline"></ion-icon></td>
         </tr>
         </tbody>
       </table>

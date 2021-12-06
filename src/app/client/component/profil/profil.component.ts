@@ -17,7 +17,6 @@ export class ProfilComponent implements OnInit {
   constructor(public authenservice: AuthenService,public router:Router) { }
 
   ngOnInit() {
-    console.log(this.authenservice.utilisateur);
   }
 
   async takePicture() {
@@ -49,7 +48,6 @@ export class ProfilComponent implements OnInit {
   }
 
   changer() {
-    console.log(this.edite);
     this.edite=!this.edite
   }
 

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Digishop</string>
+    <string name="title_activity_main">Digishop</string>
+    <string name="package_name">ftg.digiplus.digishop</string>
+    <string name="custom_url_scheme">ftg.digiplus.digishop</string>
+</resources>

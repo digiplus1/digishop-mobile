@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {ModalController, NavParams} from "@ionic/angular";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {IonSearchbar, IonSlides, ModalController, NavParams} from "@ionic/angular";
 import {ServiceDash} from "../../../../services/ServiceDash";
 import {CaisseSession} from "../../../../models/CaisseSession";
 import {CaisseDTO} from "../../../../models/CaisseDTO";
@@ -11,13 +11,10 @@ import {CaisseDTO} from "../../../../models/CaisseDTO";
 })
 export class RapportFermetureComponent implements OnInit {
 
-  public allsortir: number = 0;
-  public allentre: number = 0;
-  public allvente: number = 0;
-  public allOM: number = 0;
-  public allMOMO: number = 0;
-  public allCASH: number = 0;
 
+  @ViewChild('search', {static: false}) search: IonSearchbar;
+  @ViewChild('slider', {static: false}) slider: IonSlides;
+  segment: number = 0;
   cstemp : CaisseDTO;
   constructor(private modalController : ModalController, private navParam : NavParams, public serviceDash : ServiceDash) { }
 
@@ -28,7 +25,17 @@ export class RapportFermetureComponent implements OnInit {
   onPrint() {
 
   }
+  segmentChanged(ev) {
 
+    this.slider.slideTo(ev.target.value);
+  }
+
+
+  slideChanged() {
+    this.slider.getActiveIndex().then(index => {
+      this.segment = index;
+    });
+  }
   onDismiss() {
     this.modalController.dismiss();
   }

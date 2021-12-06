@@ -7,6 +7,7 @@ import {Router} from "@angular/router";
 import {ModalController} from "@ionic/angular";
 import {PrinterlistComponent} from "../printerlist/printerlist.component";
 import {ServicePrinter} from "../../services/ServicePrinter";
+import {EtatBord} from "../../models/EtatBord";
 
 @Component({
   selector: 'app-accueilvendeur',
@@ -16,6 +17,7 @@ import {ServicePrinter} from "../../services/ServicePrinter";
 export class AccueilvendeurComponent implements OnInit {
   color : string="danger";
   text : string="Aucune Session Active";
+   etabord: EtatBord=new EtatBord();
   constructor(private authentificationService : AuthenService,
               public caisseService : ServiceCaisse,
               private router : Router, private printer : ServicePrinter,
@@ -23,6 +25,7 @@ export class AccueilvendeurComponent implements OnInit {
               public DashService : ServiceDash) { }
 
   ngOnInit() {
+    this.getEtatBord();
     this.mainService.spinner.show()
     this.caisseService.getSession(this.authentificationService.utilisateur.username).subscribe(
       data=> {
@@ -60,7 +63,13 @@ export class AccueilvendeurComponent implements OnInit {
       }
     );
   }
-
+  getEtatBord(){
+    this.DashService.getEtatBordBoutique().subscribe(
+      data=>{
+        this.etabord=data;
+      }
+    )
+  }
   navigateRoute(r: string) {
     if(r == "/staff/menustaff/caisse/accueil"){
       if(this.DashService.etatVendeur.nbsessionouverte == 0){
