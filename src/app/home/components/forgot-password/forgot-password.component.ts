@@ -11,6 +11,7 @@ import {AuthenService} from "../Service/AuthenService";
 export class ForgotPasswordComponent implements OnInit {
   registerForm: FormGroup;
   submittedRegister = false;
+  is_loading: boolean=false;
 
   constructor(public router: Router, public formBuilder: FormBuilder, public authenservice: AuthenService) {
   }
@@ -26,28 +27,25 @@ export class ForgotPasswordComponent implements OnInit {
 
   initregister() {
     this.registerForm = this.formBuilder.group({
-        username: ['', Validators.required],
-        email: ['', [Validators.required, Validators.email]],
+        email: ['', [Validators.required]],
       }
     );
   }
 
-  onRegister() {
+  requestPassword() {
     this.submittedRegister = true;
     if (this.registerForm.invalid) {
       return;
     }
-
+    this.is_loading=true;
     this.authenservice.requestPasswordReset(this.registerForm.value).subscribe(
       data=>{
-
+        this.is_loading=false;
       },error => {
+        this.is_loading=false;
         this.authenservice.toastMessage(error.error.message);
       }
     )
   }
 
-  requestPassword() {
-
-  }
 }
