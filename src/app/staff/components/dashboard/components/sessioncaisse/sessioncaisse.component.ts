@@ -11,7 +11,6 @@ export class SessioncaisseComponent implements OnInit {
   constructor(public serviceDash : ServiceDash) { }
 
   ngOnInit() {
-    this.serviceDash.segmentCaisse = "ouverte"
     this.serviceDash.testSegmentCaisse = true;
   }
 

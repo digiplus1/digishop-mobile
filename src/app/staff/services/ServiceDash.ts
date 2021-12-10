@@ -52,6 +52,9 @@ export class ServiceDash {
   datefinV : Date;
   datefinVTemp : string;
 
+  menu_1: string = '';
+  menu_2: string = '';
+
   constructor(public http:HttpClient,private mainService: MainService,public authenService:AuthenService,public router:Router) {
   }
 

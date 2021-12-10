@@ -97,13 +97,22 @@ export class AccueilproprietaireComponent implements OnInit {
     );
   }
 
-  navigateRoute(r: string) {
+  navigateRoute(r: string, page: string = '') {
     if(r == "/staff/menustaff/caisse/accueil" || r == "/staff/menustaff/caisse/transactionscaisse"){
       if(this.DashService.etatVendeur.nbsessionouverte == 0){
         this.authentificationService.toastMessage("Aucune session ouverte.")
       } else {
         this.router.navigateByUrl(r);
       }
+    } else if (page == 'ouverte' || page == 'fermee') {
+      this.DashService.menu_1 = 'sessions';
+      this.DashService.segmentCaisse = page;
+      this.DashService.testSegmentCaisse = true;
+      this.router.navigateByUrl(r);
+    } else if (page == 'ventes') {
+      this.DashService.menu_1 = page;
+      this.DashService.testSegmentCaisse = false;
+      this.router.navigateByUrl(r);
     } else {
       this.router.navigateByUrl(r);
     }

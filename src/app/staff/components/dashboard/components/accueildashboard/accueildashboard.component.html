@@ -1,6 +1,6 @@
 <ion-header>
   <ion-segment scrollable
-               value="alerte"
+               [value]="serviceDash.menu_1"
                mode="md"
                color="success"
                [(ngModel)]="segmentModel"
@@ -9,7 +9,7 @@
       <ion-icon name="wallet"></ion-icon>
       <ion-label class="text-lowercase">Sessions de Caisse</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="ventes" checked>
+    <ion-segment-button value="ventes">
       <ion-icon name="cart-outline"></ion-icon>
       <ion-label class="text-lowercase">Ventes</ion-label>
     </ion-segment-button>
@@ -28,11 +28,11 @@
 
 <ion-footer *ngIf="serviceDash.testSegmentCaisse">
   <ion-segment
-    value="ouverte"
+    [value]="serviceDash.menu_2"
     mode="md"
     color="primary"
     [(ngModel)]="serviceDash.segmentCaisse">
-    <ion-segment-button value="ouverte" checked>
+    <ion-segment-button value="ouverte">
       <ion-icon name="enter-outline"></ion-icon>
       <ion-label class="text-lowercase">Sessions Ouvertes</ion-label>
     </ion-segment-button>
