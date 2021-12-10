@@ -43,7 +43,9 @@ export class CommandeClientService {
             this.commandes=[];
           }
           this.commandePage=data;
-          this.commandes=data.content;
+          data.content.forEach(c=>{
+            this.commandes.push(c);
+          });
 
         },error => {
           this.authenService.toastMessage(error.error.message)

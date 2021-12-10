@@ -3,7 +3,8 @@
     <ion-card-header >
       <ion-row>
         <ion-col>  <strong>Commande {{commandeService.commande.referencecommande}}</strong></ion-col>
-        <ion-col class="ion-text-right"><ion-icon color="danger" (click)="closemodal()" name="close-outline"></ion-icon></ion-col>
+        <ion-col>{{commandeService.commande.datecommande| date:'dd-MM-yy HH:mm'}}</ion-col>
+        <ion-col size="2" class="ion-text-right"><ion-icon color="danger" (click)="closemodal()" name="close-outline"></ion-icon></ion-col>
       </ion-row>
 
 
@@ -16,6 +17,10 @@
       <ion-row>
         <ion-col class="ion-text-left">Téléphone</ion-col>
         <ion-col class="ion-text-right">{{commandeService.commande.boutique.telephoneBoutique}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="ion-text-left">Mode paiement</ion-col>
+        <ion-col class="ion-text-right">{{commandeService.commande.modepayement}}</ion-col>
       </ion-row>
     <ion-row>
       <ion-col size="6">Produit</ion-col>

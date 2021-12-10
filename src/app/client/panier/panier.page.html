@@ -3,12 +3,13 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <h3 class="title" *ngIf="authenService.utilisateur.cart.cartItems.length" >{{authenService.utilisateur.cart.cartItems.length}} vers au panier</h3>
+    <h3 class="title" *ngIf="cartService.count_cart>0" >{{cartService.count_cart}} vers au panier</h3>
     <ion-buttons slot="end" class=" ion-margin-horizontal">
       <ion-icon name="heart-outline" color="danger" slot="icon-only"></ion-icon>
-      <ion-badge>{{authenService.utilisateur.cart.cartItems.length}}</ion-badge>
+      <ion-badge>{{favoriteService.nb_favorite}}</ion-badge>
     </ion-buttons>
   </ion-toolbar>
+
 </ion-header>
 
 <ion-content>
@@ -48,12 +49,16 @@
     </ion-item-sliding>
   </ion-list>
 
-  <ion-button class="buttom" expand="block" [disabled]="is_loading==true" (keydown.enter)="goToAdresse()" (click)="goToAdresse()" *ngIf="authenService.utilisateur.cart.cartItems.length">
+  <ion-button class="buttom" expand="block" [disabled]="is_loading==true" (keydown.enter)="goToAdresse()" (click)="goToAdresse()" *ngIf="cartService.count_cart>0">
     Total: <span>{{authenService.utilisateur.cart.montanttotal}}<sup>Fcfa</sup></span>
     <ion-spinner name="lines" *ngIf="is_loading"></ion-spinner>
   </ion-button>
 
-  <div class="empty-cart" *ngIf="!authenService.utilisateur.cart.cartItems.length">
+  <ion-button color="danger" class="buttom" expand="block" [disabled]="cartService.is_loarding_delect==true" (click)="cleanCart()" *ngIf="cartService.count_cart>0">
+   Tout supprimer <ion-icon slot="end" name="trash-outline"></ion-icon>
+    <ion-spinner name="lines" *ngIf="cartService.is_loarding_delect"></ion-spinner>
+  </ion-button>
+  <div class="empty-cart" *ngIf="!cartService.count_cart!=0">
     <ion-icon name="cart-outline"></ion-icon>
     <p>Votre panier est vide</p>
   </div>

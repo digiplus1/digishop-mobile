@@ -8,6 +8,7 @@ import {IonSearchbar} from "@ionic/angular";
 import {AuthenService} from "../../../home/components/Service/AuthenService";
 import {NatifService} from "../../Service/NatifService";
 import {FavoriteService} from "../../Service/FavoriteService";
+import {CartService} from "../../Service/CartService";
 
 @Component({
   selector: 'app-acceuil',
@@ -32,13 +33,14 @@ export class AcceuilComponent implements OnInit {
     slidesOffsetBefore: 6
   };
 
-  constructor(public produitService:ProduitService,public boutiqueService:BoutiqueService,public router:Router,
+  constructor(public produitService:ProduitService,public boutiqueService:BoutiqueService,public router:Router,public cartservice:CartService,
               public authenService:AuthenService,public natifService:NatifService,public favoriteService:FavoriteService) {}
 
   ngOnInit() {
     this.produitService.getAllproduit();
     this.produitService.getAllCategorie();
     this.boutiqueService.getAllboutique()
+    this.cartservice.getcartById();
   }
 
 /*  ionViewDidEnter(){

@@ -10,7 +10,7 @@
     </ion-buttons>
     <ion-buttons slot="end" (click)="router.navigateByUrl('client/panier')">
       <ion-icon name="cart-outline" color="warning" slot="icon-only"></ion-icon>
-      <ion-badge>{{authenService.utilisateur.cart.cartItems.length}}</ion-badge>
+      <ion-badge>{{cartservice.count_cart}}</ion-badge>
     </ion-buttons>
   </ion-toolbar>
   <ion-toolbar id="search-toolbar">

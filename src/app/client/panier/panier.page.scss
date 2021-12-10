@@ -47,6 +47,9 @@ ion-content {
       }
     }
   }
+  ion-item{
+    --background: transparent;
+  }
 
   ion-list {
     width: 100%;

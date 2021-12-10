@@ -46,7 +46,7 @@ export class CommandeComponent implements OnInit {
 
 
   getColor(c: Commande): any {
-    if (c.payement.modepayement == 'ORANGE MONEY' || c.payement.modepayement == 'MTN MOBILE MONEY' || c.payement.modepayement == 'CASH') {
+    if (c.payement.statut == 'SUCCESSFULL') {
       this.stylestatuscommand.couleur = '#5be84a';
       this.stylestatuscommand.status = 'Payé';
       return this.stylestatuscommand;
