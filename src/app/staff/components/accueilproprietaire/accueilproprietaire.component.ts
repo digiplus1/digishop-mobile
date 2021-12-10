@@ -107,9 +107,11 @@ export class AccueilproprietaireComponent implements OnInit {
     } else if (page == 'ouverte' || page == 'fermee') {
       this.DashService.menu_1 = 'sessions';
       this.DashService.segmentCaisse = page;
+      this.DashService.testSegmentCaisse = true;
       this.router.navigateByUrl(r);
     } else if (page == 'ventes') {
       this.DashService.menu_1 = page;
+      this.DashService.testSegmentCaisse = false;
       this.router.navigateByUrl(r);
     } else {
       this.router.navigateByUrl(r);
