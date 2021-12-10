@@ -12,7 +12,10 @@ export class AccueildashboardComponent implements OnInit {
   constructor(public serviceDash : ServiceDash) { }
 
   ngOnInit() {
-    this.segmentModel = "ventes"
+    console.log(this.serviceDash.menu_1);
+    console.log(this.serviceDash.menu_2);
+    this.segmentModel = this.serviceDash.menu_1;
+    console.log(this.segmentModel);
   }
 
   segmentChanged(ev: any) {
