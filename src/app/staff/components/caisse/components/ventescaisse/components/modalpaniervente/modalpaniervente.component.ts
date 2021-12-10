@@ -1,26 +1,24 @@
 import { Component, OnInit } from '@angular/core';
+import {Cart} from "../../../../../../../Model/Cart";
 import {ServiceProduit} from "../../../../../../services/ServiceProduit";
 import {Router} from "@angular/router";
-import {BarcodeScanner} from "@ionic-native/barcode-scanner/ngx";
-import {CartService} from "../../../../../../../client/Service/CartService";
-import {ServiceCaisse} from "../../../../../../services/ServiceCaisse";
-import {MainService} from "../../../../../../../shared/services/MainService";
-import {AuthenService} from "../../../../../../../home/components/Service/AuthenService";
 import {AlertController, ModalController, NavParams} from "@ionic/angular";
+import {ServiceCaisse} from "../../../../../../services/ServiceCaisse";
+import {AuthenService} from "../../../../../../../home/components/Service/AuthenService";
 import {CartItem} from "../../../../../../../Model/CartItem";
 import {PaiementProccessComponent} from "../../../ventecaisse/components/paiement-proccess/paiement-proccess.component";
-import {Cart} from "../../../../../../../Model/Cart";
+import {ServicePanier} from "../../../../../../services/ServicePanier";
 
 @Component({
-  selector: 'app-modalpanier',
-  templateUrl: './modalpanier.component.html',
-  styleUrls: ['./modalpanier.component.scss'],
+  selector: 'app-modalpaniervente',
+  templateUrl: './modalpaniervente.component.html',
+  styleUrls: ['./modalpaniervente.component.scss'],
 })
-export class ModalpanierComponent implements OnInit {
-
+export class ModalpanierventeComponent implements OnInit {
   cart:Cart;
   constructor(public serviceproduit : ServiceProduit, private router : Router,public alertCtrl:AlertController,
-              public caisseService : ServiceCaisse, private navParam : NavParams,public authenService : AuthenService, public modalController : ModalController,) { }
+              public caisseService : ServiceCaisse, private navParam : NavParams,public panierService : ServicePanier,
+              public authenService : AuthenService, public modalController : ModalController,) { }
 
 
   ngOnInit() {
@@ -29,31 +27,17 @@ export class ModalpanierComponent implements OnInit {
 
 
   async remove_qty(c:CartItem) {
-    if (c.quantite==1){
-      const alert=await this.alertCtrl.create({
-        header:'Supprimer',
-        message:'êtes-vous sûr de vouloir Supprimer '+c.description+' ?',
-        buttons:[
-          {
-            text:'OUI',
-            handler:()=>  this.caisseService.ajouter_panierClient(c.produit,1,"delete")
-          },
-          {
-            text:'NON'
-          }
-        ]
-      });
-      alert.present();
-    }else {
-      this.caisseService.ajouter_panierClient(c.produit,1,"remove")
+    if(c.produit.nomProduit.toLowerCase().indexOf("generique")>-1){
+      this.authenService.toastMessage("Impossible de réduire la quantité")
+    } else {
+      this.panierService.updateQuantite(c.produit, -1)
     }
-
   }
   ajouter(c: CartItem) {
-    if (c.quantite<c.produit.quantiteEnStock){
-      this.caisseService.ajouter_panierClient(c.produit,1,"add");
-    }else {
-      this.authenService.toastMessage("Le stock est fini")
+    if(c.produit.nomProduit.toLowerCase().indexOf("generique")>-1){
+      this.authenService.toastMessage("Impossible d'ajouter la quantité")
+    } else {
+      this.panierService.updateQuantite(c.produit, 1)
     }
   }
   async delete_round(c: CartItem) {
@@ -63,7 +47,7 @@ export class ModalpanierComponent implements OnInit {
       buttons:[
         {
           text:'OUI',
-          handler:()=>  this.caisseService.ajouter_panierClient(c.produit,c.quantite,"delete")
+          handler:()=>  this.panierService.deleteItem(c)
         },
         {
           text:'NON'
@@ -75,7 +59,8 @@ export class ModalpanierComponent implements OnInit {
 
 
   clearPanier() {
-    this.authenService.user_vendeur.cart.cartItems=[];
+    this.panierService.clearPanier();
+    this.modalController.dismiss();
   }
 
   async payer() {

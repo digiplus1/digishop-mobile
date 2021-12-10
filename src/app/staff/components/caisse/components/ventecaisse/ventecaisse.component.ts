@@ -102,7 +102,6 @@ export class VentecaisseComponent implements OnInit {
         console.log("Generique")
         this.generiqueModal(produit);
       } else {
-        console.log("Produit")
         if(produit.quantiteEnStock > 0 || !produit.manageStock){
           this.cartItemTemp = new CartItem();
           this.cartItemTemp.produit = produit;

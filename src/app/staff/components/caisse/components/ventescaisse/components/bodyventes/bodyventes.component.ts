@@ -1,34 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 import {ProduitDto} from "../../../../../../../Model/ProduitDto";
-import {CartItem} from "../../../../../../../Model/CartItem";
 import {ServiceProduit} from "../../../../../../services/ServiceProduit";
 import {Router} from "@angular/router";
-import {AuthenService} from "../../../../../../../home/components/Service/AuthenService";
 import {BarcodeScanner} from "@ionic-native/barcode-scanner/ngx";
-import {MainService} from "../../../../../../../shared/services/MainService";
-import {ModalController} from "@ionic/angular";
-import {PaniertempComponent} from "../../../ventecaisse/components/paniertemp/paniertemp.component";
-import {PaiementProccessComponent} from "../../../ventecaisse/components/paiement-proccess/paiement-proccess.component";
-import {GeneriqueComponent} from "../../../ventecaisse/components/generique/generique.component";
 import {CartService} from "../../../../../../../client/Service/CartService";
 import {ServiceCaisse} from "../../../../../../services/ServiceCaisse";
-import {ModalpanierComponent} from "../modalpanier/modalpanier.component";
+import {MainService} from "../../../../../../../shared/services/MainService";
+import {AuthenService} from "../../../../../../../home/components/Service/AuthenService";
+import {ModalController} from "@ionic/angular";
+import {ModalpanierComponent} from "../../../compteclient/components/modalpanier/modalpanier.component";
+import {GeneriqueComponent} from "../../../ventecaisse/components/generique/generique.component";
+import {CartItem} from "../../../../../../../Model/CartItem";
+import {ServicePanier} from "../../../../../../services/ServicePanier";
+import {ModalpaymentventeComponent} from "../modalpaymentvente/modalpaymentvente.component";
+import {ModalpanierventeComponent} from "../modalpaniervente/modalpaniervente.component";
 
 @Component({
-  selector: 'app-bodycart',
-  templateUrl: './bodycart.component.html',
-  styleUrls: ['./bodycart.component.scss'],
+  selector: 'app-bodyventes',
+  templateUrl: './bodyventes.component.html',
+  styleUrls: ['./bodyventes.component.scss'],
 })
-export class BodycartComponent implements OnInit {
-
+export class BodyventesComponent implements OnInit {
   produits: ProduitDto[];
   produitsFilter: ProduitDto[];
+  cartItem: CartItem;
   constructor(public serviceproduit : ServiceProduit, private router : Router,private barcodeScanner: BarcodeScanner,public cartService:CartService,
-              public caisseService : ServiceCaisse, private mainService : MainService,public authenService : AuthenService, public modalController : ModalController,) { }
+              public servicepanier : ServicePanier,   public caisseService : ServiceCaisse, private mainService : MainService,public authenService : AuthenService, public modalController : ModalController,) { }
 
   ngOnInit() {
 
-      this.initializeData();
+    this.initializeData();
     this.findProdByShop();
   }
 
@@ -56,7 +57,6 @@ export class BodycartComponent implements OnInit {
     );
   }
 
-
   scanCode() {
     this.barcodeScanner.scan().then(barcodeData => {
       this.mainService.spinner.show();
@@ -74,7 +74,6 @@ export class BodycartComponent implements OnInit {
       console.log('Error', err);
     });
   }
-
   FilterElement(ev: any) {
     if(ev != null) {
       const val = ev.target.value;
@@ -82,28 +81,44 @@ export class BodycartComponent implements OnInit {
         this.produits = this.produitsFilter.filter((a) => {
           return (a.nomProduit.toLowerCase().indexOf(val.toLowerCase()) > -1);
         })
-      } else this.serviceproduit.nomProduitFilter = [];
+      } else this.produits = this.produitsFilter;
     } else {
-      this.serviceproduit.nomProduitFilter = [];
+      this.produits = this.produitsFilter;
     }
   }
 
-  addPanier(prod: ProduitDto) {
-    this.FilterElement(null);      if (prod.nomProduit.toLowerCase().indexOf("generique")>-1) {
 
-        this.generiqueModal(prod);
+  addPanier(produit: ProduitDto) {
+    this.FilterElement(null);
+    if (produit.nomProduit.toLowerCase().indexOf("generique")>-1) {
+      this.generiqueModal(produit);
+    } else {
+      if(produit.quantiteEnStock > 0 || !produit.manageStock){
+        this.cartItem = new CartItem();
+        this.cartItem.produit = produit;
+        this.cartItem.quantite = 1;
+        this.cartItem.description = produit.nomProduit;
+        this.cartItem.prixunitaire = produit.prixProduit;
+        this.cartItem.montant = this.cartItem.quantite * this.cartItem.prixunitaire;
+        this.cartItem.idproduit = produit.idProduit;
+        this.cartItem.nomproduit = produit.nomProduit;
+
+        this.servicepanier.addItem(this.cartItem);
+
+        this.FilterElement(null);
       } else {
-       this.caisseService.ajouter_panierClient(prod,1,"add")
+        this.mainService.notificationService.showInfo("Le stock du produit est insuffisant.");
       }
+    }
   }
 
   async panier() {
-    if(this.authenService.user_vendeur.cart.cartItems.length>0){
+    if(this.servicepanier.panierCaisse.cartItems.length>0){
       const modal = await this.modalController.create({
-        component: ModalpanierComponent,
+        component: ModalpanierventeComponent,
         cssClass:"paniermodal",
         componentProps: {
-          'panier' : this.authenService.user_vendeur.cart
+          'panier' : this.servicepanier.panierCaisse
         }
       });
       return await modal.present();
