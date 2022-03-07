@@ -26,6 +26,7 @@ export class MenustaffPage implements OnInit {
     {title:"Gestion Boutique",url:"/staff/menustaff/boutique",icon:"card-outline", status:'none'},
     {title:"Gestion Vendeurs",url:"/staff/menustaff/vendeurs",icon:"person-outline", status:'none'},
     {title:"Tableau de Bord",url:"/staff/menustaff/dashboard",icon:"clipboard-outline", status:'none'},
+    {title: "Rapport fermeture caisse boutique", url:"/staff/menustaff/rapport", icon:"clipboard-outline", status:'none'},
     {title:"Imprimante",url:"/print/",icon:"print", status:'none'},
     {title:"A propos de nous",url:"/staff/menustaff/apropos",icon:"people-outline", status:'none'},
     // {title:"Partager",url:"/staff/menustaff/shareapp",icon:"share-outline", status:'none'},

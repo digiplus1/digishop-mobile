@@ -5,6 +5,7 @@ import { MenustaffPage } from './menustaff.page';
 import {AccueilvendeurComponent} from "../components/accueilvendeur/accueilvendeur.component";
 import {AccueilproprietaireComponent} from "../components/accueilproprietaire/accueilproprietaire.component";
 import {ProfilDetailComponent} from "../components/profil-detail/profil-detail.component";
+import {RapportFermetureCaisseBoutiqueComponent} from "../components/rapport-fermeture-caisse-boutique/rapport-fermeture-caisse-boutique.component";
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
       {
         path: 'profil',
         component: ProfilDetailComponent,
+      },
+      {
+        path: 'rapport',
+        component: RapportFermetureCaisseBoutiqueComponent
       },
       {
         path: 'caisse',
