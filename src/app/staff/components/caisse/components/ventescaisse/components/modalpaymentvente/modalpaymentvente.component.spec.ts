@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ConnexionClientComponent } from './connexion-client.component';
+import { ModalpaymentventeComponent } from './modalpaymentvente.component';
 
-describe('ConnexionClientComponent', () => {
-  let component: ConnexionClientComponent;
-  let fixture: ComponentFixture<ConnexionClientComponent>;
+describe('ModalpaymentventeComponent', () => {
+  let component: ModalpaymentventeComponent;
+  let fixture: ComponentFixture<ModalpaymentventeComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ConnexionClientComponent ],
+      declarations: [ ModalpaymentventeComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ConnexionClientComponent);
+    fixture = TestBed.createComponent(ModalpaymentventeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

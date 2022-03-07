@@ -7,7 +7,6 @@ import { CaissePageRoutingModule } from './caisse-routing.module';
 
 import { CaissePage } from './caisse.page';
 import {AccueilcaisseComponent} from "./components/accueilcaisse/accueilcaisse.component";
-import {ClientaccountComponent} from "./components/clientaccount/clientaccount.component";
 import {ClientcommandeComponent} from "./components/clientcommande/clientcommande.component";
 import {EntreecaisseComponent} from "./components/entreecaisse/entreecaisse.component";
 import {FermeturecaisseComponent} from "./components/fermeturecaisse/fermeturecaisse.component";
@@ -21,11 +20,10 @@ import {PaniercaisseComponent} from "./components/ventecaisse/components/panierc
 import {PaniertempComponent} from "./components/ventecaisse/components/paniertemp/paniertemp.component";
 import {PaiementProccessComponent} from "./components/ventecaisse/components/paiement-proccess/paiement-proccess.component";
 import {GeneriqueComponent} from "./components/ventecaisse/components/generique/generique.component";
-import {ConnexionClientComponent} from "./components/clientaccount/components/connexion-client/connexion-client.component";
-import {PaiementClientComponent} from "./components/clientaccount/components/paiement-client/paiement-client.component";
 import {DetailsCommandeComponent} from "./components/clientcommande/components/details-commande/details-commande.component";
 import {VenterapidecaisseComponent} from "./components/venterapidecaisse/venterapidecaisse.component";
 import {CompteclientModule} from "./components/compteclient/compteclient.module";
+import {VentescaisseModule} from "./components/ventescaisse/ventescaisse.module";
 
 @NgModule({
   imports: [
@@ -34,14 +32,14 @@ import {CompteclientModule} from "./components/compteclient/compteclient.module"
     IonicModule,
     CaissePageRoutingModule,
     ReactiveFormsModule,
-    CompteclientModule
+    CompteclientModule,
+    VentescaisseModule,
   ],
     declarations: [CaissePage,
-        AccueilcaisseComponent, ClientaccountComponent, ClientcommandeComponent, EntreecaisseComponent,
+        AccueilcaisseComponent, ClientcommandeComponent, EntreecaisseComponent,
         FermeturecaisseComponent, OuverturecaisseComponent, SortiecaisseComponent, TransactionscaisseComponent,
         VentecaisseComponent, RapportcaisseComponent, ListTransactionComponent, PaniercaisseComponent,
-        PaniertempComponent, PaiementProccessComponent, GeneriqueComponent, ConnexionClientComponent,
-        PaiementClientComponent, DetailsCommandeComponent, VenterapidecaisseComponent
+        PaniertempComponent, PaiementProccessComponent, GeneriqueComponent, DetailsCommandeComponent, VenterapidecaisseComponent
     ]
 })
 export class CaissePageModule {}

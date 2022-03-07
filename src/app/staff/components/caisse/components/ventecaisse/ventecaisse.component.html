@@ -2,7 +2,8 @@
   <div id="headerV">
     <ion-item lines="none">
       <ion-icon (click)="goBack()" slot="start" size="large" color="primary" name="arrow-undo-outline"></ion-icon>
-      <ion-buttons (click)="savePanierToBrouillon()" slot="end" class="topright" align="right">
+      <ion-buttons (click)="savePanierToBrouillon()" slot="end" class="topright" >
+        {{this.servicepanier.panierTempList.length}}
         <ion-icon color="primary" size="large" name="card"></ion-icon>
         <ion-label> Brouillon</ion-label>
       </ion-buttons>

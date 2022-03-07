@@ -2,13 +2,11 @@
   <ion-grid class="form">
 
     <ion-icon (click)="goBack()" class="text-start" size="large" color="secondary" name="arrow-undo-outline"></ion-icon>
-    <h5 class="text-center" style="color: #0f5173"><strong>CONNEXION</strong></h5>
-
     <div class="text-center">
       <img class="img-thumbnail" src="./assets/images/opensource.png" style="height: 150px; width: 150px; margin-bottom: 5%">
     </div>
-
-    <ion-item lines="none" class="ion-margin-bottom">
+    <h5 class="text-center" style="color: #0f5173"><strong>CONNEXION</strong></h5>
+        <ion-item lines="none" class="ion-margin-bottom">
       <ion-input [(ngModel)]="login" placeholder="Entrer le téléphone ou username" type="text" required></ion-input>
       <ion-icon slot="end" color="primary" name="person"></ion-icon>
     </ion-item>

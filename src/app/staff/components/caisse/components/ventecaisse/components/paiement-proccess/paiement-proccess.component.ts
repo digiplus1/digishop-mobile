@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ServicePaiement} from "../../../../../../services/ServicePaiement";
-import {ModalController} from "@ionic/angular";
+import {ModalController, NavParams} from "@ionic/angular";
 import {ServicePanier} from "../../../../../../services/ServicePanier";
 import {ServiceCaisse} from "../../../../../../services/ServiceCaisse";
 import {CaisseDTO} from "../../../../../../models/CaisseDTO";
@@ -8,6 +8,7 @@ import {AuthenService} from "../../../../../../../home/components/Service/Authen
 import {ServicePrinter} from "../../../../../../services/ServicePrinter";
 import {ModalconfirmComponent} from "./modalconfirm/modalconfirm.component";
 import {Commande} from "../../../../../../../Model/Commande";
+import {Cart} from "../../../../../../../Model/Cart";
 
 @Component({
   selector: 'app-paiement-proccess',
@@ -18,12 +19,13 @@ export class PaiementProccessComponent implements OnInit {
   is_loading: boolean = false;
   public operateurNom: string = '';
   public commentaire: string = '';
-
+  cart:Cart;
   constructor(public paiementService : ServicePaiement, private modalController : ModalController,
-              public panierService : ServicePanier, public serviceCaisse : ServiceCaisse,
+              public panierService : ServicePanier, public serviceCaisse : ServiceCaisse,private navParam : NavParams,
               public authenService : AuthenService, public servicePrinter : ServicePrinter) { }
 
   ngOnInit() {
+    this.cart=this.navParam.get("panier");
     this.serviceCaisse.getAlloperateur();
   }
 
@@ -53,7 +55,7 @@ export class PaiementProccessComponent implements OnInit {
     cDTO.action = "vente";
     cDTO.idcaissesession = this.serviceCaisse.SessionActive.idcaissesession;
     cDTO.referenceuser = this.authenService.utilisateur.reference;
-    cDTO.cartItems = this.panierService.panierCaisse.cartItems;
+    cDTO.cartItems = this.cart.cartItems;
     cDTO.typepaiement = this.paiementService.affiche;
     cDTO.operateurnom = this.operateurNom;
     cDTO.commentaire = this.commentaire;
