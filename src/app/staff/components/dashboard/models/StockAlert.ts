@@ -7,4 +7,6 @@ export class StockAlert {
   quantiteEnstock: number;
   quantiteAlerte: number;
   alerte : boolean;
+  referenceboutique: string;
+  referenceuser: string;
 }

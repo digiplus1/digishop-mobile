@@ -23,7 +23,7 @@ export class ClientcommandeComponent implements OnInit {
 
   ngOnInit() {
     this.mainService.spinner.show()
-    this.serviceCommande.getListRefCommande(this.authenService.boutique.nomBoutique).subscribe(
+    this.serviceCommande.getListRefCommande(this.authenService.boutique.reference).subscribe(
       data=>{
         console.log(data);
         this.serviceCommande.commandeRefList = data;

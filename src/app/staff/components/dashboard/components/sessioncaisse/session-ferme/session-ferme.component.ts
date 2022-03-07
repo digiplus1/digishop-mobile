@@ -26,8 +26,10 @@ export class SessionFermeComponent implements OnInit {
     this.mainService.spinner.show()
 
     let sessionF : SessionFermee = new SessionFermee();
-    sessionF.nomuser = this.authenService.utilisateur.username;
-    sessionF.nomboutique = this.authenService.boutique.nomBoutique;
+    sessionF.referenceuser = this.authenService.utilisateur.reference;
+    sessionF.referenceboutique = this.authenService.boutique.reference;
+
+
 
     this.serviceDash.checkSessionFermeeInShop(sessionF).subscribe(
       data=>{

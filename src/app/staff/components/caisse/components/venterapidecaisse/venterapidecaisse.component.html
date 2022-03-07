@@ -8,8 +8,8 @@
   </div>
   <ion-slides [options]="slideopts">
     <ion-slide *ngFor="let p of prodList">
-      <ion-card class="box">
-        <img [src]="p.image" [alt]="p.nomProduit" style="width: 200px; height: 80px" (click)="addPanier(p)">
+      <ion-card class="box" (click)="addPanier(p)">
+        <img [src]="p.image" [alt]="p.nomProduit" style="width: 200px; height: 80px">
         <hr>
         <ion-card-subtitle>
           <ion-label class="text-center">{{p.nomProduit}}</ion-label><br>

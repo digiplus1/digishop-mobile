@@ -35,7 +35,8 @@ export class VenterapidecaisseComponent implements OnInit {
   ngOnInit() {
     this.testMore = true;
 
-    if(this.serviceProduit.produitList.length==0){
+    /*if(this.serviceProduit.produitList.length==0){*/
+      console.log('test');
       this.mainService.spinner.show();
       this.serviceProduit.getAllProduit(this.authenService.boutique.nomBoutique).subscribe(
         data=>{
@@ -48,10 +49,10 @@ export class VenterapidecaisseComponent implements OnInit {
           this.authenService.toastMessage(error.error.message);
         }
       );
-    } else {
+    /*} else {
       this.serviceProduit.produitPopulaire = this.serviceProduit.produitList.filter(p=> p.populaire && p.nomProduit!="Generique");
       this.serviceProduit.produitNonPopulaire = this.serviceProduit.produitList.filter(p=> !p.populaire && p.nomProduit!="Generique");
-    }
+    }*/
   }
 
   addPanier(prod: ProduitDto) {

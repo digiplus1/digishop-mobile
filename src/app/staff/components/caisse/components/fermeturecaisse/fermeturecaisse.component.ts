@@ -34,7 +34,7 @@ export class FermeturecaisseComponent implements OnInit {
 
   getEtatSession() {
     this.mainService.spinner.show();
-    this.caisseService.getEtatSession(this.caisseService.SessionActive.idcaissesession, this.authenService.utilisateur.username).subscribe(
+    this.caisseService.getEtatSession(this.caisseService.SessionActive.idcaissesession, this.authenService.utilisateur.reference).subscribe(
       data=>{
         console.log(data);
         this.caisseService.caisseDTOTemp = data;

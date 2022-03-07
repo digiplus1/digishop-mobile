@@ -12,4 +12,6 @@ export class SessionFermee {
   montanttotal : number;
   nomvendeurs : string [] = [];
   caisseSessions : CaisseSession [] = [];
+  referenceboutique: string;
+  referenceuser: string;
 }

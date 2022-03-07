@@ -20,8 +20,10 @@ export class SessionOuvertComponent implements OnInit {
     this.mainservice.spinner.show()
 
     let sessionO : SessionOuverte = new SessionOuverte();
-    sessionO.nomuser = this.authenservice.utilisateur.username;
-    sessionO.nomboutique = this.authenservice.boutique.nomBoutique;
+    sessionO.referenceuser = this.authenservice.utilisateur.reference;
+    sessionO.referenceboutique = this.authenservice.boutique.reference;
+
+    console.log(sessionO);
 
     this.serviceDash.checkSessionOuverteInShop(sessionO).subscribe(
       data=>{

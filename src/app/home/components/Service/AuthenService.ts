@@ -38,7 +38,7 @@ export class AuthenService {
   }
 
   getBoutique(){
-    return this.http.get<BoutiquePos>(AdresseIP.host+"getboutiquebyname/"+this.utilisateur.nomBoutique).subscribe(
+    return this.http.get<BoutiquePos>(AdresseIP.host+"getboutiquebyname/"+this.utilisateur.referenceboutique).subscribe(
       data=>{
         this.boutique = data;
       },error => {

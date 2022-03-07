@@ -29,7 +29,7 @@ export class EntreecaisseComponent implements OnInit {
       let cDTO : CaisseDTO = new CaisseDTO();
       cDTO.action="entree";
       cDTO.idcaissesession = this.caisseService.SessionActive.idcaissesession;
-      cDTO.nomuser = this.authenService.utilisateur.username;
+      cDTO.referenceuser = this.authenService.utilisateur.reference;
       cDTO.montanttransaction = this.montant;
       cDTO.commentaire = this.commentaire;
 

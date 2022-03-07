@@ -13,4 +13,6 @@ export class SessionOuverte {
   modepaiements : string [] = [];
   caisseSessions : CaisseSession [] = [];
   caisseTransactionsHorsSessions : CaisseTransactionsHorsSession [] = [];
+  referenceboutique: string;
+  referenceuser: string;
 }

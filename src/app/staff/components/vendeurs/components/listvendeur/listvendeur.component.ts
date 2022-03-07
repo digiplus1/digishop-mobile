@@ -24,7 +24,7 @@ export class ListvendeurComponent implements OnInit {
   ngOnInit() {
     this.mainService.spinner.show();
 
-    this.serviceUser.getAllVendeurs(this.authenService.boutique.nomBoutique).subscribe(
+    this.serviceUser.getAllVendeurs(this.authenService.boutique.reference).subscribe(
       data=>{
         console.log(data)
         this.serviceUser.vendeursList = data;

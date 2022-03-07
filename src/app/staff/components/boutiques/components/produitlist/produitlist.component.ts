@@ -23,7 +23,7 @@ export class ProduitlistComponent implements OnInit {
 
   ngOnInit() {
     this.mainService.spinner.show();
-    this.serviceProduit.getAllNomProduit(this.authenService.boutique.nomBoutique);
+    this.serviceProduit.getAllNomProduit(this.authenService.boutique.reference);
     this.serviceCatalogueCategorie.findallnomcatalogue();
   }
 

@@ -20,8 +20,9 @@ export class AlertstockComponent implements OnInit {
     this.mainService.spinner.show();
 
     let stockA : StockAlert = new StockAlert();
-    stockA.nomuser = this.authenService.utilisateur.username;
-    stockA.nomboutique = this.authenService.boutique.nomBoutique;
+    stockA.referenceuser = this.authenService.utilisateur.reference;
+    stockA.referenceboutique = this.authenService.boutique.reference;
+    console.log(stockA);
 
     this.serviceDash.checkAlertStockInShop(stockA).subscribe(
       data=>{

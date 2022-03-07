@@ -22,5 +22,6 @@ export class BoutiquePos {
   secteuractivite:string;
   qrcode:string;
   produits:ProduitDto[];
+  reference: string;
 
 }

@@ -31,4 +31,6 @@ export class Utilisateur {
   boutique:BoutiquePos;
   isProprietaire : boolean;
   isVendeur : boolean;
+  referenceboutique:string;
+  reference:string;
 }

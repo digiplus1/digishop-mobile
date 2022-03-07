@@ -52,7 +52,7 @@ export class PaiementProccessComponent implements OnInit {
     let cDTO : CaisseDTO = new CaisseDTO();
     cDTO.action = "vente";
     cDTO.idcaissesession = this.serviceCaisse.SessionActive.idcaissesession;
-    cDTO.nomuser = this.authenService.utilisateur.username;
+    cDTO.referenceuser = this.authenService.utilisateur.reference;
     cDTO.cartItems = this.panierService.panierCaisse.cartItems;
     cDTO.typepaiement = this.paiementService.affiche;
     cDTO.operateurnom = this.operateurNom;

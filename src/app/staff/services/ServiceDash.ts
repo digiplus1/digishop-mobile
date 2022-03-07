@@ -83,7 +83,7 @@ export class ServiceDash {
   }
 
   getCommandesByBoutiqueIsEncours(){
-    return this.http.get<CommandePage>(AdresseIP.host+'getcommandebyboutiqueisencours/'+this.authenService.boutique.nomBoutique)
+    return this.http.get<Commande[]>(AdresseIP.host+'getcommandebyboutiqueisencours/'+this.authenService.boutique.reference)
   }
 
   getEtatBordBoutique() {
@@ -92,11 +92,11 @@ export class ServiceDash {
   getCommandesByBoutiqueIsTermine(page:number){
     this.commandeDTOList=[];
     this.mainService.spinner.show();
-    return this.http.get<CommandePage>(AdresseIP.host+'getcommandebyboutiqueistermine/'+this.authenService.boutique.nomBoutique).subscribe(
+    return this.http.get<Commande[]>(AdresseIP.host+'getcommandebyboutiqueistermine/'+this.authenService.boutique.reference).subscribe(
       data => {
-        this.commandePage=data;
-        this.commandeDTOList = data.content;
-        this.commandeDTOListFilter = data.content;
+        //this.commandePage=data;
+        this.commandeDTOList = data;
+        this.commandeDTOListFilter = data;
         this.mainService.spinner.hide();
       }, error => {
         this.mainService.spinner.hide();

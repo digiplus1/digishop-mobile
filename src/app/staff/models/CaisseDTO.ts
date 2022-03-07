@@ -31,6 +31,7 @@ export class CaisseDTO {
   cash:number;
   momo:number;
   om:number;
+  referenceuser: string;
 
   operateurnom:string;//ici on a le nom de la personne qui effectue la tache si c est une laverie ou coifure ou encore la scolarité de la personne que l'on paie
 

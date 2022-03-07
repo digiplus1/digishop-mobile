@@ -36,16 +36,18 @@ export class VentesdashboardComponent implements OnInit {
     this.serviceDash.commandeDTOList=[];
     this.serviceDash.getCommandesByBoutiqueIsEncours().subscribe(
       data => {
-        this.serviceDash.commandePage=data;
-        this.serviceDash.commandeDTOList = data.content;
-        this.serviceDash.commandeDTOListFilter = data.content;
+        //this.serviceDash.commandePage=data;
+        this.serviceDash.commandeDTOList = data;
+        this.serviceDash.commandeDTOListFilter = data;
         this.mainService.spinner.hide();
       }, error => {
         this.mainService.spinner.hide();
         this.authenService.toastMessage(error.error.message)
       }, () => {
         this.serviceDash.montantVentes = 0;
+        console.log(this.serviceDash.commandeDTOList.length);
         this.serviceDash.commandeDTOList.forEach(c => {
+          console.log('test');
           this.serviceDash.nomvendeurVList.push(c.nomvendeur);
           this.serviceDash.modepaiementVList.push(c.modepayement);
           this.serviceDash.modecommandeVList.push(c.modecommande);

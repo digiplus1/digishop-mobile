@@ -12,10 +12,10 @@
           <ion-label>CASH</ion-label>
           <ion-radio (click)="select('CASH')"></ion-radio>
         </ion-item>
-        <ion-item>
+        <!--<ion-item>
           <ion-label>MTN MOBILE MONEY</ion-label>
           <ion-radio (click)="select('MTN MOBILE MONEY')"></ion-radio>
-        </ion-item>
+        </ion-item>-->
         <ion-item *ngIf="paiementService.affiche == 'MTN MOBILE MONEY'">
           <ion-label position="floating">Entrer le numero : </ion-label>
           <ion-input
@@ -25,10 +25,10 @@
             name="momo"
           ></ion-input>
         </ion-item>
-        <ion-item>
+        <!--<ion-item>
           <ion-label>ORANGE MONEY</ion-label>
           <ion-radio (click)="select('ORANGE MONEY')"></ion-radio>
-        </ion-item>
+        </ion-item>-->
         <ng-container *ngIf="paiementService.affiche != ''">
           <ion-item>
             <ion-label position="floating">Entrer le nom de la personne</ion-label>
