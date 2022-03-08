@@ -14,4 +14,5 @@ export class SessioncaisseComponent implements OnInit {
     this.serviceDash.testSegmentCaisse = true;
   }
 
+
 }
