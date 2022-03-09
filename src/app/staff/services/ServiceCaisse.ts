@@ -121,7 +121,9 @@ export class  ServiceCaisse {
   getAllTransactionBySessionAndUser(idsession:number){
     return this.http.get<CaisseTransactions[]>(AdresseIP.host+"getalltransactionbysession/"+idsession)
   }
-
+  getrapportBoutique(caisseDTO:CaisseDTO){
+    return this.http.post<CaisseDTO>(AdresseIP.host+'rapportfermeture/',caisseDTO)
+  }
   getSession(username : string){
     return this.http.get<CaisseDTO>(AdresseIP.host+"session/"+username);
   }

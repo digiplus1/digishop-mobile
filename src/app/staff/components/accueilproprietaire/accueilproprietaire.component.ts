@@ -30,11 +30,13 @@ export class AccueilproprietaireComponent implements OnInit {
   ngOnInit() {
     this.getEtatBord();
     this.getSession();
-
+    this.getBoutique(this.authentificationService.utilisateur.referenceboutique);
   }
   ionViewDidEnter() {
     this.getEtatBord();
     this.getSession();
+    this.getBoutique(this.authentificationService.utilisateur.referenceboutique);
+
   }
 
   getSession(){
@@ -84,9 +86,9 @@ export class AccueilproprietaireComponent implements OnInit {
     )
   }
 
-  getBoutique(lienboutique:string){
+  getBoutique(referenceboutique:string){
     this.mainService.spinner.show();
-    this.boutiqueService.getBoutiqueByLien(lienboutique).subscribe(
+    this.boutiqueService.getBoutiqueByreferenceboutique(referenceboutique).subscribe(
       data=> {
         this.boutiqueService.boutique=data;
         this.mainService.spinner.hide();

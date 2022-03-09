@@ -18,7 +18,7 @@ export class  ServiceBoutique {
   getEtatBord() {
     return this.http.get<EtatBord>(AdresseIP.host+"etatbord/")
   }
-  getBoutiqueByLien(lienBoutique:string){
-    return this.http.get<BoutiquePos>(AdresseIP.host+"getboutiquebylien/"+lienBoutique)
+  getBoutiqueByreferenceboutique(referenceboutique:string){
+    return this.http.get<BoutiquePos>(AdresseIP.host+"findbyreference/"+referenceboutique)
   }
 }

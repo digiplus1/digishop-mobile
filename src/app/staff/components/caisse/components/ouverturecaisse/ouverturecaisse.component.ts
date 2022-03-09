@@ -27,7 +27,7 @@ export class OuverturecaisseComponent implements OnInit {
     } else {
       let cDTO : CaisseDTO = new CaisseDTO();
       cDTO.action="open";
-      cDTO.nomuser = this.authenService.utilisateur.username;
+      cDTO.referenceuser = this.authenService.utilisateur.reference;
       cDTO.montantinitial = this.montant;
       cDTO.montanttransaction = this.montant;
       cDTO.commentaire = this.commentaire;
