@@ -53,7 +53,7 @@ export class FavoriteService {
       this.calculfavorite(this.authenService.utilisateur.favoris);
     } else if (boutique) {
       this.authenService.utilisateur.favoris.nomboutique = boutique.nomBoutique;
-      let index = this.authenService.utilisateur.favoris.boutiquefavorisList.findIndex(p => p.idBoutique == boutique.idBoutique);
+      let index = this.authenService.utilisateur.favoris.boutiquefavorisList.findIndex(p => p.idboutique == boutique.idboutique);
       this.authenService.utilisateur.favoris.boutiquefavorisList.splice(index, 1);
       this.calculfavorite(this.authenService.utilisateur.favoris);
     }

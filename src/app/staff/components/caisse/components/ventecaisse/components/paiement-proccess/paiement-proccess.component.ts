@@ -25,7 +25,7 @@ export class PaiementProccessComponent implements OnInit {
               public authenService : AuthenService, public servicePrinter : ServicePrinter) { }
 
   ngOnInit() {
-    this.cart=this.navParam.get("panier");
+    this.cart=this.panierService.panierCaisse;
     this.serviceCaisse.getAlloperateur();
   }
 

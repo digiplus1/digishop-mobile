@@ -43,7 +43,7 @@ export class InitinventaireComponent implements OnInit {
   }
 
   initieInventaire(inventaireInit: InitiateInventaireDTO) {
-    inventaireInit.idboutique=this.authService.boutique.idBoutique;
+    inventaireInit.idboutique=this.authService.boutique.idboutique;
     inventaireInit.idproduitlist=this.list_id_prod;
     inventaireInit.iduser=this.authService.utilisateur.iduser;
 
@@ -51,7 +51,7 @@ export class InitinventaireComponent implements OnInit {
     this.stockService.initiateinventaire(this.inventaireInit).
     subscribe(data=>{
       this.mainService.spinner.hide();
-      this.stockService.getInventaireByboutiqueInValidePage(this.authService.boutique.idBoutique,0);
+      this.stockService.getInventaireByboutiqueInValidePage(this.authService.boutique.idboutique,0);
     },error => {
       this.mainService.spinner.hide();
       this.mainService.notificationService.showError(error.error.message)

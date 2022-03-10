@@ -1,10 +1,10 @@
 <div *ngIf="stockService.inventaireValidePage">
   <div id="accordion">
-    <div class="card" *ngFor="let i of stockService.inventaireValidePage.content">
+    <div class="card" *ngFor="let i of stockService.inventaireValidePage.content, let index = index">
       <div class="card-header" [id]="'headingOne'+i.idinventaire">
 
         <div class="col-md-8 d-flex">
-          <h5 class="mb-0">
+          <h5 (click)="findByInventaireid(i.idinventaire, index)" class="mb-0">
             <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#collapseOne'+i.idinventaire" aria-expanded="true" aria-controls="collapseOne">
               Initié le {{i.datecreation|date:"dd/MM/yy HH:mm"}} Appliqué le {{i.dateapplication|date:"dd/MM/yy HH:mm"}} Validé le: {{i.datevalidation|date:"dd/MM/yy HH:mm"}}
             </button>

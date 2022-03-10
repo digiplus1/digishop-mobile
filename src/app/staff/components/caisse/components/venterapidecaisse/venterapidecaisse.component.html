@@ -6,6 +6,9 @@
   <div class="text-center">
     <img *ngIf="prodList.length<1" class="text-center" src="./assets/images/empty.png" alt="empty" style="width: 200px; height: 80px">
   </div>
+  <div>
+    <ion-searchbar (ionInput)="FilterElement($event)" placeholder="Rechercher un produit"></ion-searchbar>
+  </div>
   <ion-slides [options]="slideopts">
     <ion-slide *ngFor="let p of prodList">
       <ion-card class="box" (click)="addPanier(p)">

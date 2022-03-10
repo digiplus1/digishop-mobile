@@ -17,7 +17,19 @@ export class InventaireterminerComponent implements OnInit {
   }
 
   getAllInventaireValide() {
-    this.stockService.getInventaireByboutiqueValidePage(this.authService.boutique.idBoutique);
+    this.stockService.getInventaireByboutiqueValidePage(this.authService.boutique.idboutique);
+
+  }
+  findByInventaireid(idInventaire:number, index: number) {
+    this.mainService.spinner.show();
+    this.stockService.findByInventaireid(idInventaire).subscribe(
+      data=>{
+        this.mainService.spinner.hide();
+        this.stockService.inventaireValidePage.content[index].inventaireItemList=data;
+      },error => {
+        this.mainService.spinner.hide();
+      }
+    )
 
   }
 }

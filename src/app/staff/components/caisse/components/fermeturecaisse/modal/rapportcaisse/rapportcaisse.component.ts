@@ -54,7 +54,8 @@ export class RapportcaisseComponent implements OnInit {
         this.caisseService.directsTransactionsList = []
         this.caisseService.ventesTransactionsList = []
         this.caisseService.caisseTransactionsList.push(this.caisseService.caisseDTOTemp.caisseTransaction);
-        this.authenService.toastMessage("Opération réussie!")
+        this.authenService.toastMessage("Opération réussie!");
+        this.dismiss();
         this.router.navigateByUrl("/staff/menustaff/caisse/ouverturecaisse")
       }
     );

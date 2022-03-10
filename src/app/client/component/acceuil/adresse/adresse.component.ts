@@ -139,7 +139,7 @@ export class AdresseComponent implements OnInit {
     cotation.description_coli = descrip;
     cotation.quantites = qte;
     cotation.secteur_lieu_destination_coli = this.secteur_lieu_destination_coli;
-    cotation.idboutique=this.boutiqueService.boutique.idBoutique;
+    cotation.idboutique=this.boutiqueService.boutique.idboutique;
 
     this.digixpresService.get_frais_livraison(cotation).subscribe(
       data => {

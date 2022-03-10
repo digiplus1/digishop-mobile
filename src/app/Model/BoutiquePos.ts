@@ -2,7 +2,7 @@ import {ProduitDto} from './ProduitDto';
 import {Utilisateur} from "./Utilisateur";
 
 export class BoutiquePos {
-  idBoutique:number;
+  idboutique:number;
   nomBoutique:string;
   lien:string;
   adressBoutique:string;

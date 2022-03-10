@@ -22,6 +22,7 @@ export class VenterapidecaisseComponent implements OnInit {
   testMore : boolean = true;
   cartTemp : Cart = new Cart();
   prodList : ProduitDto [] = [];
+  search: string = "";
   slideopts = {
     initialSilde: 0,
     spaceBetween: 0,
@@ -247,4 +248,16 @@ export class VenterapidecaisseComponent implements OnInit {
     }
   }
 
+  FilterElement(ev: any) {
+    if(ev != null) {
+      const val = ev.target.value;
+      if (val && val.trim() != '') {
+        this.prodList = this.serviceProduit.produitPopulaire.filter((a) => {
+          return (a.nomProduit.toLowerCase().indexOf(val.toLowerCase()) > -1);
+        })
+      } else this.prodList = this.serviceProduit.produitPopulaire;
+    } else {
+      this.prodList = this.serviceProduit.produitPopulaire;
+    }
+  }
 }

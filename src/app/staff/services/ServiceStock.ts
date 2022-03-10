@@ -10,6 +10,7 @@ import {InventaireDTO} from "../components/boutiques/components/inventairelist/M
 import {InventairePage} from "../components/boutiques/components/inventairelist/Model/InventairePage";
 import {Inventaire} from "../components/boutiques/components/inventairelist/Model/Inventaire";
 import {DefineInventaireDTO} from "../components/boutiques/components/inventairelist/Model/DefineInventaireDTO";
+import {InventaireItem} from "../components/boutiques/components/inventairelist/Model/InventaireItem";
 
 
 @Injectable()
@@ -75,15 +76,18 @@ export class  ServiceStock {
   }
   getAllProduitStockInventaire(boutique:string) {
     this.mainService.spinner.show();
-    return this.http.get<produitDtoPage>(AdresseIP.host + 'getproduitmanageinstock/'+boutique).subscribe(
+    return this.http.get<ProduitDto[]>(AdresseIP.host + 'getproduitmanageinstock/'+boutique).subscribe(
       data => {
         this.mainService.spinner.hide();
-        this.produitInventaires = data.content;
-        console.table( this.produitInventaires);
+        this.produitInventaires = data;
       },error => {
         this.mainService.spinner.hide();
         this.mainService.notificationService.showError(error.error.message);
       }
     );
+  }
+
+  findByInventaireid(id_inventaire:number) {
+    return this.http.get<InventaireItem[]>(AdresseIP.host + 'elementinventaire/'+id_inventaire)
   }
 }
