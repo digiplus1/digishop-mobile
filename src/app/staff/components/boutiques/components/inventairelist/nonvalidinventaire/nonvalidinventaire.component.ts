@@ -58,4 +58,22 @@ export class NonvalidinventaireComponent implements OnInit {
       }
     )
   }
+
+  findByInventaireid(idInventaire: number, index: number) {
+    if (!this.stockService.inventaireNonValidePage.content[index].is_unroll) {
+      this.mainService.spinner.show();
+      this.stockService.findByInventaireid(idInventaire).subscribe(
+        data=>{
+          this.mainService.spinner.hide();
+          this.stockService.inventaireNonValidePage.content[index].inventaireItemList=data;
+          this.stockService.inventaireNonValidePage.content[index].is_unroll = true;
+          console.log(this.stockService.inventaireNonValidePage)
+        },error => {
+          this.mainService.spinner.hide();
+        }
+      )
+    } else {
+      this.stockService.inventaireNonValidePage.content[index].is_unroll = false;
+    }
+  }
 }

@@ -1,43 +1,45 @@
- <div class="accordion" id="accordionExample">
-    <div class="card" *ngFor="let invent of inventaire_to_valider">
-      <div class="card-header" [id]="'heading'+invent.idinventaire">
-        <h2 class="mb-0">
-          <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" (click)="val=invent.idinventaire"
-                  [attr.data-target]="'#collapse'+invent.idinventaire" aria-expanded="true" [attr.aria-controls]="'collapse'+invent.idinventaire">
-            Initié le {{invent.datecreation|date:'dd-MM-yyyy HH:mm'}}   Appliqué le {{invent.dateapplication|date:'dd-MM-yyyy HH:mm'}}
-          </button>
-        </h2>
-      </div>
+<ng-container *ngIf="inventaire_to_valider">
+  <div id="faq">
+    <ul>
+      <li *ngFor="let invent of inventaire_to_valider, let index = index">
+        <input (click)="findByInventaireid(invent.idinventaire, index)" type="checkbox" checked>
+        <i></i>
+        <h5 class="custom-header-accordion">
+          Initié le {{invent.datecreation|date:'dd-MM-yyyy HH:mm'}}   Appliqué le {{invent.dateapplication|date:'dd-MM-yyyy HH:mm'}}
+        </h5>
+        <div class="custom-body-accordion">
+          <div class="card-body">
 
-      <div [id]="'collapse'+invent.idinventaire" [class]="invent.idinventaire==val?'collapse show':'collapse'" [attr.aria-labelledby]="'heading'+invent.idinventaire"
-           data-parent="#accordionExample">
-        <div class="card-body">
-            <div class="table-responsive" >
+            <div class="table-responsive">
+
+              <div class="row">
+                <div class="col-lg"></div>
+                <div class="col-lg"><ion-button size="small" class="btn-primary" (click)="appliquer(invent)"> Valider</ion-button></div>
+                <div class="col-lg"></div>
+              </div>
               <table class="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th>Produit</th>
+                    <th>Physique</th>
+                    <th>Theorique</th>
+                    <th>difference</th>
+                  </tr>
+                </thead>
                 <tbody>
-                <tr>
-                  <th>Produit</th>
-                  <th>Physique</th>
-                  <th>Theorique</th>
-                  <th>difference</th>
-                </tr>
-
-                <tr *ngFor="let u of invent.inventaireItemList">
-                  <td>{{u.produit.nomProduit}}</td>
-                  <td>{{u.quantitephysique}}</td>
-                  <td>{{u.quantitetheorique}}</td>
-                  <td>{{u.difference}}</td>
-                </tr>
+                  <tr *ngFor="let u of invent.inventaireItemList">
+                    <td>{{u.produit.nomProduit}}</td>
+                    <td>{{u.quantitephysique}}</td>
+                    <td>{{u.quantitetheorique}}</td>
+                    <td>{{u.difference}}</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
-            <div class="row">
-              <div class="col-lg"></div>
-              <div class="col-lg"><ion-button size="small" class="btn-primary" (click)="appliquer(invent)"> Valider</ion-button></div>
-              <div class="col-lg"></div>
-            </div>
           </div>
-      </div>
-    </div>
+        </div>
+      </li>
+    </ul>
   </div>
+</ng-container>
 

@@ -1,43 +1,39 @@
+<ng-container *ngIf="stockService.inventaireNonValidePage">
+  <div id="faq">
+    <ul>
+      <li *ngFor="let i of stockService.inventaireNonValidePage.content, let index = index">
+        <input (click)="findByInventaireid(i.idinventaire, index)" type="checkbox" checked>
+        <i></i>
+        <h5 class="custom-header-accordion">
+          {{i.datecreation|date:"dd/MM/yyyy HH:mm"}}
+        </h5>
+        <div class="custom-body-accordion">
+          <div class="card-body">
 
-  <div id="accordion" *ngIf="stockService.inventaireNonValidePage">
-    <ion-card *ngFor="let i of stockService.inventaireNonValidePage.content">
-      <ion-card-header [id]="'headingOne'+i.idinventaire">
+            <div class="table-responsive" [id]="'print'+i.idinventaire">
 
-        <div class="col-md-6 d-flex">
-          <h5 class="mb-0">
-            <button class="btn btn-link" data-toggle="collapse" (click)="val=i.idinventaire" [attr.data-target]="'#collapseOne'+i.idinventaire" aria-controls="collapseOne">
-              {{i.datecreation|date:"dd/MM/yyyy HH:mm"}}
-            </button>
-          </h5>
-        </div>
-      </ion-card-header>
-
-      <div [id]="'collapseOne'+i.idinventaire" [class]="i.idinventaire==val?'collapse show':'collapse'" aria-labelledby="headingOne" data-parent="#accordion">
-        <div>
-          <div class="table-responsive" [id]="'print'+i.idinventaire">
-            <table  class="table table-striped table-bordered">
-              <tbody>
-              <tr>
-                <th>Produit</th>
-                <th>Quantité physique</th>
-              </tr>
-              <tr *ngFor="let u of i.inventaireItemList ">
-                <td>{{u.produit.nomProduit}}</td>
-                <td><input class="form-control" [(ngModel)]="u.quantitephysique" ></td>
-              </tr>
-              </tbody>
-
-            </table>
-          </div>
-          <div class="row">
-            <div class="col"></div>
-            <div class="col d-flex justify-content-center"><ion-button size="small" class="btn-primary" (click)="soumettre(i)"> Soumettre</ion-button></div>
-            <div class="col"></div>
+              <div class="row">
+                <div class="col"></div>
+                <div class="col d-flex justify-content-center"><ion-button size="small" class="btn-primary" (click)="soumettre(i)"> Soumettre</ion-button></div>
+                <div class="col"></div>
+              </div>
+              <table class="table table-striped table-bordered">
+                <tbody>
+                <tr>
+                  <th>Produit</th>
+                  <th>Quantité physique</th>
+                </tr>
+                <tr *ngFor="let u of i.inventaireItemList ">
+                  <td>{{u.produit.nomProduit}}</td>
+                  <td><input class="form-control" [(ngModel)]="u.quantitephysique" ></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-
-      </div>
-    </ion-card>
-
+      </li>
+    </ul>
   </div>
+</ng-container>
 

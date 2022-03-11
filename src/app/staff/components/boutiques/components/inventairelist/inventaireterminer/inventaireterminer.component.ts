@@ -21,15 +21,20 @@ export class InventaireterminerComponent implements OnInit {
 
   }
   findByInventaireid(idInventaire:number, index: number) {
-    this.mainService.spinner.show();
-    this.stockService.findByInventaireid(idInventaire).subscribe(
-      data=>{
-        this.mainService.spinner.hide();
-        this.stockService.inventaireValidePage.content[index].inventaireItemList=data;
-      },error => {
-        this.mainService.spinner.hide();
-      }
-    )
+    if (!this.stockService.inventaireValidePage.content[index].is_unroll) {
+      this.mainService.spinner.show();
+      this.stockService.findByInventaireid(idInventaire).subscribe(
+        data=>{
+          this.mainService.spinner.hide();
+          this.stockService.inventaireValidePage.content[index].inventaireItemList=data;
+          this.stockService.inventaireValidePage.content[index].is_unroll = true;
+        },error => {
+          this.mainService.spinner.hide();
+        }
+      )
+    } else {
+      this.stockService.inventaireValidePage.content[index].is_unroll = false;
+    }
 
   }
 }

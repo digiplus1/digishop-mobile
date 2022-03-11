@@ -32,4 +32,22 @@ export class ValidinventaireComponent implements OnInit {
       }
     )
   }
+
+  findByInventaireid(idInventaire: number, index: number) {
+    if (!this.inventaire_to_valider[index].is_unroll) {
+      this.mainService.spinner.show();
+      this.stockService.findByInventaireid(idInventaire).subscribe(
+        data=>{
+          this.mainService.spinner.hide();
+          this.inventaire_to_valider[index].inventaireItemList=data;
+          this.inventaire_to_valider[index].is_unroll = true;
+          console.log(this.inventaire_to_valider[index]);
+        },error => {
+          this.mainService.spinner.hide();
+        }
+      )
+    } else {
+      this.inventaire_to_valider[index].is_unroll = false;
+    }
+  }
 }

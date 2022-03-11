@@ -22,6 +22,7 @@ export class ProduitlistComponent implements OnInit {
               public authenService : AuthenService, public serviceBoutique : ServiceBoutique, private serviceCatalogueCategorie: ServiceCatalogueCategorie) { }
 
   ngOnInit() {
+    console.log(this.authenService);
     this.mainService.spinner.show();
     this.serviceProduit.getAllNomProduit(this.authenService.boutique.reference);
     this.serviceCatalogueCategorie.findallnomcatalogue();

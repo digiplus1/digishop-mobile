@@ -16,4 +16,7 @@ export class Inventaire {
   iduserinitiate:number;
   iduserdefine:number;
   boutiqueid:number;
+
+  //accordion value
+  is_unroll: boolean;
 }
