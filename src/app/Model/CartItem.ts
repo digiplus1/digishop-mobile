@@ -8,7 +8,7 @@ export class CartItem {
   description:string;
   produit:ProduitDto;
   nomproduit:string;
-
+  date:Date;
   idproduit:number;
   typeaction:string;
   idcart:number;

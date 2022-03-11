@@ -25,6 +25,7 @@ import {ServicePrinter} from "./services/ServicePrinter";
 import {AccueilvendeurComponent} from "./components/accueilvendeur/accueilvendeur.component";
 import {AccueilproprietaireComponent} from "./components/accueilproprietaire/accueilproprietaire.component";
 import {ProfilDetailComponent} from "./components/profil-detail/profil-detail.component";
+import {RapportFermetureCaisseBoutiqueComponent} from "./components/rapport-fermeture-caisse-boutique/rapport-fermeture-caisse-boutique.component";
 
 const SERVICES = [
   ServiceBanniere,
@@ -52,7 +53,7 @@ const SERVICES = [
     IonicModule,
     StaffPageRoutingModule,
   ],
-  declarations: [StaffPage, AccueilvendeurComponent, AccueilproprietaireComponent, ProfilDetailComponent],
+  declarations: [StaffPage, AccueilvendeurComponent, AccueilproprietaireComponent, ProfilDetailComponent,RapportFermetureCaisseBoutiqueComponent],
   providers: [
     SERVICES
   ]

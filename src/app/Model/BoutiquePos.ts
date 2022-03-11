@@ -4,6 +4,8 @@ import {Utilisateur} from "./Utilisateur";
 export class BoutiquePos {
   idboutique:number;
   nomBoutique:string;
+  region:string;
+  referenceexterne:string;
   lien:string;
   adressBoutique:string;
   pays:string;

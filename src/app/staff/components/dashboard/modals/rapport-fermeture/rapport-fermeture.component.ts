@@ -3,6 +3,7 @@ import {IonSearchbar, IonSlides, ModalController, NavParams} from "@ionic/angula
 import {ServiceDash} from "../../../../services/ServiceDash";
 import {CaisseSession} from "../../../../models/CaisseSession";
 import {CaisseDTO} from "../../../../models/CaisseDTO";
+import {BoutiqueService} from "../../../../../client/Service/BoutiqueService";
 
 @Component({
   selector: 'app-rapport-fermeture',
@@ -16,7 +17,7 @@ export class RapportFermetureComponent implements OnInit {
   @ViewChild('slider', {static: false}) slider: IonSlides;
   segment: number = 0;
   cstemp : CaisseDTO;
-  constructor(private modalController : ModalController, private navParam : NavParams, public serviceDash : ServiceDash) { }
+  constructor(private modalController : ModalController, private navParam : NavParams, public serviceDash : ServiceDash,public boutiqueService:BoutiqueService) { }
 
   ngOnInit() {
     this.cstemp = this.navParam.get("session");
