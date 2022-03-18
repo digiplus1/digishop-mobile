@@ -16,13 +16,13 @@
 
   <ion-slides class="slides-wrapper" #slider (ionSlideDidChange)="slideChanged()">
     <ion-slide>
-        <app-initinventaire></app-initinventaire>
+        <app-initinventaire [slider]="slider"></app-initinventaire>
     </ion-slide>
     <ion-slide>
-      <app-nonvalidinventaire></app-nonvalidinventaire>
+      <app-nonvalidinventaire [slider]="slider"></app-nonvalidinventaire>
     </ion-slide>
     <ion-slide>
-      <app-validinventaire [inventaire_to_valider]="inventaire_to_valider"></app-validinventaire>
+      <app-validinventaire [inventaire_to_valider]="inventaire_to_valider" [slider]="slider"></app-validinventaire>
     </ion-slide>
     <ion-slide>
       <app-inventaireterminer></app-inventaireterminer>
