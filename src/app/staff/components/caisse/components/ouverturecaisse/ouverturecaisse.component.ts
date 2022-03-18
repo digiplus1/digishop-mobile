@@ -25,6 +25,7 @@ export class OuverturecaisseComponent implements OnInit {
       this.authenService.toastMessage("Tous les champs doivent être correctement remplis.")
       this.is_loading = false;
     } else {
+
       let cDTO : CaisseDTO = new CaisseDTO();
       cDTO.action="open";
       cDTO.referenceuser = this.authenService.utilisateur.reference;
