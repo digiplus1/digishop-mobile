@@ -11,12 +11,12 @@
     <div class="row">
       <div class="col-md-4 text-center">
         <address>
-          <strong>{{this.authenService.boutique.nomBoutique}} </strong><br>
+          <strong>{{this.sessionFermer.caisseSession.shopuser.nomBoutique}} </strong><br>
         </address>
       </div>
       <div class="col-md-4 text-center">
         <address>
-          <strong> Vendeur : {{ this.authenService.utilisateur.username }} </strong><br>
+          <strong> Vendeur : {{ this.sessionFermer.caisseSession.shopuser.nomcomplet }} </strong><br>
         </address>
       </div>
     </div>
@@ -40,11 +40,11 @@
                 <!-- foreach ($order->lineItems as $line) or some such thing here -->
                 <tr>
                   <td class="text-left">Date ouverture</td>
-                  <td class="text-center">{{this.caisseService.SessionActive.dateouverture || 'dd/MM/yyyy'}}</td>
+                  <td class="text-center">{{this.sessionFermer.caisseSession.dateouverture || 'dd/MM/yyyy'}}</td>
                 </tr>
                 <tr>
                   <td class="text-left">Date fermeture</td>
-                  <td class="text-center">{{this.datetime || 'dd/MM/yyyy'}}</td>
+                  <td class="text-center">{{this.sessionFermer.caisseSession.datefermeture || 'dd/MM/yyyy'}}</td>
                 </tr>
                 <tr>
                   <td class="text-left">Montant fermeture</td>
@@ -52,31 +52,35 @@
                 </tr>
                 <tr>
                   <td class="text-left">Montant Ouverture</td>
-                  <td class="text-center">{{this.caisseService.SessionActive.montantinitial}}</td>
+                  <td class="text-center">{{this.sessionFermer.caisseSession.montantinitial}}</td>
                 </tr>
                 <tr>
                   <td class="text-left">Montant Orange Money</td>
-                  <td class="text-center">{{this.caisseService.caisseDTOTemp.om}}</td>
+                  <td class="text-center">{{this.sessionFermer.om}}</td>
                 </tr>
                 <tr>
                   <td class="text-left">Montant Mobile Money</td>
-                  <td class="text-center">{{this.caisseService.caisseDTOTemp.momo}}</td>
+                  <td class="text-center">{{this.sessionFermer.momo}}</td>
+                </tr>
+                <tr>
+                  <td class="text-left">Cash</td>
+                  <td class="text-center">{{this.sessionFermer.cash}}</td>
                 </tr>
                 <tr>
                   <td class="text-left">Montant des Entrées</td>
-                  <td class="text-center">{{this.caisseService.caisseDTOTemp.entree}}</td>
+                  <td class="text-center">{{this.sessionFermer.entree}}</td>
                 </tr>
                 <tr>
                   <td class="text-left">Montant des Sorties</td>
-                  <td class="text-center">{{this.caisseService.caisseDTOTemp.sortie}}</td>
+                  <td class="text-center">{{this.sessionFermer.sortie}}</td>
                 </tr>
                 <tr>
                   <td class="text-left">Solde en Caisse</td>
-                  <td class="text-center">{{this.caisseService.SessionActive.soldesession}}</td>
+                  <td class="text-center">{{this.sessionFermer.caisseSession.soldesession}}</td>
                 </tr>
                 <tr>
                   <td class="text-left">Difference</td>
-                  <td class="text-center">{{(this.caisseService.SessionActive.soldesession) - this.montant}}</td>
+                  <td class="text-center">{{(sessionFermer.caisseSession.soldesession) - this.montant}}</td>
                 </tr>
                 </tbody>
               </table>
