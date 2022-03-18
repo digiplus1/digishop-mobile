@@ -9,6 +9,7 @@ import {CaisseTransactions} from "../models/CaisseTransactions";
 import {Commande} from "../../Model/Commande";
 import {ProduitDto} from "../../Model/ProduitDto";
 import {CartItem} from "../../Model/CartItem";
+import {SessionFermer} from "../components/dashboard/models/Session-fermer";
 
 
 @Injectable()
@@ -99,6 +100,10 @@ export class  ServiceCaisse {
   }
 
 
+  fermeturecaisse(referencefermeturesession:string){
+    return this.http.get<SessionFermer>(AdresseIP.host+'fermeturecaisse/'+referencefermeturesession+"/"+this.authenService.utilisateur.reference);
+  }
+
   ManageCaisse (cDTO:CaisseDTO){
     return this.http.post<CaisseDTO>(AdresseIP.host+'managecaisse', cDTO);
   }
@@ -132,6 +137,9 @@ export class  ServiceCaisse {
   }
   getEtatSession(idsession: number, username : string){
     return this.http.get<CaisseDTO>(AdresseIP.host+"getetatsession/"+idsession+"/"+username);
+  }
+  getfermeturecaisse(caisseDTO:CaisseDTO){
+    return this.http.post<SessionFermer>(AdresseIP.host+'getfermeturecaisse',caisseDTO);
   }
   get_status_vente(referencecommande:string){
     let commande =new Commande();
