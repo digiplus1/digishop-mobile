@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {InitiateInventaireDTO} from "../Model/InitiateInventaireDTO";
 import {ServiceStock} from "../../../../../services/ServiceStock";
 import {MainService} from "../../../../../../shared/services/MainService";
 import {ServiceBoutique} from "../../../../../services/ServiceBoutique";
 import {AuthenService} from "../../../../../../home/components/Service/AuthenService";
+import {IonSlides} from "@ionic/angular";
 
 @Component({
   selector: 'app-initinventaire',
@@ -11,6 +12,7 @@ import {AuthenService} from "../../../../../../home/components/Service/AuthenSer
   styleUrls: ['./initinventaire.component.scss'],
 })
 export class InitinventaireComponent implements OnInit {
+  @Input() slider:IonSlides;
   isChecked = false;
   isCheckedAll = false;
   list_id_prod:number[]=[];
@@ -52,6 +54,7 @@ export class InitinventaireComponent implements OnInit {
     subscribe(data=>{
       this.mainService.spinner.hide();
       this.stockService.getInventaireByboutiqueInValidePage(this.authService.boutique.idboutique,0);
+      this.slider.slideNext();
     },error => {
       this.mainService.spinner.hide();
       this.mainService.notificationService.showError(error.error.message)

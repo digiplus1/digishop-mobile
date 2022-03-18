@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ServiceStock} from "../../../../../services/ServiceStock";
 import {MainService} from "../../../../../../shared/services/MainService";
 import {AuthenService} from "../../../../../../home/components/Service/AuthenService";
 import {Inventaire} from "../Model/Inventaire";
 import {DefineInventaireDTO} from "../Model/DefineInventaireDTO";
 import {InventaireForm} from "../Model/InventaireForm";
+import {IonSlides} from "@ionic/angular";
 
 @Component({
   selector: 'app-nonvalidinventaire',
@@ -12,6 +13,7 @@ import {InventaireForm} from "../Model/InventaireForm";
   styleUrls: ['./nonvalidinventaire.component.scss'],
 })
 export class NonvalidinventaireComponent implements OnInit {
+  @Input() slider: IonSlides;
   val: number;
 
   constructor(public stockService:ServiceStock, private mainService : MainService,public authService: AuthenService,) { }
@@ -52,6 +54,7 @@ export class NonvalidinventaireComponent implements OnInit {
         this.mainService.spinner.hide();
         let index=this.stockService.inventaireNonValidePage.content.indexOf(u);
         this.stockService.inventaireNonValidePage.content.splice(index,1);
+        this.slider.slideNext();
       },error => {
         this.mainService.spinner.hide();
         this.mainService.notificationService.showError(error.error.message);
