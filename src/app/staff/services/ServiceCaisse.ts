@@ -132,8 +132,8 @@ export class  ServiceCaisse {
   getSession(username : string){
     return this.http.get<CaisseDTO>(AdresseIP.host+"session/"+username);
   }
-  finByidcaissesession(idsession:number){
-    return this.http.get<CaisseDTO>(AdresseIP.host+"session_caisse_id/"+idsession);
+  finByidcaissesession(idsession:string){
+    return this.http.get<SessionFermer>(AdresseIP.host+"session_caisse_reference/"+idsession);
   }
   getEtatSession(idsession: number, username : string){
     return this.http.get<CaisseDTO>(AdresseIP.host+"getetatsession/"+idsession+"/"+username);
@@ -155,5 +155,11 @@ export class  ServiceCaisse {
         this.authenService.toastMessage(error.error.message)
       }
     )
+  }
+  findAllSessionFermer(){
+    return this.http.get<SessionFermer[] >(AdresseIP.host+'allsessionfermer/'+this.authenService.utilisateur.referenceboutique)
+  }
+  getrapportBoutiqueByResferencesessionfermer(referencefermeture:string){
+    return this.http.get<CaisseDTO>(AdresseIP.host+'rapportfermetureglobal/'+referencefermeture)
   }
 }

@@ -1,29 +1,25 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {IonSearchbar, IonSlides, ModalController, NavParams} from "@ionic/angular";
-import {ServiceDash} from "../../../../services/ServiceDash";
-import {CaisseSession} from "../../../../models/CaisseSession";
-import {CaisseDTO} from "../../../../models/CaisseDTO";
-import {BoutiqueService} from "../../../../../client/Service/BoutiqueService";
-import {SessionFermer} from "../../models/Session-fermer";
+import {SessionFermer} from "../../dashboard/models/Session-fermer";
+import {CaisseDTO} from "../../../models/CaisseDTO";
 import * as XLSX from "xlsx";
+import {BoutiqueService} from "../../../../client/Service/BoutiqueService";
 
 @Component({
-  selector: 'app-rapport-fermeture',
-  templateUrl: './rapport-fermeture.component.html',
-  styleUrls: ['./rapport-fermeture.component.scss'],
+  selector: 'app-details-rapport-fermeture-global',
+  templateUrl: './details-rapport-fermeture-global.component.html',
+  styleUrls: ['./details-rapport-fermeture-global.component.scss'],
 })
-export class RapportFermetureComponent implements OnInit {
-
-
+export class DetailsRapportFermetureGlobalComponent implements OnInit {
   @ViewChild('search', {static: false}) search: IonSearchbar;
   @ViewChild('slider', {static: false}) slider: IonSlides;
   segment: number = 0;
-  cstemp : SessionFermer;
-  constructor(private modalController : ModalController, private navParam : NavParams, public serviceDash : ServiceDash,public boutiqueService:BoutiqueService) { }
+  cstemp : CaisseDTO;
+
+  constructor(private modalController : ModalController, private navParam : NavParams,public boutiqueService:BoutiqueService) { }
 
   ngOnInit() {
-    this.cstemp = this.navParam.get("session");
-    console.log(this.boutiqueService.boutique);
+    this.cstemp = this.navParam.get("caisse");
   }
 
   onPrint() {
@@ -68,4 +64,5 @@ export class RapportFermetureComponent implements OnInit {
   onDismiss() {
     this.modalController.dismiss();
   }
+
 }

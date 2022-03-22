@@ -4,6 +4,7 @@ import {CaisseTransactions} from "./CaisseTransactions";
 
 export class CaisseSession {
   idcaissesession:number;
+  reference: string;
   montantinitial:number;
   dateouverture:Date;
   datefermeture:Date;
