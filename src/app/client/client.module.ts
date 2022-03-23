@@ -43,7 +43,6 @@ import {HistoriqueComponent} from "./component/historique/historique.component";
     CallNumber,
     NatifService,
     ProduitService,
-    BoutiqueService,
 
     FavoriteService,
     CommandeClientService,

@@ -49,4 +49,8 @@ export class BoutiqueService{
       }
     )
   }
+
+  getboutiqueByReference(referenceboutique:string){
+    return this.http.get<BoutiquePos>(AdresseIP.host+"findbyreference/"+referenceboutique);
+  }
 }

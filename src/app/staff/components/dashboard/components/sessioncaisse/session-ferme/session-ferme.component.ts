@@ -10,6 +10,7 @@ import {RapportFermetureComponent} from "../../../modals/rapport-fermeture/rappo
 import {CaisseSession} from "../../../../../models/CaisseSession";
 import {ServiceCaisse} from "../../../../../services/ServiceCaisse";
 import {CaisseDTO} from "../../../../../models/CaisseDTO";
+import {SessionFermer} from "../../../models/Session-fermer";
 
 @Component({
   selector: 'app-session-ferme',
@@ -44,7 +45,7 @@ export class SessionFermeComponent implements OnInit {
       }
     )
   }
-  finByidcaissesession(idsession:number){
+  finByidcaissesession(idsession:string){
     this.mainService.spinner.show();
     this.caisseService.finByidcaissesession(idsession).subscribe(
       data=>{
@@ -56,7 +57,7 @@ export class SessionFermeComponent implements OnInit {
       }
     )
   }
-  async openRapport(cT : CaisseDTO) {
+  async openRapport(cT : SessionFermer) {
 
     const modal = await this.modalController.create({
       component: RapportFermetureComponent,

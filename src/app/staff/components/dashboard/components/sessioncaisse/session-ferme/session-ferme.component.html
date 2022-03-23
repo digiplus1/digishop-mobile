@@ -7,13 +7,13 @@
   </ion-grid>
 
   <ion-grid *ngFor="let cs of serviceDash.sessionFermeeList.caisseSessions">
-    <ion-card (click)="finByidcaissesession(cs.idcaissesession)">
+    <ion-card (click)="finByidcaissesession(cs.reference)">
       <ion-row class="header-row">
         <ion-col style="padding-left: 10%;">
           <ion-label class="ion-text-start"><strong>Ref session</strong></ion-label>
         </ion-col>
         <ion-col style="padding-left: 15%;">
-          <ion-label class="ion-text-end">{{cs.idcaissesession}}</ion-label>
+          <ion-label class="ion-text-end">{{cs.reference}}</ion-label>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -22,6 +22,22 @@
         </ion-col>
         <ion-col style="padding-left: 15%;">
           <ion-label class="ion-text-end">{{cs.nomuser}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col style="padding-left: 10%;">
+          <ion-label class="ion-text-start"><strong>Montant théorique</strong></ion-label>
+        </ion-col>
+        <ion-col style="padding-left: 15%;">
+          <ion-label class="ion-text-end">{{cs.montanttheorique}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col style="padding-left: 10%;">
+          <ion-label class="ion-text-start"><strong>Montant déclaré</strong></ion-label>
+        </ion-col>
+        <ion-col style="padding-left: 15%;">
+          <ion-label class="ion-text-end">{{cs.montantphysique}}</ion-label>
         </ion-col>
       </ion-row>
       <ion-row>

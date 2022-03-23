@@ -5,8 +5,12 @@ import {Router} from "@angular/router";
 import {ServiceCaisse} from "../../services/ServiceCaisse";
 import {ServiceDash} from "../../services/ServiceDash";
 import {BoutiqueService} from "../../../client/Service/BoutiqueService";
-import {IonSearchbar, IonSlides} from "@ionic/angular";
+import {IonSearchbar, IonSlides, ModalController} from "@ionic/angular";
 import {ServiceBoutique} from "../../services/ServiceBoutique";
+import {SessionFermer} from "../dashboard/models/Session-fermer";
+import {AuthenService} from "../../../home/components/Service/AuthenService";
+import {RapportFermetureComponent} from "../dashboard/modals/rapport-fermeture/rapport-fermeture.component";
+import {DetailsRapportFermetureGlobalComponent} from "./details-rapport-fermeture-global/details-rapport-fermeture-global.component";
 @Component({
   selector: 'app-rapport-fermeture-caisse-boutique',
   templateUrl: './rapport-fermeture-caisse-boutique.component.html',
@@ -15,16 +19,29 @@ import {ServiceBoutique} from "../../services/ServiceBoutique";
 export class RapportFermetureCaisseBoutiqueComponent implements OnInit {
   @ViewChild('search', {static: false}) search: IonSearchbar;
   @ViewChild('slider', {static: false}) slider: IonSlides;
-  segment: number = 0;
-   caissedto: CaisseDTO=new CaisseDTO();
-   date:Date=new Date();
-  constructor(public router : Router, public caisseService : ServiceCaisse,public boutiqueService:ServiceBoutique) { }
+  public segment: number = 0;
+  public caissedto: CaisseDTO=new CaisseDTO();
+  public sessionfermers: SessionFermer[] = [];
+  public sessionFermer: SessionFermer;
+  public date:Date=new Date();
+  public checkRetour: string[];
+  constructor(public router : Router, public caisseService : ServiceCaisse,public boutiqueService:ServiceBoutique,
+              private authenticateService: AuthenService, public modalController : ModalController) { }
 
   ngOnInit() {
-    this.caissedto.dateouverture=new Date(this.date.getDate()+"/"+(this.date.getMonth()+1)+"/"+this.date.getFullYear()+"  6:00:00");
+    //this.caissedto.dateouverture=new Date(this.date.getDate()+"/"+(this.date.getMonth()+1)+"/"+this.date.getFullYear()+"  6:00:00");
 
-    this.getrapport();
+    this.findAllSessionFermer();
   }
+
+  findAllSessionFermer(){
+    this.caisseService.findAllSessionFermer().subscribe(
+      data=>{
+        this.sessionfermers=data;
+      }
+    )
+  }
+
   getrapport(){
     this.caissedto.referenceuser=this.caisseService.authenService.utilisateur.reference;
     this.caissedto.referenceboutique=this.caisseService.authenService.utilisateur.referenceboutique;
@@ -86,4 +103,31 @@ export class RapportFermetureCaisseBoutiqueComponent implements OnInit {
     });
   }
 
+  getdetailrapport(reference: string) {
+    this.caisseService.getrapportBoutiqueByResferencesessionfermer(reference).subscribe(
+      data => {
+        data.cartItems.forEach(c=>{
+          c.montant=c.montant*0.8075;
+        });
+        data.totalvente=data.totalvente**0.8075;
+        this.caissedto=data;
+        if (this.caissedto) {
+          this.openDetail(this.caissedto);
+        }
+      },
+      error => {
+        this.authenticateService.toastMessage(error.error.message);
+      }
+    )
+  }
+  async openDetail(cT : CaisseDTO) {
+    console.log(cT);
+    const modal = await this.modalController.create({
+      component: DetailsRapportFermetureGlobalComponent,
+      componentProps: {
+        'caisse' : cT
+      }
+    });
+    return await modal.present();
+  }
 }

@@ -7,6 +7,7 @@ import {BoutiquePos} from "../../Model/BoutiquePos";
 
 export class CaisseDTO {
   idcaissesession: number;
+  reference: string;
   montantinitial:number;
   dateouverture:Date;
   datefermeture:Date;

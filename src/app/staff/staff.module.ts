@@ -53,7 +53,13 @@ const SERVICES = [
     IonicModule,
     StaffPageRoutingModule,
   ],
-  declarations: [StaffPage, AccueilvendeurComponent, AccueilproprietaireComponent, ProfilDetailComponent,RapportFermetureCaisseBoutiqueComponent],
+  declarations: [
+    StaffPage,
+    AccueilvendeurComponent,
+    AccueilproprietaireComponent,
+    ProfilDetailComponent,
+    RapportFermetureCaisseBoutiqueComponent
+  ],
   providers: [
     SERVICES
   ]

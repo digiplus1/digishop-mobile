@@ -6,196 +6,38 @@
     <ion-title>  <ion-label color="primary"><h2 class="text-center"><strong>Rapport Session de caisse</strong></h2></ion-label>
     </ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header><ion-content>
+  <ion-grid *ngIf="sessionfermers.length==0" class="ion-text-center" >
+    <img style="margin-top: 25%" src="./assets/images/empty.png" alt="Aucune fermeture de caisse trouvee">
+    <ion-label color="primary">Aucune fermeture de caisse trouvee</ion-label>
+  </ion-grid>
 
-<ion-content>
-  <br>
-  <ion-label color="secondary"><h2 class="text-center"><strong>{{caissedto.idcaissesession}}</strong></h2></ion-label>
-  <ion-segment scrollable="true" swipeGesture="false" mode="md" class="ion-margin-bottom " (ionChange)="segmentChanged($event)" [(ngModel)]="segment">
-    <ion-segment-button value="0">
-      <ion-label>Rapport global</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="1">
-      <ion-label>Rapport des ventes</ion-label>
-    </ion-segment-button>
-  </ion-segment>
-
-  <ion-slides class="slides-wrapper" #slider (ionSlideDidChange)="slideChanged()">
-    <ion-slide>
-      <ion-grid *ngIf="caissedto" style="margin-left: 5%">
-        <ion-card class="card">
-          <ion-row>
-            <ion-col>
-              <ion-label color="primary"><strong>Vendeur</strong></ion-label>
-            </ion-col>
-            <ion-col>
-              <ion-label><strong>{{caissedto.nomuser}}</strong></ion-label>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-label><strong>Date ouverture</strong></ion-label>
-            </ion-col>
-            <ion-col>
-              <ion-label><strong>{{caissedto.dateouverture | date:"yyyy-MM-dd HH:mm"}}</strong></ion-label>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-label><strong>Date Fermeture</strong></ion-label>
-            </ion-col>
-            <ion-col>
-              <ion-label><strong>{{caissedto.datefermeture | date:"yyyy-MM-dd HH:mm"}}</strong></ion-label>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-label><strong>Montant Ouverture</strong></ion-label>
-            </ion-col>
-            <ion-col>
-              <ion-label><strong>{{caissedto.montantinitial}}</strong></ion-label>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-label><strong>Montant Fermeture</strong></ion-label>
-            </ion-col>
-            <ion-col>
-              <ion-label><strong>{{caissedto.montantphysique}}</strong></ion-label>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-label><strong>Montant des entrées</strong></ion-label>
-            </ion-col>
-            <ion-col>
-              <ion-label><strong>{{caissedto.entree}}</strong></ion-label>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-label><strong>Montant des sorties</strong></ion-label>
-            </ion-col>
-            <ion-col>
-              <ion-label><strong>{{caissedto.sortie}}</strong></ion-label>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-label><strong>Cash</strong></ion-label>
-            </ion-col>
-            <ion-col>
-              <ion-label><strong>{{caissedto.cash}}</strong></ion-label>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-label><strong>Montant OM</strong></ion-label>
-            </ion-col>
-            <ion-col>
-              <ion-label><strong>{{caissedto.om}}</strong></ion-label>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-label><strong>Montant MOMO</strong></ion-label>
-            </ion-col>
-            <ion-col>
-              <ion-label><strong>{{caissedto.momo}}</strong></ion-label>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-label><strong>Solde</strong></ion-label>
-            </ion-col>
-            <ion-col>
-              <ion-label><strong>{{caissedto.soldesession}}</strong></ion-label>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-label><strong>Difference</strong></ion-label>
-            </ion-col>
-            <ion-col>
-              <ion-label><strong>{{caissedto.montantphysique - caissedto.soldesession}}</strong></ion-label>
-            </ion-col>
-          </ion-row>
-          <div class="text-center">
-            <p class="text-danger" *ngIf="(caissedto.montantphysique - caissedto.soldesession)<0">Le Montant theorique est
-              supérieur au montant de fermeture </p>
-
-            <p class="text-danger" *ngIf="(caissedto.montantphysique - caissedto.soldesession)>0">Le Montant theorique est
-              inférieur au montant de fermeture </p>
-          </div>
-        </ion-card>
-        <ion-row>
-          <ion-col>
-            <ion-button expand="block" (click)="onPrint()" (keydown.enter)="onPrint()" color="primary" shape="round" type="submit">
-              Imprimer
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-slide>
-    <ion-slide>
-      <ion-grid>
-        <div class="card-body" id="rapport">
-          <ion-row>
-            <ion-col>
-              <ion-button type="button" color="warning" size="small" expand="full" (click)="exportCSV()">CSV</ion-button>
-            </ion-col>
-            <ion-col>
-              <ion-button size="small" expand="full" color="success" (click)="exportexcel()">Excel</ion-button>
-            </ion-col>
-          </ion-row>
-          <div class="row">
-            <div class="col-sm">
-              <h6 class="mb-0">Date ouverture</h6>
-              <input type="date" class="form-control rounded-0 my-2" (change)="filtrerPaDate($event)">
-            </div>
-            <div class="col-sm text-secondary">
-            </div>
-          </div>
-          <table class="table table-striped" id="excel-table">
-            <thead>
-            <tr class="line">
-              <td class="text-center"><strong>External ID</strong></td>
-              <td class="text-center"><strong>DOCUMENT NUMBER</strong></td>
-              <td class="text-center"><strong>Customer</strong></td>
-              <td class="text-center"><strong>Date</strong></td>
-              <td class="text-center"><strong>Location</strong></td>
-              <td class="text-center"><strong>MEMO</strong></td>
-              <td class="text-center"><strong>Item</strong></td>
-              <td class="text-center"><strong>Quantity</strong></td>
-              <td class="text-center"><strong>Amount</strong></td>
-              <td class="text-center"><strong>Tax Code</strong></td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let c of  caissedto.cartItems">
-              <td>{{boutiqueService.boutique.referenceexterne}}</td>
-              <td class="text-center">{{boutiqueService.boutique.referenceexterne}}</td>
-              <td class="text-center">{{boutiqueService.boutique.nomBoutique}}</td>
-              <td>{{c.date | date:"d/M/yyyy HH:mm"}}</td>
-              <td class="text-center">{{boutiqueService.boutique.region}}</td>
-              <td class="text-center">MEMO</td>
-              <td>{{c.description}}</td>
-              <td class="text-center">{{c.quantite}}</td>
-              <td class="text-center">{{c.montant}}</td>
-              <td class="text-center">VAT_CM:TVA 19.25%</td>
-            </tr>
-            </tbody>
-          </table>
-          <div class="row">
-            <div class="col-md-6"></div>
-            <div class="col-md-3 text-right">Total</div>
-            <div class="col-md-3 text-center"><strong class="text-success">{{ caissedto.totalvente| number }}
-              <sup>Fcfa</sup></strong></div>
-
-          </div>
-        </div>
-      </ion-grid>
-    </ion-slide>
-  </ion-slides>
-
+  <ion-grid *ngFor="let cs of sessionfermers">
+    <ion-card (click)="getdetailrapport(cs.reference)">
+      <ion-row class="header-row">
+        <ion-col style="padding-left: 10%;">
+          <ion-label class="ion-text-start"><strong>Reférence</strong></ion-label>
+        </ion-col>
+        <ion-col style="padding-left: 15%;">
+          <ion-label class="ion-text-end">{{cs.reference}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col style="padding-left: 10%;">
+          <ion-label class="ion-text-start"><strong>Nombre de session</strong></ion-label>
+        </ion-col>
+        <ion-col style="padding-left: 15%;">
+          <ion-label class="ion-text-end">{{cs.sessionfermers.length}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col style="padding-left: 10%;">
+          <ion-label class="ion-text-start"><strong>Date de fermeture</strong></ion-label>
+        </ion-col>
+        <ion-col style="padding-left: 15%;">
+          <ion-label class="ion-text-end">{{cs.datefermeture| date:"dd/MM/yyyy  HH:mm:ss"}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-grid>
 </ion-content>
