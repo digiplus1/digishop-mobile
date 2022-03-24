@@ -5,7 +5,8 @@
         <input (click)="findByInventaireid(i.idinventaire, index)" type="checkbox" checked>
         <i></i>
         <h5 class="custom-header-accordion">
-          Initié le {{i.datecreation|date:"dd/MM/yy HH:mm"}} Appliqué le {{i.dateapplication|date:"dd/MM/yy HH:mm"}} Validé le: {{i.datevalidation|date:"dd/MM/yy HH:mm"}}
+          Initié le {{i.datecreation|date:"dd/MM/yy HH:mm"}} <br> Appliqué le {{i.dateapplication|date:"dd/MM/yy HH:mm"}}
+          <br> Validé le: {{i.datevalidation|date:"dd/MM/yy HH:mm"}}
         </h5>
         <div class="custom-body-accordion">
           <div class="card-body">

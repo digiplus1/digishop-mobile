@@ -4,7 +4,7 @@
       <ion-label color="primary"><h2 class="text-center"><strong>Rapport Session de caisse</strong></h2></ion-label>
     </ion-col>
     <ion-col class="col-2 ion-text-end">
-      <ion-icon name="close" color="secondary" (click)="onDismiss()"></ion-icon>
+      <ion-icon class="custom-size" name="close" color="secondary" (click)="onDismiss()"></ion-icon>
     </ion-col>
   </ion-row>
   <ion-label color="secondary"><h2 class="text-center"><strong>{{cstemp.reference}}</strong></h2></ion-label>
@@ -125,7 +125,7 @@
               inférieur au montant de fermeture </p>
           </div>
         </ion-card>
-        <ion-row>
+        <!--<ion-row>
           <ion-col>
             <ion-button expand="block" (click)="onPrint()" (keydown.enter)="onPrint()" color="primary" shape="round" type="submit">
               Imprimer
@@ -136,7 +136,7 @@
               Annuler
             </ion-button>
           </ion-col>
-        </ion-row>
+        </ion-row>-->
       </ion-grid>
     </ion-slide>
     <ion-slide>
@@ -200,7 +200,7 @@
               </tbody>
             </table>
           </div>
-          <ion-row>
+          <!--<ion-row>
             <ion-col>
               <ion-button expand="block" (click)="exportexcel()" color="success" shape="round" type="submit">
                 Excel
@@ -216,7 +216,7 @@
                 Annuler
               </ion-button>
             </ion-col>
-          </ion-row>
+          </ion-row>-->
         </div>
       </ion-grid>
     </ion-slide>
