@@ -160,6 +160,14 @@ export class  ServiceCaisse {
     return this.http.get<SessionFermer[] >(AdresseIP.host+'allsessionfermer/'+this.authenService.utilisateur.referenceboutique)
   }
   getrapportBoutiqueByResferencesessionfermer(referencefermeture:string){
-    return this.http.get<CaisseDTO>(AdresseIP.host+'rapportfermetureglobal/'+referencefermeture)
+    return this.http.get<SessionFermer>(AdresseIP.host+'rapportfermetureglobal/'+referencefermeture)
+  }
+
+  checkCaisseOuverte(referenceuser:string){
+    return this.http.get<string[]>(AdresseIP.host+'checkcaisseouverte/'+referenceuser)
+  }
+
+  cloturerapportglobale(caisseDTO:CaisseDTO){
+    return this.http.post<SessionFermer>(AdresseIP.host+'cloturerapportglobale/',caisseDTO)
   }
 }

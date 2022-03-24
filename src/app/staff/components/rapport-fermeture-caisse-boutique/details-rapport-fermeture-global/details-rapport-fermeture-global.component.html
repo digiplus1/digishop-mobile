@@ -1,7 +1,7 @@
 <ion-content>
   <ion-row>
     <ion-col class="col-10">
-      <ion-label color="primary"><h2 class="text-center"><strong>Rapport Session de caisse</strong></h2></ion-label>
+      <ion-label color="primary"><h2 class="text-center"><strong>Rapport fermeture</strong></h2></ion-label>
     </ion-col>
     <ion-col class="col-2 ion-text-end">
       <ion-icon name="close" color="secondary" (click)="onDismiss()"></ion-icon>
@@ -23,22 +23,6 @@
         <ion-card class="card">
           <ion-row>
             <ion-col>
-              <ion-label color="primary"><strong>Vendeur</strong></ion-label>
-            </ion-col>
-            <ion-col>
-              <ion-label><strong>{{cstemp.nomuser}}</strong></ion-label>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-label><strong>Date ouverture</strong></ion-label>
-            </ion-col>
-            <ion-col>
-              <ion-label><strong>{{cstemp.dateouverture | date:"yyyy-MM-dd HH:mm"}}</strong></ion-label>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
               <ion-label><strong>Date Fermeture</strong></ion-label>
             </ion-col>
             <ion-col>
@@ -47,23 +31,15 @@
           </ion-row>
           <ion-row>
             <ion-col>
-              <ion-label><strong>Montant Ouverture</strong></ion-label>
+              <ion-label><strong>Caissier(e)</strong></ion-label>
             </ion-col>
             <ion-col>
-              <ion-label><strong>{{cstemp.montantinitial}}</strong></ion-label>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-label><strong>Montant Fermeture</strong></ion-label>
-            </ion-col>
-            <ion-col>
-              <ion-label><strong>{{cstemp.montantphysique}}</strong></ion-label>
+              <ion-label><strong>{{cstemp.reference}}</strong></ion-label>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col>
-              <ion-label><strong>Montant des entrées</strong></ion-label>
+              <ion-label><strong>Entrées</strong></ion-label>
             </ion-col>
             <ion-col>
               <ion-label><strong>{{cstemp.entree}}</strong></ion-label>
@@ -71,10 +47,18 @@
           </ion-row>
           <ion-row>
             <ion-col>
-              <ion-label><strong>Montant des sorties</strong></ion-label>
+              <ion-label><strong>Sorties</strong></ion-label>
             </ion-col>
             <ion-col>
               <ion-label><strong>{{cstemp.sortie}}</strong></ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-label><strong>MTN Money</strong></ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-label><strong>{{cstemp.momo}}</strong></ion-label>
             </ion-col>
           </ion-row>
           <ion-row>
@@ -87,43 +71,12 @@
           </ion-row>
           <ion-row>
             <ion-col>
-              <ion-label><strong>Montant OM</strong></ion-label>
+              <ion-label><strong>Orange Money</strong></ion-label>
             </ion-col>
             <ion-col>
               <ion-label><strong>{{cstemp.om}}</strong></ion-label>
             </ion-col>
           </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-label><strong>Montant MOMO</strong></ion-label>
-            </ion-col>
-            <ion-col>
-              <ion-label><strong>{{cstemp.momo}}</strong></ion-label>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-label><strong>Solde</strong></ion-label>
-            </ion-col>
-            <ion-col>
-              <ion-label><strong>{{cstemp.soldesession}}</strong></ion-label>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-label><strong>Difference</strong></ion-label>
-            </ion-col>
-            <ion-col>
-              <ion-label><strong>{{cstemp.montantphysique - cstemp.soldesession}}</strong></ion-label>
-            </ion-col>
-          </ion-row>
-          <div class="text-center">
-            <p class="text-danger" *ngIf="(cstemp.montantphysique - cstemp.soldesession)<0">Le Montant theorique est
-              supérieur au montant de fermeture </p>
-
-            <p class="text-danger" *ngIf="(cstemp.montantphysique - cstemp.soldesession)>0">Le Montant theorique est
-              inférieur au montant de fermeture </p>
-          </div>
         </ion-card>
         <ion-row>
           <ion-col>
@@ -144,10 +97,10 @@
         <div class="card-body" id="rapport">
           <div class="row">
             <div class="col-sm">
-              <h6 class="mb-0">Date ouverture</h6>
+              <h6 class="mb-0">Date fermeture</h6>
             </div>
             <div class="col-sm text-secondary">
-              {{cstemp.dateouverture| date:'dd/MM/yyyy HH:mm'}}
+              {{cstemp.datefermeture| date:'dd/MM/yyyy HH:mm'}}
             </div>
           </div>
           <div class="row">
@@ -155,7 +108,7 @@
               <h6 class="mb-0">Caissier(e)</h6>
             </div>
             <div class="col text-secondary">
-              {{cstemp.nomuser}}
+              {{cstemp.reference}}
             </div>
           </div>
 
@@ -175,13 +128,13 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let c of cstemp.cartItems">
+              <tr *ngFor="let c of cstemp.itemsessionfermerglobales">
                 <td>{{boutiqueService.boutique.referenceexterne}}</td>
                 <td class="text-center">{{boutiqueService.boutique.nomBoutique}}</td>
                 <td>{{c.date | date:"d/M/yyyy HH:mm"}}</td>
                 <td class="text-center">{{boutiqueService.boutique.region}}</td>
                 <td class="text-center">MEMO</td>
-                <td>{{c.produit.nomProduit}}</td>
+                <td>{{c.description}}</td>
                 <td class="text-center">{{c.quantite}}</td>
                 <td class="text-center">{{c.montant}}</td>
                 <td class="text-center">VAT_CM:TVA 19.25%</td>

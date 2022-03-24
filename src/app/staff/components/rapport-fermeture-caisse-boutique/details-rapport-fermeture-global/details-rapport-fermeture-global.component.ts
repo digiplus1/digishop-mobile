@@ -1,7 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {IonSearchbar, IonSlides, ModalController, NavParams} from "@ionic/angular";
 import {SessionFermer} from "../../dashboard/models/Session-fermer";
-import {CaisseDTO} from "../../../models/CaisseDTO";
 import * as XLSX from "xlsx";
 import {BoutiqueService} from "../../../../client/Service/BoutiqueService";
 
@@ -14,19 +13,19 @@ export class DetailsRapportFermetureGlobalComponent implements OnInit {
   @ViewChild('search', {static: false}) search: IonSearchbar;
   @ViewChild('slider', {static: false}) slider: IonSlides;
   segment: number = 0;
-  cstemp : CaisseDTO;
+  cstemp : SessionFermer;
 
   constructor(private modalController : ModalController, private navParam : NavParams,public boutiqueService:BoutiqueService) { }
 
   ngOnInit() {
-    this.cstemp = this.navParam.get("caisse");
+    this.cstemp = this.navParam.get("sessionFermer");
   }
 
   onPrint() {
 
   }
 
-
+  today =new Date().toISOString();
   exportexcel(): void
   {
     /* pass here the table id */
@@ -38,7 +37,7 @@ export class DetailsRapportFermetureGlobalComponent implements OnInit {
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
     /* save to file */
-    XLSX.writeFile(wb, this.cstemp.datefermeture+".xlsx");
+    XLSX.writeFile(wb, this.today+".xlsx");
 
   }
 
@@ -48,7 +47,7 @@ export class DetailsRapportFermetureGlobalComponent implements OnInit {
     let element = document.getElementById('excel-table');
     const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
     XLSX.utils.book_append_sheet(wb, ws, 'test')
-    XLSX.writeFile(wb, this.cstemp.datefermeture+'.csv')
+    XLSX.writeFile(wb, this.today+'.csv')
   }
   segmentChanged(ev) {
 

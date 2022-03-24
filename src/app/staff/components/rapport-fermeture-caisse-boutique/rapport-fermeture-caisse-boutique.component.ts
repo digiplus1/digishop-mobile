@@ -11,6 +11,8 @@ import {SessionFermer} from "../dashboard/models/Session-fermer";
 import {AuthenService} from "../../../home/components/Service/AuthenService";
 import {RapportFermetureComponent} from "../dashboard/modals/rapport-fermeture/rapport-fermeture.component";
 import {DetailsRapportFermetureGlobalComponent} from "./details-rapport-fermeture-global/details-rapport-fermeture-global.component";
+import {MainService} from "../../../shared/services/MainService";
+import {CheckRapportComponent} from "./check-rapport/check-rapport.component";
 @Component({
   selector: 'app-rapport-fermeture-caisse-boutique',
   templateUrl: './rapport-fermeture-caisse-boutique.component.html',
@@ -25,35 +27,60 @@ export class RapportFermetureCaisseBoutiqueComponent implements OnInit {
   public sessionFermer: SessionFermer;
   public date:Date=new Date();
   public checkRetour: string[];
-  constructor(public router : Router, public caisseService : ServiceCaisse,public boutiqueService:ServiceBoutique,
-              private authenticateService: AuthenService, public modalController : ModalController) { }
+  constructor(
+    public router : Router,
+    public caisseService : ServiceCaisse,
+    private authenticateService: AuthenService,
+    public modalController : ModalController,
+    public mainService: MainService,
+    private boutiqueService: BoutiqueService
+  ) { }
 
   ngOnInit() {
     //this.caissedto.dateouverture=new Date(this.date.getDate()+"/"+(this.date.getMonth()+1)+"/"+this.date.getFullYear()+"  6:00:00");
 
     this.findAllSessionFermer();
-  }
-
-  findAllSessionFermer(){
-    this.caisseService.findAllSessionFermer().subscribe(
-      data=>{
-        this.sessionfermers=data;
+    this.mainService.spinner.show();
+    this.boutiqueService.getboutiqueByReference(this.authenticateService.utilisateur.referenceboutique).subscribe(
+      data => {
+        this.mainService.spinner.hide();
+        this.boutiqueService.boutique = data;
+        console.log(data);
+      }, error => {
+        this.mainService.spinner.hide();
+        this.mainService.notificationService.showError(error.error.message);
       }
     )
   }
 
-  getrapport(){
-    this.caissedto.referenceuser=this.caisseService.authenService.utilisateur.reference;
-    this.caissedto.referenceboutique=this.caisseService.authenService.utilisateur.referenceboutique;
-    this.caisseService.getrapportBoutique(this.caissedto).subscribe(
+  findAllSessionFermer(){
+    this.mainService.spinner.show();
+    this.caisseService.findAllSessionFermer().subscribe(
       data=>{
-        data.cartItems.forEach(c=>{
-          c.montant=c.montant*0.8075;
-        });
-        data.totalvente=data.totalvente**0.8075;
-        this.caissedto=data;
+        this.sessionfermers=data;
+        this.mainService.spinner.hide();
+      }
+    )
+  }
+
+  getrapport(type:number){
+    let date:Date=new Date();
+    this.caissedto.referenceuser=this.authenticateService.utilisateur.reference;
+    this.caissedto.referenceboutique=this.authenticateService.utilisateur.referenceboutique;
+    if (type==1){
+      this.caissedto.datefermeture=new Date(date);
+    }else {
+      this.caissedto.datefermeture=this.date;
+    }
+    this.caisseService.cloturerapportglobale(this.caissedto).subscribe(
+      data=>{
+        this.sessionFermer=data;
+        this.sessionfermers.push(data);
+        if (this.sessionFermer){
+          this.openDetail(this.sessionFermer);
+        }
       },error => {
-        this.caisseService.authenService.toastMessage(error.error.message)
+        this.authenticateService.toastMessage(error.error.message);
       }
     )
   }
@@ -85,7 +112,7 @@ export class RapportFermetureCaisseBoutiqueComponent implements OnInit {
 
   filtrerPaDate(event: any) {
     this.caissedto.dateouverture=event.target.value;
-    if (this.caissedto.dateouverture) this.getrapport();
+    if (this.caissedto.dateouverture) this.getrapport(1);
   }
 
   onPrint() {
@@ -104,30 +131,59 @@ export class RapportFermetureCaisseBoutiqueComponent implements OnInit {
   }
 
   getdetailrapport(reference: string) {
+    this.mainService.spinner.show();
     this.caisseService.getrapportBoutiqueByResferencesessionfermer(reference).subscribe(
       data => {
-        data.cartItems.forEach(c=>{
-          c.montant=c.montant*0.8075;
-        });
-        data.totalvente=data.totalvente**0.8075;
-        this.caissedto=data;
-        if (this.caissedto) {
-          this.openDetail(this.caissedto);
-        }
+        this.mainService.spinner.hide();
+        this.sessionFermer = data;
       },
       error => {
+        this.mainService.spinner.hide();
         this.authenticateService.toastMessage(error.error.message);
+      },
+      () => {
+        if (this.caissedto) {
+          this.openDetail(this.sessionFermer);
+        }
       }
     )
   }
-  async openDetail(cT : CaisseDTO) {
-    console.log(cT);
+  async openDetail(cT : SessionFermer) {
     const modal = await this.modalController.create({
       component: DetailsRapportFermetureGlobalComponent,
       componentProps: {
-        'caisse' : cT
+        'sessionFermer' : cT
       }
     });
+    console.log(cT);
     return await modal.present();
+  }
+  async openCheck(cT : string[]) {
+    const modal = await this.modalController.create({
+      component: CheckRapportComponent,
+      componentProps: {
+        'checkRetour' : cT
+      }
+    });
+    console.log(cT);
+    return await modal.present();
+  }
+  checkcaisseouverte(){
+    this.caisseService.checkCaisseOuverte(this.authenticateService.utilisateur.reference).subscribe(
+      data=>{
+        this.checkRetour=data;
+      },
+      error => {
+        this.mainService.spinner.hide();
+        this.authenticateService.toastMessage(error.error.message);
+      },
+      () => {
+        if (this.checkRetour.length == 0) {
+          this.getrapport(1);
+        } else {
+          this.openCheck(this.checkRetour);
+        }
+      }
+    )
   }
 }

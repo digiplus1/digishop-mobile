@@ -26,6 +26,8 @@ import {AccueilvendeurComponent} from "./components/accueilvendeur/accueilvendeu
 import {AccueilproprietaireComponent} from "./components/accueilproprietaire/accueilproprietaire.component";
 import {ProfilDetailComponent} from "./components/profil-detail/profil-detail.component";
 import {RapportFermetureCaisseBoutiqueComponent} from "./components/rapport-fermeture-caisse-boutique/rapport-fermeture-caisse-boutique.component";
+import {DetailsRapportFermetureGlobalComponent} from "./components/rapport-fermeture-caisse-boutique/details-rapport-fermeture-global/details-rapport-fermeture-global.component";
+import {CheckRapportComponent} from "./components/rapport-fermeture-caisse-boutique/check-rapport/check-rapport.component";
 
 const SERVICES = [
   ServiceBanniere,
@@ -58,7 +60,9 @@ const SERVICES = [
     AccueilvendeurComponent,
     AccueilproprietaireComponent,
     ProfilDetailComponent,
-    RapportFermetureCaisseBoutiqueComponent
+    RapportFermetureCaisseBoutiqueComponent,
+    DetailsRapportFermetureGlobalComponent,
+    CheckRapportComponent
   ],
   providers: [
     SERVICES
