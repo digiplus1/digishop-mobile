@@ -43,14 +43,14 @@ export class AccueilproprietaireComponent implements OnInit {
     this.mainService.spinner.show()
     this.caisseService.getSession(this.authentificationService.utilisateur.username).subscribe(
       data=> {
-        console.log(data)
+        console.log(data);
+        this.caisseService.SessionActive = data;
         if(data==null){
           this.color = "danger";
           this.text = "Aucune Session Active"
         } else {
           this.color = "success";
           this.text = "Session de caisse active"
-          this.caisseService.SessionActive = data;
         }
       },
       error => {console.log(error);this.mainService.spinner.hide()},
