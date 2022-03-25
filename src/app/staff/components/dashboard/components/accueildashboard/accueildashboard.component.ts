@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ServiceDash} from "../../../../services/ServiceDash";
+import {AuthenService} from "../../../../../home/components/Service/AuthenService";
 
 @Component({
   selector: 'app-accueildashboard',
@@ -9,7 +10,7 @@ import {ServiceDash} from "../../../../services/ServiceDash";
 export class AccueildashboardComponent implements OnInit {
   segmentModel: any;
 
-  constructor(public serviceDash : ServiceDash) { }
+  constructor(public serviceDash : ServiceDash, public authenticateService: AuthenService) { }
 
   ngOnInit() {
     console.log(this.serviceDash.menu_1);
@@ -26,7 +27,11 @@ export class AccueildashboardComponent implements OnInit {
       this.serviceDash.testSegmentCaisse = false;
     } else if(ev.detail.value == "sessions" || this.segmentModel == "sessions"){
       this.serviceDash.testSegmentCaisse = true;
-      this.serviceDash.segmentCaisse = "ouverte";
+      if (this.authenticateService.utilisateur.role === 'vendeur'){
+        this.serviceDash.segmentCaisse = "fermee";
+      } else {
+        this.serviceDash.segmentCaisse = "ouverte";
+      }
     }
   }
 }
