@@ -32,7 +32,7 @@
     mode="md"
     color="primary"
     [(ngModel)]="serviceDash.segmentCaisse">
-    <ion-segment-button value="ouverte">
+    <ion-segment-button value="ouverte" [disabled]="authenticateService.utilisateur.role === 'vendeur'">
       <ion-icon name="enter-outline"></ion-icon>
       <ion-label class="text-lowercase">Sessions Ouvertes</ion-label>
     </ion-segment-button>

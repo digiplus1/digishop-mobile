@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {AuthenService} from "../../../home/components/Service/AuthenService";
 import {ServiceCaisse} from "../../services/ServiceCaisse";
 import {MainService} from "../../../shared/services/MainService";
@@ -14,7 +14,7 @@ import {EtatBord} from "../../models/EtatBord";
   templateUrl: './accueilvendeur.component.html',
   styleUrls: ['./accueilvendeur.component.scss'],
 })
-export class AccueilvendeurComponent implements OnInit {
+export class AccueilvendeurComponent implements OnInit, AfterViewInit {
   color : string="danger";
   text : string="Aucune Session Active";
    etabord: EtatBord=new EtatBord();
@@ -22,13 +22,28 @@ export class AccueilvendeurComponent implements OnInit {
               public caisseService : ServiceCaisse,
               private router : Router, private printer : ServicePrinter,
               private mainService : MainService, public modalController : ModalController,
-              public DashService : ServiceDash) { }
+              public DashService : ServiceDash) {
+    console.log('test');
+  }
 
   ngOnInit() {
+    console.log('I am here');
     this.getEtatBord();
-    this.mainService.spinner.show()
+    this.mainService.spinner.show();
+    this.getSession()
+  }
+
+  ngAfterViewInit() {
+    console.log('I am here 2');
+    this.getEtatBord();
+    this.mainService.spinner.show();
+    this.getSession()
+  }
+
+  getSession() {
     this.caisseService.getSession(this.authentificationService.utilisateur.username).subscribe(
       data=> {
+        console.log(data);
         if(data==null){
           this.color = "danger";
           this.text = "Aucune Session Active"
@@ -70,13 +85,22 @@ export class AccueilvendeurComponent implements OnInit {
       }
     )
   }
-  navigateRoute(r: string) {
+  navigateRoute(r: string, page: string = '') {
     if(r == "/staff/menustaff/caisse/accueil"){
       if(this.DashService.etatVendeur.nbsessionouverte == 0){
         this.authentificationService.toastMessage("Aucune session ouverte.")
       } else {
         this.router.navigateByUrl(r);
       }
+    } else if (page == 'ouverte' || page == 'fermee') {
+      this.DashService.menu_1 = 'sessions';
+      this.DashService.segmentCaisse = page;
+      this.DashService.testSegmentCaisse = true;
+      this.router.navigateByUrl(r);
+    } else if (page == 'ventes') {
+      this.DashService.menu_1 = page;
+      this.DashService.testSegmentCaisse = false;
+      this.router.navigateByUrl(r);
     } else {
       this.router.navigateByUrl(r);
     }

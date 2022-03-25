@@ -17,7 +17,7 @@ export class VentesdashboardComponent implements OnInit {
   @ViewChild('slider', {static: false}) slider: IonSlides;
   segment: number = 0;
 
-  constructor(public serviceDash: ServiceDash, private authenService: AuthenService, public serviceCommande: ServiceCommande,
+  constructor(public serviceDash: ServiceDash, public authenService: AuthenService, public serviceCommande: ServiceCommande,
               private mainService: MainService, private modalController: ModalController) {
   }
 

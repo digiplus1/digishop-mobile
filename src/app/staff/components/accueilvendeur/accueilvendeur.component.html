@@ -11,16 +11,13 @@
   <ion-button id="active" expand="full" size="small" color="{{color}}">{{text}}</ion-button>
 
   <div class="row">
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+    <!--<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
       <div class="box-part text-center" (click)="navigateRoute('/staff/menustaff/dashboard/accueildash')">
           <div class="card-body">
             <div class="row no-gutters align-items-center">
               <div class="col mr-2">
                 <div class="text-xs font-weight-bold text-uppercase mb-1">Caisse Ouverte</div>
                 <div class="h5 mb-0 font-weight-bold text-gray-800" style="color: #0d4765"><b>{{this.etabord.nbr_caisse_ouverte}}</b></div>
-               <!-- <div class="mt-2 mb-0 text-muted text-xs">
-                  <span>Depuis votre dernière connexion</span>
-                </div>-->
               </div>
               <div class="col-auto">
                 <ion-icon name="chevron-forward-outline" size="large" color="secondary"></ion-icon>
@@ -28,10 +25,10 @@
             </div>
           </div>
       </div>
-    </div>
+    </div>-->
 
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-      <div class="box-part text-center"  (click)="navigateRoute('/staff/menustaff/dashboard')">
+      <div class="box-part text-center"  (click)="navigateRoute('/staff/menustaff/dashboard', 'fermee')">
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
@@ -50,7 +47,7 @@
     </div>
 
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-      <div class="box-part text-center"  (click)="navigateRoute('/staff/menustaff/dashboard')">
+      <div class="box-part text-center"  (click)="navigateRoute('/staff/menustaff/dashboard', 'ventes')">
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
