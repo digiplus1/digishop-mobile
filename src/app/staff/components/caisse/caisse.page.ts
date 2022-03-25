@@ -12,6 +12,7 @@ export class CaissePage implements OnInit {
 
   constructor(public router : Router, public caisseService : ServiceCaisse, public dashService : ServiceDash) { }
   ngOnInit() {
+    console.log(this.caisseService.SessionActive)
     if(this.dashService.etatVendeur.nbsessionouverte != 0 || this.caisseService.SessionActive != null) {
       this.navigateRoute("/menustaff/caisse/accueil")
     } else {
