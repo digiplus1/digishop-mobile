@@ -27,6 +27,9 @@ export class PaiementProccessComponent implements OnInit {
   ngOnInit() {
     this.cart=this.panierService.panierCaisse;
     this.serviceCaisse.getAlloperateur();
+    setInterval(()=>{
+      this.serviceCaisse.testConnexion();
+    },2000)
   }
 
   cancel() {
@@ -52,6 +55,7 @@ export class PaiementProccessComponent implements OnInit {
   onAction() {
     this.is_loading = true;
     let cDTO : CaisseDTO = new CaisseDTO();
+    let cDTOs: CaisseDTO[] = [];
     cDTO.action = "vente";
     cDTO.idcaissesession = this.serviceCaisse.SessionActive.idcaissesession;
     cDTO.referenceuser = this.authenService.utilisateur.reference;
@@ -60,47 +64,67 @@ export class PaiementProccessComponent implements OnInit {
     cDTO.operateurnom = this.operateurNom;
     cDTO.commentaire = this.commentaire;
     cDTO.phone= this.paiementService.momo;
-    this.serviceCaisse.ManageCaisse(cDTO).subscribe(
-      data=>{
-        console.log(data);
-        this.serviceCaisse.caisseDTOTemp = data;
-      },error => {
-        this.authenService.toastMessage(error.error.message);
-        this.is_loading = false;
-      },
-      ()=>{
-        this.is_loading = false;
-        if (this.serviceCaisse.caisseDTOTemp.commande.modepayement=="MTN MOBILE MONEY"){
-          if (this.serviceCaisse.caisseDTOTemp.commande.payement.statut=="FAILED"){
-            this.serviceCaisse.caisseDTOTemp.commande.message="Votre solde est insufisant";
-          }else if (this.serviceCaisse.caisseDTOTemp.commande.payement.statut=="PENDING"){
-            this.serviceCaisse.caisseDTOTemp.commande.message="Merci de confirmer le paiement sur votre mobile et de cliquer sur le button pour continuer";
-          }else if (this.serviceCaisse.caisseDTOTemp.commande.payement.statut=="SUCCESSFUL"){
-            this.servicePrinter.initializeTicketVenteBefore(this.serviceCaisse.caisseDTOTemp.caisseTransaction);
-            this.serviceCaisse.caisseDTOTemp.commande.message="Merci d'avoir confirmé le paiement nous vous remercions pour cela";
+    console.log('Avant la vente: ', cDTO);
+    if(this.serviceCaisse.online) {
+      this.serviceCaisse.ManageCaisse(cDTO).subscribe(
+        data=>{
+          console.log("Après la vente: ",data);
+          this.serviceCaisse.caisseDTOTemp = data;
+        },error => {
+          this.authenService.toastMessage(error.error.message);
+          this.is_loading = false;
+        },
+        ()=>{
+          this.is_loading = false;
+          if (this.serviceCaisse.caisseDTOTemp.commande.modepayement=="MTN MOBILE MONEY"){
+            if (this.serviceCaisse.caisseDTOTemp.commande.payement.statut=="FAILED"){
+              this.serviceCaisse.caisseDTOTemp.commande.message="Votre solde est insufisant";
+            }else if (this.serviceCaisse.caisseDTOTemp.commande.payement.statut=="PENDING"){
+              this.serviceCaisse.caisseDTOTemp.commande.message="Merci de confirmer le paiement sur votre mobile et de cliquer sur le button pour continuer";
+            }else if (this.serviceCaisse.caisseDTOTemp.commande.payement.statut=="SUCCESSFUL"){
+              this.servicePrinter.initializeTicketVenteBefore(this.serviceCaisse.caisseDTOTemp.caisseTransaction);
+              this.serviceCaisse.caisseDTOTemp.commande.message="Merci d'avoir confirmé le paiement nous vous remercions pour cela";
+            }
+          }else if (this.serviceCaisse.caisseDTOTemp.commande.modepayement=="ORANGE MONEY"){
+            if (this.serviceCaisse.caisseDTOTemp.commande.payement.url_to_connect){
+              this.serviceCaisse.caisseDTOTemp.commande.message="Merci de cliquer sur le button pour continuer l'opération de paiment sur "+this.serviceCaisse.caisseDTOTemp.commande.modepayement;
+            }
           }
-        }else if (this.serviceCaisse.caisseDTOTemp.commande.modepayement=="ORANGE MONEY"){
-          if (this.serviceCaisse.caisseDTOTemp.commande.payement.url_to_connect){
-            this.serviceCaisse.caisseDTOTemp.commande.message="Merci de cliquer sur le button pour continuer l'opération de paiment sur "+this.serviceCaisse.caisseDTOTemp.commande.modepayement;
+          if (this.serviceCaisse.caisseDTOTemp.commande.modepayement!="CASH"){
+            this.openpaiement(this.serviceCaisse.caisseDTOTemp.commande);
+          }else {
+            this.servicePrinter.initializeTicketVenteBefore(this.serviceCaisse.caisseDTOTemp.caisseTransaction)
           }
-        }
-        if (this.serviceCaisse.caisseDTOTemp.commande.modepayement!="CASH"){
-          this.openpaiement(this.serviceCaisse.caisseDTOTemp.commande);
-        }else {
-          this.servicePrinter.initializeTicketVenteBefore(this.serviceCaisse.caisseDTOTemp.caisseTransaction)
-        }
 
-        this.serviceCaisse.SessionActive.soldesession = this.serviceCaisse.caisseDTOTemp.soldesession;
-        this.serviceCaisse.caisseTransactionsList.push(this.serviceCaisse.caisseDTOTemp.caisseTransaction);
-        this.serviceCaisse.ventesTransactionsList.push(this.serviceCaisse.caisseDTOTemp.caisseTransaction);
-        this.authenService.toastMessage("Vente effectuée avec succès.")
-        this.panierService.clearPanierSansNotif()
-        this.paiementService.affiche="";
-        this.paiementService.om="";
-        this.paiementService.momo="";
-        this.paiementService.codeOrange="";
-        this.cancel();
+          this.serviceCaisse.SessionActive.soldesession = this.serviceCaisse.caisseDTOTemp.soldesession;
+          this.serviceCaisse.caisseTransactionsList.push(this.serviceCaisse.caisseDTOTemp.caisseTransaction);
+          this.serviceCaisse.ventesTransactionsList.push(this.serviceCaisse.caisseDTOTemp.caisseTransaction);
+          this.authenService.toastMessage("Vente effectuée avec succès.");
+          this.panierService.clearPanierSansNotif();
+          this.paiementService.affiche="";
+          this.paiementService.om="";
+          this.paiementService.momo="";
+          this.paiementService.codeOrange="";
+          this.cancel();
+        }
+      )
+    } else {
+      cDTOs = JSON.parse(localStorage.getItem('ventes'));
+      if (cDTOs) {
+        cDTOs.push(cDTO);
+      } else {
+        cDTOs = [];
       }
-    )
+      this.servicePrinter.initializeTicketVenteBeforeOffline(cDTO);
+      localStorage.setItem('ventes', JSON.stringify(cDTOs));
+      this.panierService.clearPanierSansNotif();
+      this.paiementService.affiche="";
+      this.paiementService.om="";
+      this.paiementService.momo="";
+      this.paiementService.codeOrange="";
+      this.authenService.toastMessage("Vente effectuée avec succès.");
+      this.serviceCaisse.SessionActive.soldesession += this.panierService.panierCaisse.montanttotal;
+      this.cancel();
+    }
   }
 }

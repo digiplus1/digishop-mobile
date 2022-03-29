@@ -7,6 +7,7 @@ import {CaisseTransactions} from "../models/CaisseTransactions";
 import {BluetoothSerial} from "@ionic-native/bluetooth-serial/ngx";
 import {Commande} from "../../Model/Commande";
 import {BarcodeScanner} from "@ionic-native/barcode-scanner/ngx";
+import {CaisseDTO} from "../models/CaisseDTO";
 
 
 @Injectable()
@@ -76,6 +77,34 @@ export class ServicePrinter {
     this.printVente = "";
     this.printVente+="\n \t \tTicket de caisse  \n\n";
     this.printVente+="\n" + transaction.commande.referencecommande;
+    this.printVente+="\n" + date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate()+"  "+date.getHours()+":"+date.getMinutes();
+    this.printVente+="\n Boutique : " + this.authenService.utilisateur.nomBoutique;
+    this.printVente+="\n Vendeur  : " + this.authenService.utilisateur.username;
+    this.printVente+="\n -------------------------------------";
+    this.printVente+="\n Designation \t Quantite \t Montant";
+    transaction.commande.cartItems.forEach(c=>{
+      if(c.quantite!=0){
+        this.printVente+="\n "+ c.description.normalize("NFD").replace(/[\u0300-\u036f]/g, "").substr(0,15)+"  "+c.quantite+"  "+"  "+c.montant+"XAF";
+      }
+    });
+    this.printVente+="\n Montant Total : \t" + transaction.commande.montantcommande+"XAF";
+    this.printVente+="\n \n Mode de paiement : \t" + transaction.typepaiement;
+
+    this.printVente+="\n \t Merci pour votre visite!!!" ;
+    this.printVente+="\n \n \n \n \n \n" ;
+    console.log(this.printVente)
+    this.selectedPrinter=localStorage.getItem("printer")
+    this.sendToBluetoothPrinter(this.selectedPrinter, this.printVente);
+    //this.printer.isAvailable().then();
+
+  }
+
+  initializeTicketVenteBeforeOffline(transaction : CaisseDTO){
+    this.printVente=""
+    let date: Date = new Date();
+    this.printVente = "";
+    this.printVente+="\n \t \tTicket de caisse  \n\n";
+    //this.printVente+="\n" + transaction.commande.referencecommande;
     this.printVente+="\n" + date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate()+"  "+date.getHours()+":"+date.getMinutes();
     this.printVente+="\n Boutique : " + this.authenService.utilisateur.nomBoutique;
     this.printVente+="\n Vendeur  : " + this.authenService.utilisateur.username;

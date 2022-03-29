@@ -31,6 +31,10 @@ export class BodyventesComponent implements OnInit {
 
     this.initializeData();
     this.findProdByShop();
+    this.caisseService.testConnexion();
+    setInterval(()=>{
+      this.caisseService.testConnexion();
+    },2000)
   }
 
   initializeData () {
@@ -57,7 +61,24 @@ export class BodyventesComponent implements OnInit {
     );
   }
 
+  scanCodeOffline() {
+    console.log("I am offline");
+    this.barcodeScanner.scan().then(barcodeData => {
+      this.mainService.spinner.show();
+      this.produits.forEach(elt => {
+        if (elt.qcode === barcodeData.text) {
+          this.mainService.spinner.hide();
+          this.addPanier(elt);
+          this.mainService.notificationService.showSuccess("Ajout avec succes");
+        }
+      })
+    }).catch(err => {
+      console.log('Error', err);
+    });
+  }
+
   scanCode() {
+    console.log("I am online");
     this.barcodeScanner.scan().then(barcodeData => {
       this.mainService.spinner.show();
       this.serviceproduit.getproductByBarcode(barcodeData.text).subscribe(
