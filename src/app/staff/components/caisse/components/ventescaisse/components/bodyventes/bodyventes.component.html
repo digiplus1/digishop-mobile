@@ -2,17 +2,18 @@
   <div id="headerV">
     <ion-item lines="none">
       <ion-icon (click)="goBack()" slot="start" size="large" color="primary" name="arrow-undo-outline"></ion-icon>
-      <ion-buttons (click)="scanCode()" slot="end" style="margin-right: 10%">
+      <ion-buttons (click)="caisseService.online ? scanCode() : scanCodeOffline()" slot="end" style="margin-right: 10%">
         <ion-icon color="success" name="aperture" size="large"></ion-icon>
         <ion-label style="margin-top: 2px"> Scan</ion-label>
       </ion-buttons>
     </ion-item>
 
     <ion-item lines="none">
-      <ion-buttons slot="start" style="margin-left: 20%" (click)="panier()">
+      <ion-buttons slot="start" style="margin-left: 10%" (click)="panier()">
         <ion-icon color="secondary" size="large" name="cart-outline"></ion-icon>
         <ion-label color="primary"><strong>{{servicepanier.panierCaisse.cartItems.length}}</strong></ion-label>
       </ion-buttons>
+      <ion-label><strong [class]="this.caisseService.online ? 'text-success' : 'text-danger'">{{ this.caisseService.online ? 'En ligne' : 'hors ligne' }}</strong></ion-label>
       <ion-label slot="end"><strong>{{servicepanier.panierCaisse.montanttotal}}<sup>Fcfa</sup></strong></ion-label>
     </ion-item>
   </div>

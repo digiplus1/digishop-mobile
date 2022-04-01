@@ -22,19 +22,15 @@ export class AccueilvendeurComponent implements OnInit, AfterViewInit {
               public caisseService : ServiceCaisse,
               private router : Router, private printer : ServicePrinter,
               private mainService : MainService, public modalController : ModalController,
-              public DashService : ServiceDash) {
-    console.log('test');
-  }
+              public DashService : ServiceDash) { }
 
   ngOnInit() {
-    console.log('I am here');
     this.getEtatBord();
     this.mainService.spinner.show();
     this.getSession()
   }
 
   ngAfterViewInit() {
-    console.log('I am here 2');
     this.getEtatBord();
     this.mainService.spinner.show();
     this.getSession()

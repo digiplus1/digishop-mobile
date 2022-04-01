@@ -22,6 +22,7 @@ export class  ServiceCaisse {
   directsTransactionsList : CaisseTransactions [] = [];
   ventesTransactionsList : CaisseTransactions [] = [];
   operateur:string[];
+  public online: boolean = false;
 
   //Test d'affichage dans le compte client
   affiche : number = 1;
@@ -169,5 +170,36 @@ export class  ServiceCaisse {
 
   cloturerapportglobale(caisseDTO:CaisseDTO){
     return this.http.post<SessionFermer>(AdresseIP.host+'cloturerapportglobale/',caisseDTO)
+  }
+
+  valideVenteOffline() {
+    let cDTOs: CaisseDTO[] = [];
+    cDTOs = JSON.parse(localStorage.getItem('ventes'));
+    if(cDTOs) {
+      console.log("I am enter");
+      cDTOs.forEach(c => {
+        this.ManageCaisse(c).subscribe(
+          data=>{
+            console.log("Après la vente: ",data);
+            this.caisseDTOTemp = data;
+          },error => {
+            this.authenService.toastMessage(error.error.message);
+          },
+          ()=>{
+            this.SessionActive.soldesession = this.caisseDTOTemp.soldesession;
+            this.caisseTransactionsList.push(this.caisseDTOTemp.caisseTransaction);
+            this.ventesTransactionsList.push(this.caisseDTOTemp.caisseTransaction);
+          }
+        )
+      });
+      localStorage.removeItem('ventes');
+    }
+  }
+  testConnexion() {
+    this.online = navigator.onLine;
+    if (this.online){
+      this.valideVenteOffline();
+    }
+
   }
 }
