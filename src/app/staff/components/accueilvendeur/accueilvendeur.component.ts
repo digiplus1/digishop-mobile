@@ -52,24 +52,14 @@ export class AccueilvendeurComponent implements OnInit, AfterViewInit {
       ()=>{
         this.mainService.spinner.hide();
         //Récupération de l'imprimante
-        let print = localStorage.getItem("printer");
+        this.printer.createStorage();
+        let print = this.printer.storage.get("printer");
         if(print == null) {
           this.mainService.notificationService.showInfo("Aucune imprimante présente. Bien vouloir définir une.")
           this.printerModal();
         } else {
           this.printer.selectedPrinter = print;
         }
-
-        /*this.DashService.getEtatDashVendeur().subscribe(
-          data=>{
-            this.mainService.spinner.hide()
-
-            this.DashService.etatVendeur = data;
-          }, error => {
-
-            this.mainService.spinner.hide();
-          }
-        )*/
       }
     );
   }

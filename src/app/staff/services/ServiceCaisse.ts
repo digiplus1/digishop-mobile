@@ -10,7 +10,7 @@ import {Commande} from "../../Model/Commande";
 import {ProduitDto} from "../../Model/ProduitDto";
 import {CartItem} from "../../Model/CartItem";
 import {SessionFermer} from "../components/dashboard/models/Session-fermer";
-
+import {Network} from "@awesome-cordova-plugins/network/ngx";
 
 @Injectable()
 export class  ServiceCaisse {
@@ -22,11 +22,12 @@ export class  ServiceCaisse {
   directsTransactionsList : CaisseTransactions [] = [];
   ventesTransactionsList : CaisseTransactions [] = [];
   operateur:string[];
-  public online: boolean = false;
+  public online: boolean = true;
 
   //Test d'affichage dans le compte client
   affiche : number = 1;
-  constructor(public http:HttpClient,public authenService:AuthenService,public router:Router) {
+  constructor(public http:HttpClient,public authenService:AuthenService,
+              public router:Router,private network: Network) {
   }
 
 
@@ -196,7 +197,30 @@ export class  ServiceCaisse {
     }
   }
   testConnexion() {
-    this.online = navigator.onLine;
+    // watch network for a disconnection
+    let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
+     this.online=false;
+    });
+
+// stop disconnect watch
+    disconnectSubscription.unsubscribe();
+
+
+// watch network for a connection
+    let connectSubscription = this.network.onConnect().subscribe(() => {
+      console.log('network connected!');
+      this.online=true;
+      // We just got a connection but we need to wait briefly
+      // before we determine the connection type. Might need to wait.
+      // prior to doing any api requests as well.
+      setTimeout(() => {
+        if (this.network.type === 'wifi') {
+          console.log('we got a wifi connection, woohoo!');
+        }
+      }, 3000);
+    });
+   // this.online = navigator.onLine;
+    console.log(this.online)
     if (this.online){
       this.valideVenteOffline();
     }

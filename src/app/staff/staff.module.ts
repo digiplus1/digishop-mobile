@@ -28,6 +28,7 @@ import {ProfilDetailComponent} from "./components/profil-detail/profil-detail.co
 import {RapportFermetureCaisseBoutiqueComponent} from "./components/rapport-fermeture-caisse-boutique/rapport-fermeture-caisse-boutique.component";
 import {DetailsRapportFermetureGlobalComponent} from "./components/rapport-fermeture-caisse-boutique/details-rapport-fermeture-global/details-rapport-fermeture-global.component";
 import {CheckRapportComponent} from "./components/rapport-fermeture-caisse-boutique/check-rapport/check-rapport.component";
+import {Network} from "@awesome-cordova-plugins/network/ngx";
 
 const SERVICES = [
   ServiceBanniere,
@@ -65,7 +66,8 @@ const SERVICES = [
     CheckRapportComponent
   ],
   providers: [
-    SERVICES
+    SERVICES,
+    Network
   ]
 })
 export class StaffPageModule {}

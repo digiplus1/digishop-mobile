@@ -8,7 +8,10 @@ import {BluetoothSerial} from "@ionic-native/bluetooth-serial/ngx";
 import {Commande} from "../../Model/Commande";
 import {BarcodeScanner} from "@ionic-native/barcode-scanner/ngx";
 import {CaisseDTO} from "../models/CaisseDTO";
-
+import {Storage} from "@ionic/storage";
+import {ServiceBoutique} from "./ServiceBoutique";
+import {ModalController} from "@ionic/angular";
+import {PrinterlistComponent} from "../components/printerlist/printerlist.component";
 
 @Injectable()
 export class ServicePrinter {
@@ -17,151 +20,69 @@ export class ServicePrinter {
   public printVente: string = "";
 
   constructor(public servicePanier : ServicePanier, public servicePaiment : ServicePaiement, private bluetoothSerial: BluetoothSerial,
-              public authenService : AuthenService, public serviceProduit : ServiceProduit,private barcodeScanner: BarcodeScanner) {
+              public modalController : ModalController,  public authenService : AuthenService, public serviceProduit : ServiceProduit, public storage: Storage, public boutiqueService:ServiceBoutique,) {
+
   }
-
-
-
-
-  initializeTicketVente(){
-    this.printVente = "";
-    this.printVente+="\n \t \tTicket de caisse \n\n";
-    this.printVente+="\n" + new Date().toString();
-    this.printVente+="\n Boutique : " + this.authenService.boutique.nomBoutique;
-    this.printVente+="\n Vendeur  : " + this.authenService.utilisateur.username;
-    this.printVente+="\n --------------------------------------";
-    this.printVente+="\n Designation \t Quantite \t Montant";
-    this.servicePanier.panierCaisse.cartItems.forEach(c=>{
-      if(c.quantite!=0){
-        this.printVente+="\n "+ c.description.normalize("NFD").replace(/[\u0300-\u036f]/g, "").substr(0,15)+"    "+c.quantite+"   "+"    "+c.montant;
-      }
+  async printerModal() {
+    const modal = await this.modalController.create({
+      component: PrinterlistComponent,
+      cssClass: 'my-custom-css'
     });
-    this.printVente+="\n Montant Total : \t" + this.servicePanier.panierCaisse.montanttotal;
-    this.printVente+="\n Mode de paiement : \t" + this.servicePaiment.affiche;
-
-    this.printVente+="\n \t Merci pour votre visite!!!" ;
-    this.printVente+="\n \n \n \n \n \n" ;
-    console.log(this.printVente)
+    return await modal.present();
   }
 
-  initializeTicketVenteAfter(transaction : CaisseTransactions){
-    this.printVente=""
-    let date: Date = new Date(transaction.datetransaction);
-    this.printVente = "";
-    this.printVente+="\n \t \t {{DUPLICATA}} \n\n";
-    this.printVente+="\n \t \tTicket de caisse  \n\n";
-    this.printVente+="\n" + transaction.commande.referencecommande;
-    this.printVente+="\n" + date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate()+"  "+date.getHours()+":"+date.getMinutes();
-    this.printVente+="\n Boutique : " + this.authenService.utilisateur.nomBoutique;
-    this.printVente+="\n Vendeur  : " + this.authenService.utilisateur.username;
-    this.printVente+="\n -----------------------------";
-    this.printVente+="\n Designation \t Quantite \t Montant";
-    transaction.commande.cartItems.forEach(c=>{
-      if(c.quantite!=0){
-        this.printVente+="\n "+ c.description.normalize("NFD").replace(/[\u0300-\u036f]/g, "").substr(0,15)+" \t "+c.quantite+" \t"+" \t "+c.montant+"XAF";
-      }
-    });
-    this.printVente+="\n Montant Total : \t" + transaction.commande.montantcommande;
-    this.printVente+="\n \n Mode de paiement : \t" + transaction.typepaiement;
+async createStorage(){
+  await this.storage.create();
+}
 
-    this.printVente+="\n \t Merci pour votre visite!!!" ;
-    this.printVente+="\n \n \n \n \n \n" ;
-    console.log(this.printVente)
-    //this.printer.isAvailable().then();
-
-  }
 
   initializeTicketVenteBefore(transaction : CaisseTransactions){
     this.printVente=""
     let date: Date = new Date(transaction.datetransaction);
     this.printVente = "";
-    this.printVente+="\n \t \tTicket de caisse  \n\n";
-    this.printVente+="\n" + transaction.commande.referencecommande;
-    this.printVente+="\n" + date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate()+"  "+date.getHours()+":"+date.getMinutes();
-    this.printVente+="\n Boutique : " + this.authenService.utilisateur.nomBoutique;
+    this.printVente+="\n \t"+this.authenService.boutique.nomBoutique+"\n";
+    this.printVente+="\n \t"+this.authenService.boutique.secteur+" "+this.authenService.boutique.quartier+" "+this.authenService.boutique.ville;
+    this.printVente+="\n \tTEL: "+this.authenService.boutique.telephoneBoutique+"\n";
+    this.printVente+="\n Bill: " + transaction.commande.referencecommande;
+    this.printVente+="\n Date: " + date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate()+"\t Time: "+date.getHours()+":"+date.getMinutes();
     this.printVente+="\n Vendeur  : " + this.authenService.utilisateur.username;
-    this.printVente+="\n -------------------------------------";
-    this.printVente+="\n Designation \t Quantite \t Montant";
+    this.printVente+="\n Mode de paiement : \t" + transaction.typepaiement;
+    this.printVente+="\n -------------------------------------------";    this.printVente+="\n Designation \t Quantite \t Montant";
     transaction.commande.cartItems.forEach(c=>{
       if(c.quantite!=0){
-        this.printVente+="\n "+ c.description.normalize("NFD").replace(/[\u0300-\u036f]/g, "").substr(0,15)+"  "+c.quantite+"  "+"  "+c.montant+"XAF";
+        this.printVente+="\n "+ c.description.normalize("NFD").replace(/[\u0300-\u036f]/g, "").substr(0,15)+"\t"+c.quantite+"\t"+c.montant+"XAF";
       }
     });
-    this.printVente+="\n Montant Total : \t" + transaction.commande.montantcommande+"XAF";
-    this.printVente+="\n \n Mode de paiement : \t" + transaction.typepaiement;
-
-    this.printVente+="\n \t Merci pour votre visite!!!" ;
+    this.printVente+="\n -------------------------------------------";
+    this.printVente+="\n Montant Total :\t\t" + transaction.commande.montantcommande+"XAF";
+    this.printVente+="\n -------------------------------------------";
+    this.printVente+="\n Nous vous remercions pour  ." ;
+    this.printVente+="\n vos achats auprés de nous." ;
+    this.printVente+="\n Les Marchandises vendues ne " ;
+    this.printVente+="\n sont ni reprises ni echangé " ;
     this.printVente+="\n \n \n \n \n \n" ;
     console.log(this.printVente)
-    this.selectedPrinter=localStorage.getItem("printer")
-    this.sendToBluetoothPrinter(this.selectedPrinter, this.printVente);
+    this.storage.get("printer").then(printer=>{
+      this.selectedPrinter=printer;
+    })
+    if (this.selectedPrinter){
+      this.sendToBluetoothPrinter( this.selectedPrinter, this.printVente);
+    }else {
+      this.printerModal();
+      this.sendToBluetoothPrinter( this.selectedPrinter, this.printVente);
+    }
     //this.printer.isAvailable().then();
 
   }
 
-  initializeTicketVenteBeforeOffline(transaction : CaisseDTO){
-    this.printVente=""
-    let date: Date = new Date();
-    this.printVente = "";
-    this.printVente+="\n \t \tTicket de caisse  \n\n";
-    //this.printVente+="\n" + transaction.commande.referencecommande;
-    this.printVente+="\n" + date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate()+"  "+date.getHours()+":"+date.getMinutes();
-    this.printVente+="\n Boutique : " + this.authenService.utilisateur.nomBoutique;
-    this.printVente+="\n Vendeur  : " + this.authenService.utilisateur.username;
-    this.printVente+="\n -------------------------------------";
-    this.printVente+="\n Designation \t Quantite \t Montant";
-    transaction.commande.cartItems.forEach(c=>{
-      if(c.quantite!=0){
-        this.printVente+="\n "+ c.description.normalize("NFD").replace(/[\u0300-\u036f]/g, "").substr(0,15)+"  "+c.quantite+"  "+"  "+c.montant+"XAF";
-      }
-    });
-    this.printVente+="\n Montant Total : \t" + transaction.commande.montantcommande+"XAF";
-    this.printVente+="\n \n Mode de paiement : \t" + transaction.typepaiement;
-
-    this.printVente+="\n \t Merci pour votre visite!!!" ;
-    this.printVente+="\n \n \n \n \n \n" ;
-    console.log(this.printVente)
-    this.selectedPrinter=localStorage.getItem("printer")
-    this.sendToBluetoothPrinter(this.selectedPrinter, this.printVente);
-    //this.printer.isAvailable().then();
-
-  }
-
-  initializeTicketClient(cmd : Commande){
-    let date: Date = new Date(cmd.datecommande);
-    this.printVente=""
-    this.printVente+="\n \t Facture \n\n";
-    this.printVente+="\n" + date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate()+"  "+date.getHours()+":"+date.getMinutes();
-    this.printVente+="\n Boutique : " + this.authenService.boutique.nomBoutique;
-    this.printVente+="\n Contact : " + this.authenService.boutique.telephoneBoutique;
-    this.printVente+="\n Vendeur  : " + this.authenService.utilisateur.username;
-    this.printVente+="\n -------------------------------------";
-    this.printVente+="\n Client  : " + this.authenService.user_vendeur.username;
-    this.printVente+="\n -------------------------------------";
-    this.printVente+="\n Designation \t Quantite \t Montant";
-    cmd.cartItems.forEach(c=>{
-      this.printVente+="\n "+ c.description.normalize("NFD").replace(/[\u0300-\u036f]/g, "")+"\t"+c.quantite+"\t"+"\t"+c.montant;
-    });
-    this.printVente+="\n Frais de livraison :  \t" + cmd.fraislivraison;
-    this.printVente+="\n Montant HT : \t" + ((cmd.montantcommande) - (cmd.montantcommande * 0.1925)).toFixed(1)+"XAF";
-    this.printVente+="\n Montant TVA : \t" + (cmd.montantcommande * 0.1925).toFixed(1)+"XAF";
-    this.printVente+="\n Montant TTC : \t" + cmd.montantcommande.toFixed(1)+"XAF";
-
-    this.printVente+="\n Merci pour votre visite!!!" ;
-    this.printVente+="\n \n \n" ;
-    this.selectedPrinter=localStorage.getItem("printer")
-    this.sendToBluetoothPrinter(this.selectedPrinter, this.printVente);
-    console.log(this.printVente)
-  }
 
 
 
-  searchBluetoothPrinter()
-  {//This will return a list of bluetooth devices
+
+  searchBluetoothPrinter() {//This will return a list of bluetooth devices
     return this.bluetoothSerial.list();
   }
-  connectToBluetoothPrinter(macAddress)
-  {
+  connectToBluetoothPrinter(macAddress) {
 //This will connect to bluetooth printer via the mac address provided
     return this.bluetoothSerial.connect(macAddress)
   }
@@ -183,11 +104,13 @@ export class ServicePrinter {
             //3. Print successful If you want to tell user print is successful, handle it here
             // 4. IMPORTANT! Disconnect bluetooth after printing
             this.authenService.toastMessage("Impression réussie");
+            this.disconnectBluetoothPrinter();
             //if(test) this.disconnectBluetoothPrinter();
           },err=>{
             //If there is an error printing to bluetooth printer handle it here
             console.log(err);
             this.authenService.toastMessage("Echec d'impression");
+            this.disconnectBluetoothPrinter();
           })
       },err=>{
         console.log(err);

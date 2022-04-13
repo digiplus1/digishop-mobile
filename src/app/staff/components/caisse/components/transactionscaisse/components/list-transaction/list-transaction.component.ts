@@ -18,7 +18,7 @@ export class ListTransactionComponent implements OnInit {
   ngOnInit() {console.log(this.cashTransactions)}
 
   async showDetail(t: CaisseTransactions) {
-    this.printer.initializeTicketVenteAfter(t);
+    this.printer.initializeTicketVenteBefore(t);
 
     const modal = await this.modalController.create({
       component: ShowTransactionComponent,

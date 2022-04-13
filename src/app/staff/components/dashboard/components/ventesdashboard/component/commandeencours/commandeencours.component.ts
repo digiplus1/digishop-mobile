@@ -13,7 +13,7 @@ import {ModalController} from "@ionic/angular";
   styleUrls: ['./commandeencours.component.scss'],
 })
 export class CommandeencoursComponent implements OnInit {
-  cmdRef : Commande []=[];
+  commandes : Commande []=[];
   search: string = '';
 
   constructor(public serviceDash: ServiceDash, private authenService: AuthenService, public serviceCommande: ServiceCommande,
@@ -21,24 +21,50 @@ export class CommandeencoursComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.cmdRef =  this.serviceDash.commandeDTOListFilter
+   this.getAllVenteEnCours();
+  }
+
+
+  getAllVenteEnCours() {
+    this.mainService.spinner.show();
+    this.serviceDash.getCommandesByBoutiqueIsEncours().subscribe(
+      data => {
+        //this.serviceDash.commandePage=data;
+        this.serviceDash.commandeEncours = data;
+        this.commandes = data;
+        this.mainService.spinner.hide();
+      }, error => {
+        this.mainService.spinner.hide();
+        this.authenService.toastMessage(error.error.message)
+      }, () => {
+        this.serviceDash.montantVentes = 0;
+        console.log(this.serviceDash.commandeDTOList.length);
+        this.serviceDash.commandeDTOList.forEach(c => {
+          console.log('test');
+          this.serviceDash.nomvendeurVList.push(c.nomvendeur);
+          this.serviceDash.modepaiementVList.push(c.modepayement);
+          this.serviceDash.modecommandeVList.push(c.modecommande);
+
+          this.serviceDash.montantVentes += (c.montantcommande + c.fraislivraison);
+        })
+      }
+    )
   }
 
   FilterElement(ev: any) {
     if(ev != null) {
       const val = ev.target.value;
       if (val && val.trim() != '') {
-        this.serviceDash.commandeDTOListFilter = this.serviceDash.commandeDTOListFilter.filter((a) => {
+        this.commandes = this.serviceDash.commandeEncours.filter((a) => {
           return (a.referencecommande.toLowerCase().indexOf(val.toLowerCase()) > -1);
         })
-        this.cmdRef = this.serviceDash.commandeDTOListFilter;
-      } else this.serviceDash.commandeDTOListFilter = [];
+      } else this.commandes=this.serviceDash.commandeEncours;
     } else {
-      this.serviceDash.commandeDTOListFilter = [];
+      this.serviceDash.commandeEncours = [];
     }
   }
   selectCmd(ref: String) {
-    this.cmdRef = this.serviceDash.commandeDTOListFilter.filter(c=> c.referencecommande === ref);
+    this.commandes = this.serviceDash.commandeEncours.filter(c=> c.referencecommande === ref);
 
     this.FilterElement(null);
     this.search=""

@@ -115,7 +115,7 @@ export class PaiementProccessComponent implements OnInit {
       } else {
         cDTOs = [];
       }
-      this.servicePrinter.initializeTicketVenteBeforeOffline(cDTO);
+      this.servicePrinter.initializeTicketVenteBefore(cDTO.caisseTransaction);
       localStorage.setItem('ventes', JSON.stringify(cDTOs));
       this.panierService.clearPanierSansNotif();
       this.paiementService.affiche="";

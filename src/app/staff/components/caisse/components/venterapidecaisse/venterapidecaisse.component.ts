@@ -39,7 +39,7 @@ export class VenterapidecaisseComponent implements OnInit {
     /*if(this.serviceProduit.produitList.length==0){*/
       console.log('test');
       this.mainService.spinner.show();
-      this.serviceProduit.getAllProduit(this.authenService.boutique.nomBoutique).subscribe(
+      this.serviceProduit.findAllByProduitPopulaire(this.authenService.boutique.reference).subscribe(
         data=>{
           console.log(data);
           this.serviceProduit.produitPopulaire = data.filter(p=> p.nomProduit!="Generique");
@@ -223,7 +223,7 @@ export class VenterapidecaisseComponent implements OnInit {
     if(this.serviceProduit.produitList.length<1){
       if(this.serviceProduit.produitNonPopulaire.length<1){
         this.mainService.spinner.show();
-        this.serviceProduit.getAllProduit(this.authenService.boutique.nomBoutique).subscribe(
+        this.serviceProduit.findAllByProduitPopulaire(this.authenService.boutique.reference).subscribe(
           data=>{
             console.log(data);
             this.serviceProduit.produitNonPopulaire = data.filter(p=> p.nomProduit!="Generique");

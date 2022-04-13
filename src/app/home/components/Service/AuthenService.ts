@@ -47,8 +47,8 @@ export class AuthenService {
     );
   }
 
-  getBoutiqueByLien(){
-    return this.http.get<BoutiquePos>(AdresseIP.host+"getboutiquebylien/"+this.utilisateur.nomBoutique).subscribe(
+  findByReferenceAndActiveboutiqueIsTrue(){
+    return this.http.get<BoutiquePos>(AdresseIP.host+"findbyreference/"+this.utilisateur.referenceboutique).subscribe(
       data=>{
         this.boutique = data;
       },error => {

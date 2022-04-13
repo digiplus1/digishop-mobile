@@ -22,23 +22,13 @@ export class VentesdashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllVenteEnCours();
   }
-
-  getAllVenteTerminer() {
-
-    this.serviceDash.getCommandesByBoutiqueIsTermine(0);
-  }
-
-
   getAllVenteEnCours() {
     this.mainService.spinner.show();
-    this.serviceDash.commandeDTOList=[];
     this.serviceDash.getCommandesByBoutiqueIsEncours().subscribe(
       data => {
         //this.serviceDash.commandePage=data;
-        this.serviceDash.commandeDTOList = data;
-        this.serviceDash.commandeDTOListFilter = data;
+        this.serviceDash.commandeEncours = data;
         this.mainService.spinner.hide();
       }, error => {
         this.mainService.spinner.hide();
@@ -61,12 +51,19 @@ export class VentesdashboardComponent implements OnInit {
       }
     )
   }
+  getAllVenteTerminer() {
+
+    this.serviceDash.getCommandesByBoutiqueIsTermine(0);
+  }
+
+
+
 
   segmentChanged(ev) {
 
     this.slider.slideTo(ev.target.value);
     if (ev.target.value == 0) {
-      this.getAllVenteEnCours();
+      this.getAllVenteEnCours()
     } else if (ev.target.value == 1) {
       this.getAllVenteTerminer();
     }
@@ -77,7 +74,7 @@ export class VentesdashboardComponent implements OnInit {
     this.slider.getActiveIndex().then(index => {
       this.segment = index;
       if (this.segment == 0) {
-        this.getAllVenteEnCours();
+        this.getAllVenteEnCours()
       } else if (this.segment == 1) {
         this.getAllVenteTerminer();
       }

@@ -42,7 +42,7 @@ export class MenustaffPage implements OnInit {
     } else {
       this.menus = this.menuProp;
     }
-    this.authenservice.getBoutiqueByLien();
+    this.authenservice.findByReferenceAndActiveboutiqueIsTrue();
   }
 
   onMenuAction(url) {

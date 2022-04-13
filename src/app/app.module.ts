@@ -20,7 +20,7 @@ import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
 import {PrinterlistComponent} from "./staff/components/printerlist/printerlist.component";
 import {CartService} from "./client/Service/CartService";
 import {BoutiqueService} from "./client/Service/BoutiqueService";
-
+import {Storage} from "@ionic/storage";
 
 const SERVICES = [
   MainService,
@@ -48,6 +48,7 @@ const SERVICES = [
     BarcodeScanner,
     CartService,
     BoutiqueService,
+    Storage,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
       SERVICES
     ],

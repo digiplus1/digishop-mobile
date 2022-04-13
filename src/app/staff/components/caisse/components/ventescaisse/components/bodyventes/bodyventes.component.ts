@@ -49,7 +49,7 @@ export class BodyventesComponent implements OnInit {
 
   findProdByShop() {
     this.mainService.spinner.show();
-    this.serviceproduit.getAllProduit(this.authenService.boutique.nomBoutique).subscribe(
+    this.serviceproduit.findAllByProduitPopulaire(this.authenService.boutique.reference).subscribe(
       data => {
         this.mainService.spinner.hide();
         this.produits = data;

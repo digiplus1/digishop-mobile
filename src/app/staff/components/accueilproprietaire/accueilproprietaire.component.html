@@ -4,6 +4,10 @@
       <ion-menu-button ></ion-menu-button>
     </ion-buttons>
     <ion-title>Accueil</ion-title>
+    <ion-label slot="end">
+      <ion-icon  [color]="printer.selectedPrinter?'success':'danger'" name="bluetooth-outline"></ion-icon>
+      {{printer.selectedPrinter?printer.selectedPrinter:''}}
+    </ion-label>
   </ion-toolbar>
 </ion-header>
 

@@ -36,7 +36,7 @@ export class ServiceDash {
   datedebutFTemp : string;
   datefinF : Date;
   datefinFTemp : string;
-
+  commandeEncours : Commande [] = [];
   commandeDTOList : Commande [] = [];
   commandeDTOListFilter : Commande [] = [];
   montantVentes : number = 0;

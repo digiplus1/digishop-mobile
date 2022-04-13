@@ -4,7 +4,6 @@ import {ServiceCaisse} from "../../services/ServiceCaisse";
 import {Router} from "@angular/router";
 import {MainService} from "../../../shared/services/MainService";
 import {ServiceDash} from "../../services/ServiceDash";
-import {BoutiqueService} from "../../../client/Service/BoutiqueService";
 import {ServiceBoutique} from "../../services/ServiceBoutique";
 import {ModalController} from "@ionic/angular";
 import {PrinterlistComponent} from "../printerlist/printerlist.component";
@@ -34,16 +33,15 @@ export class AccueilproprietaireComponent implements OnInit {
   }
   ionViewDidEnter() {
     this.getEtatBord();
-    this.getSession();
+   // this.getSession();
     this.getBoutique(this.authentificationService.utilisateur.referenceboutique);
 
   }
 
   getSession(){
     this.mainService.spinner.show()
-    this.caisseService.getSession(this.authentificationService.utilisateur.username).subscribe(
+    this.caisseService.getSession(this.authentificationService.utilisateur.reference).subscribe(
       data=> {
-        console.log(data);
         this.caisseService.SessionActive = data;
         if(data==null){
           this.color = "danger";
@@ -53,28 +51,20 @@ export class AccueilproprietaireComponent implements OnInit {
           this.text = "Session de caisse active"
         }
       },
-      error => {console.log(error);this.mainService.spinner.hide()},
+      error => {this.mainService.spinner.hide()},
       ()=>{
         this.mainService.spinner.hide()
         //Récupération de l'imprimante
-        let print = localStorage.getItem("printer");
-        if(print == null) {
+        this.printer.createStorage();
+         this.printer.storage.get("printer").then(printer=>{
+          if (printer){
+            this.printer.selectedPrinter=printer;
+          }
+        });
+        if(this.printer.selectedPrinter == null) {
           this.mainService.notificationService.showInfo("Aucune imprimante présente. Bien vouloir définir une.")
           this.printerModal();
-        } else {
-          this.printer.selectedPrinter = print;
         }
-
-        /* this.DashService.getEtatDashVendeur().subscribe(
-           data=>{
-             this.mainService.spinner.hide()
-             console.log(data);
-             this.DashService.etatVendeur = data;
-           }, error => {
-             console.log(error)
-             this.mainService.spinner.hide();
-           }
-         )*/
       }
     );
   }
