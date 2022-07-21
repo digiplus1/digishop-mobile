@@ -19,7 +19,9 @@ export class PaiementProccessComponent implements OnInit {
   is_loading: boolean = false;
   public operateurNom: string = '';
   public commentaire: string = '';
-  cart:Cart;
+  cart: Cart;
+
+  public espece: number;
   constructor(public paiementService : ServicePaiement, private modalController : ModalController,
               public panierService : ServicePanier, public serviceCaisse : ServiceCaisse,private navParam : NavParams,
               public authenService : AuthenService, public servicePrinter : ServicePrinter) { }
@@ -82,7 +84,7 @@ export class PaiementProccessComponent implements OnInit {
             }else if (this.serviceCaisse.caisseDTOTemp.commande.payement.statut=="PENDING"){
               this.serviceCaisse.caisseDTOTemp.commande.message="Merci de confirmer le paiement sur votre mobile et de cliquer sur le button pour continuer";
             }else if (this.serviceCaisse.caisseDTOTemp.commande.payement.statut=="SUCCESSFUL"){
-              this.servicePrinter.initializeTicketVenteBefore(this.serviceCaisse.caisseDTOTemp.caisseTransaction);
+              this.servicePrinter.initializeTicketVenteBefore(this.serviceCaisse.caisseDTOTemp);
               this.serviceCaisse.caisseDTOTemp.commande.message="Merci d'avoir confirmé le paiement nous vous remercions pour cela";
             }
           }else if (this.serviceCaisse.caisseDTOTemp.commande.modepayement=="ORANGE MONEY"){
@@ -93,7 +95,7 @@ export class PaiementProccessComponent implements OnInit {
           if (this.serviceCaisse.caisseDTOTemp.commande.modepayement!="CASH"){
             this.openpaiement(this.serviceCaisse.caisseDTOTemp.commande);
           }else {
-            this.servicePrinter.initializeTicketVenteBefore(this.serviceCaisse.caisseDTOTemp.caisseTransaction)
+            this.servicePrinter.initializeTicketVenteBefore(this.serviceCaisse.caisseDTOTemp)
           }
 
           this.serviceCaisse.SessionActive.soldesession = this.serviceCaisse.caisseDTOTemp.soldesession;
@@ -115,7 +117,7 @@ export class PaiementProccessComponent implements OnInit {
       } else {
         cDTOs = [];
       }
-      this.servicePrinter.initializeTicketVenteBefore(cDTO.caisseTransaction);
+      this.servicePrinter.initializeTicketVenteBefore(cDTO);
       localStorage.setItem('ventes', JSON.stringify(cDTOs));
       this.panierService.clearPanierSansNotif();
       this.paiementService.affiche="";

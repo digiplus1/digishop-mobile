@@ -1,3 +1,4 @@
+import { CaisseDTO } from './../../../../../../models/CaisseDTO';
 import {Component, Input, OnInit} from '@angular/core';
 import {CaisseTransactions} from "../../../../../../models/CaisseTransactions";
 import {ModalController} from "@ionic/angular";
@@ -18,7 +19,9 @@ export class ListTransactionComponent implements OnInit {
   ngOnInit() {console.log(this.cashTransactions)}
 
   async showDetail(t: CaisseTransactions) {
-    this.printer.initializeTicketVenteBefore(t);
+    let caisseDto: CaisseDTO = new CaisseDTO();
+    caisseDto.caisseTransaction = t;
+    this.printer.initializeTicketVenteBefore(caisseDto);
 
     const modal = await this.modalController.create({
       component: ShowTransactionComponent,

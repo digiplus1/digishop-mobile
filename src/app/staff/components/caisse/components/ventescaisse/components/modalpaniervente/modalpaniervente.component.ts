@@ -71,6 +71,7 @@ export class ModalpanierventeComponent implements OnInit {
           'panier':this.cart
         }
       });
+      this.cancel();
       return await modal.present();
     } else {
       this.authenService.toastMessage("Aucun article ajouté.")
@@ -78,6 +79,6 @@ export class ModalpanierventeComponent implements OnInit {
   }
 
   cancel() {
-    this.modalController.dismiss()
+    this.modalController.dismiss();
   }
 }
